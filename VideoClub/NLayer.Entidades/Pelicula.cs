@@ -8,10 +8,10 @@ namespace NLayer.Entidades
 {
     public class Pelicula
     {
-        public Pelicula(int idpelicula, int año, int duracion, string titulo, string director, string productora, string genero)
+        public Pelicula(int idpelicula, int anio, int duracion, string titulo, string director, string productora, string genero)
         {
             _idpelicula = idpelicula;
-            _año = año;
+            _anio = anio;
             _duracion = duracion;
             _titulo = titulo;
             _director = director;
@@ -41,15 +41,15 @@ namespace NLayer.Entidades
             }
         }
 
-        public int Año
+        public int Anio
         {
             get
             {
-                return _año;
+                return _anio;
             }
             set
             {
-                _año = value;
+                _anio = value;
             }
         }
 
