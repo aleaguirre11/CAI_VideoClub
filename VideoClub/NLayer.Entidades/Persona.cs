@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NLayer.Entidades
 {
-    public class Persona
+    public abstract class Persona
     {
         public Persona(string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac)
         {
@@ -33,10 +33,10 @@ namespace NLayer.Entidades
             {
                 return _nombre;
             }
-            set
-            {
-                _nombre = value;
-            }
+            //set
+            //{
+            //    _nombre = value;
+            //}
         }
 
         public string Apellido
@@ -45,10 +45,10 @@ namespace NLayer.Entidades
             {
                 return _apellido;
             }
-            set
-            {
-                _apellido = value;
-            }
+            //set
+            //{
+            //    _apellido = value;
+            //}
         }
 
         public string Direccion
@@ -57,10 +57,10 @@ namespace NLayer.Entidades
             {
                 return _direccion;
             }
-            set
-            {
-                _direccion = value;
-            }
+            //set
+            //{
+            //    _direccion = value;
+            //}
         }
 
         public int Dni
@@ -69,10 +69,10 @@ namespace NLayer.Entidades
             {
                 return _dni;
             }
-            set
-            {
-                _dni = value;
-            }
+            //set
+            //{
+            //    _dni = value;
+            //}
         }
 
         public string Telefono
@@ -81,10 +81,10 @@ namespace NLayer.Entidades
             {
                 return _telefono;
             }
-            set
-            {
-                _telefono = value;  
-            }
+            //set
+            //{
+            //    _telefono = value;  
+            //}
         }
 
         public string Mail
@@ -93,10 +93,10 @@ namespace NLayer.Entidades
             {
                 return _mail;   
             }
-            set
-            {
-                _mail = value;  
-            }
+            //set
+            //{
+            //    _mail = value;  
+            //}
         }
 
         public DateTime FechaNac
@@ -105,10 +105,10 @@ namespace NLayer.Entidades
             {
                 return _fechaNac;
             }
-            set
-            {
-                _fechaNac = value;  
-            }
+            //set
+            //{
+            //    _fechaNac = value;  
+            //}
         }
     }
 }

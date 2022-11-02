@@ -29,10 +29,6 @@ namespace NLayer.Entidades
             {
                 return _idcliente;
             }
-            set
-            {
-                _idcliente = value;
-            }
         }
 
         public string Fechaalta
