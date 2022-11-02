@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NLayer.Entidades
 {
-    public class Copia : Pelicula
+    public class Copia 
     {
-        public Copia(int idcopia, string observaciones, double precio, DateTime fechaalta, int idpelicula, int año, int duracion, string titulo, string director, string productora, string genero) : base(idpelicula, año, duracion, titulo, director, productora, genero)
+        public Copia(int idcopia, string observaciones, double precio, DateTime fechaalta)
         {
             _idcopia = idcopia;
             _observaciones = observaciones;
