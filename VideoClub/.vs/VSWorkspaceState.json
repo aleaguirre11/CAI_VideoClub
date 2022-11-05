@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
+    "\\NLayer.Datos",
     "\\NLayer.Entidades"
   ],
-  "SelectedNode": "\\NLayer.Entidades\\Pelicula.cs",
   "PreviewInSolutionExplorer": false
 }
