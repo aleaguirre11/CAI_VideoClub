@@ -1,5 +1,6 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
     "",
     "\\VideoClub",
     "\\VideoClub\\NLayer.Entidades",
@@ -12,5 +13,10 @@
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
+=======
+    ""
+  ],
+  "SelectedNode": "\\VideoClub.sln",
+>>>>>>> main
   "PreviewInSolutionExplorer": false
 }

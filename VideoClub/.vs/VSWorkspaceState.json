@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
+    "\\NLayer.Datos",
     "\\NLayer.Entidades"
   ],
-  "SelectedNode": "\\NLayer.Entidades\\Persona.cs",
   "PreviewInSolutionExplorer": false
 }
