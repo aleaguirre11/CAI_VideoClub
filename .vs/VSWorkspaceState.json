@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\VideoClub",
-    "\\VideoClub\\NLayer.Negocio"
+    "\\VideoClub\\NLayer.Consola",
+    "\\VideoClub\\NLayer.Datos",
+    "\\VideoClub\\NLayer.Entidades"
   ],
-  "SelectedNode": "\\VideoClub\\NLayer.Negocio\\ClassPrueba.cs",
+  "SelectedNode": "\\VideoClub\\NLayer.Entidades\\Hola.cs",
   "PreviewInSolutionExplorer": false
 }
