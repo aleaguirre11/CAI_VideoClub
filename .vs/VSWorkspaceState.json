@@ -2,20 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\VideoClub",
-<<<<<<< Updated upstream
-    "\\VideoClub\\NLayer.Datos\\Utilidades",
+    "\\VideoClub\\NLayer.Entidades",
     "\\VideoClub\\NLayer.Negocio"
   ],
-  "SelectedNode": "\\VideoClub\\NLayer.Entidades",
-=======
-    "\\VideoClub\\NLayer.Consola",
-    "\\VideoClub\\NLayer.Datos",
-    "\\VideoClub\\NLayer.Datos\\Utilidades",
-    "\\VideoClub\\NLayer.Entidades",
-    "\\VideoClub\\NLayer.Negocio",
-    "\\VideoClub\\NLayer.Negocio\\Properties"
-  ],
-  "SelectedNode": "\\VideoClub\\VideoClub.sln",
->>>>>>> Stashed changes
+  "SelectedNode": "\\VideoClub\\NLayer.Entidades\\Cliente.cs",
   "PreviewInSolutionExplorer": false
 }
