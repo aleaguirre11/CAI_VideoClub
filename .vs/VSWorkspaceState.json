@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\VideoClub",
-    "\\VideoClub\\NLayer.Consola",
-    "\\VideoClub\\NLayer.Datos",
-    "\\VideoClub\\NLayer.Entidades",
-    "\\VideoClub\\NLayer.Negocio"
+    ""
   ],
+  "SelectedNode": "\\VideoClub.sln",
   "PreviewInSolutionExplorer": false
 }
