@@ -52,10 +52,10 @@ namespace NLayer.Datos
 
 
         // Método para actualizar un cliente en particular dentro del JSON "Cliente", mediante el PUT-REQUEST
-        public TransactionResult Actualizar(Cliente cliente)
+        public TransactionResult Actualizar(Cliente actualizarCliente)
         {
-            NameValueCollection obj = ReverseMapActualizar(cliente);
-            string result = WebHelper.Put("cliente", obj);
+            NameValueCollection obj = ReverseMapActualizar(actualizarCliente);
+            string result = WebHelper.Put("cliente/"+actualizarCliente.id, obj);
             TransactionResult resultadoTransaccion = MapResultado(result);
             return resultadoTransaccion;
         }
