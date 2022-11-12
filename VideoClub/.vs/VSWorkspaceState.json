@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\NLayer.Datos",
-    "\\NLayer.Entidades"
+    "\\NLayer.Datos"
   ],
+  "SelectedNode": "\\NLayer.Datos\\ClienteMapper.cs",
   "PreviewInSolutionExplorer": false
 }
