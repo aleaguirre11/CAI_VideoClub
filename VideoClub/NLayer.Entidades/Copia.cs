@@ -17,6 +17,11 @@ namespace NLayer.Entidades
             _idpelicula = idpelicula;
         }
 
+        public Copia()
+        {
+            //constructor vacío para mapeo
+        }
+
         private int _idcopia;
         private string _observaciones;
         private double _precio;
