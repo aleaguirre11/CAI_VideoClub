@@ -16,6 +16,11 @@ namespace NLayer.Entidades
             _fechaalta = fechaalta;
         }
 
+        public Copia()
+        {
+            //constructor vacío para mapeo
+        }
+
         private int _idcopia;
         private string _observaciones;
         private double _precio;

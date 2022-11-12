@@ -19,6 +19,11 @@ namespace NLayer.Entidades
             _genero = genero;
         }
 
+        public Pelicula()
+        {
+            //constructor vacío para mapeo
+        }
+
         private int _idpelicula;
         private int _anio;
         private int _duracion;
