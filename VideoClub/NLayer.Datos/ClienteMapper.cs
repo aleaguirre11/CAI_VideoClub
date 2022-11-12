@@ -19,7 +19,7 @@ namespace NLayer.Datos
         {
             string json = WebHelper.Get("cliente");
             List<Cliente> resultado = MapList(json);
-            return resultado
+            return resultado;
         }
 
 
@@ -33,7 +33,7 @@ namespace NLayer.Datos
 
 
         // Método para traer todos los clientes según un número de teléfono
-         public List<Cliente> TraerPorTelefono(int telefono)
+        public List<Cliente> TraerPorTelefono(int telefono)
         {
             string json = WebHelper.Get("cliente/" + telefono.ToString() + "/telefono");
             List<Cliente> resultado = MapList(json);
@@ -55,7 +55,7 @@ namespace NLayer.Datos
         public TransactionResult Actualizar(Cliente actualizarCliente)
         {
             NameValueCollection obj = ReverseMapActualizar(actualizarCliente);
-            string result = WebHelper.Put("cliente/"+actualizarCliente.id, obj);
+            string result = WebHelper.Put("cliente/" + actualizarCliente.Idcliente, obj);
             TransactionResult resultadoTransaccion = MapResultado(result);
             return resultadoTransaccion;
         }
@@ -65,7 +65,7 @@ namespace NLayer.Datos
         public TransactionResult Eliminar(Cliente eliminarCliente)
         {
             NameValueCollection obj = ReverseMap(eliminarCliente);
-            string result = WebHelper.Post("cliente/"+eliminarCliente.id, obj);
+            string result = WebHelper.Post("cliente/" + eliminarCliente.Idcliente, obj);
             TransactionResult resultadoTransaccion = MapResultado(result);
             return resultadoTransaccion;
         }
@@ -84,33 +84,33 @@ namespace NLayer.Datos
         private NameValueCollection ReverseMap(Cliente cliente)
         {
             NameValueCollection c = new NameValueCollection();
-            c.Add("id", cliente.id.ToString());
+            c.Add("id", cliente.Idcliente.ToString());
             c.Add("Nombre", cliente.Nombre);
             c.Add("Apellido", cliente.Apellido);
             c.Add("Direccion", cliente.Direccion);
             c.Add("Telefono", cliente.Telefono);
-            c.Add("Email", cliente.Email);
-            c.Add("DNI", cliente.DNI.ToString());
-            c.Add("Activo", cliente.Activo.ToString());
-            c.Add("FechaNacimiento", cliente.FechaNacimiento.ToString("yyyy-MM-dd"));
+            c.Add("Email", cliente.Mail);
+            c.Add("DNI", cliente.Dni.ToString());
+            c.Add("Activo", cliente.CliActivo.ToString());
+            c.Add("FechaNacimiento", cliente.FechaNac.ToString("yyyy-MM-dd"));
             c.Add("Usuario", "890191");
             return c;
         }
 
 
         // Método privado utilizado por el PUT-REQUEST para mapear los nuevos valores de las variables correspondientes
-        private NameValueCollection ReverseMapActualizar(ClienteMapper cliente)
+        private NameValueCollection ReverseMapActualizar(Cliente cliente)
         {
             NameValueCollection c = new NameValueCollection();
-            c.Add("id", cliente.id.ToString());
+            c.Add("id", cliente.Idcliente.ToString());
             c.Add("Nombre", cliente.Nombre);
             c.Add("Apellido", cliente.Apellido);
             c.Add("Direccion", cliente.Direccion);
             c.Add("Telefono", cliente.Telefono);
-            c.Add("Email", cliente.Email);
-            c.Add("DNI", cliente.DNI.ToString());
-            c.Add("Activo", cliente.Activo.ToString());
-            c.Add("FechaNacimiento", cliente.FechaNacimiento.ToString("yyyy-MM-dd"));
+            c.Add("Email", cliente.Mail);
+            c.Add("DNI", cliente.Dni.ToString());
+            c.Add("Activo", cliente.CliActivo.ToString());
+            c.Add("FechaNacimiento", cliente.FechaNac.ToString("yyyy-MM-dd"));
             return c;
         }
 
