@@ -17,10 +17,7 @@ namespace NLayer.Entidades
             _usuario = usuario;
         }
 
-        public Cliente()
-        {
-            //constructor vacío para mapeo
-        }
+       
 
         private string _idcliente;
         private string _fechaalta;
