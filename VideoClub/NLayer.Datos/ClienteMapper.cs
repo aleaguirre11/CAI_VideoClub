@@ -116,7 +116,7 @@ namespace NLayer.Datos
 
 
 
-        // Método privado utilizado por el POST/PUT/DELETE-REQUEST para formatear el resultado del objeto cliente
+        // Método privado utilizado por el POST/PUT/DELETE-REQUEST para recibir el resultado de los request en el JSON. El número 200 significa que el request funcionó correctamente.
         private TransactionResult MapResultado(string json)
         {
             TransactionResult tr = JsonConvert.DeserializeObject<TransactionResult>(json);
