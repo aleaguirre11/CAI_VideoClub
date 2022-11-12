@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\VideoClub",
+    "\\VideoClub\\NLayer.Consola",
+    "\\VideoClub\\NLayer.Datos",
+    "\\VideoClub\\NLayer.Entidades"
   ],
-  "SelectedNode": "\\VideoClub.sln",
+  "SelectedNode": "\\VideoClub\\NLayer.Entidades\\Hola.cs",
   "PreviewInSolutionExplorer": false
 }
