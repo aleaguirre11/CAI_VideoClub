@@ -3,27 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace NLayer.Entidades
 {
+    [DataContract]
     public class Pelicula
     {
-        public Pelicula(int idpelicula, int anio, int duracion, string titulo, string director, string productora, string genero)
-        {
-            _idpelicula = idpelicula;
-            _anio = anio;
-            _duracion = duracion;
-            _titulo = titulo;
-            _director = director;
-            _productora = productora;
-            _genero = genero;
-            
-        }
-
-        public Pelicula()
-        {
-            //constructor vacío para mapeo
-        }
 
         private int _idpelicula;
         private int _anio;
@@ -33,7 +19,20 @@ namespace NLayer.Entidades
         private string _productora;
         private string _genero;
 
+        public Pelicula() { } //constructor vacío para mapeo
 
+        public Pelicula(int anio, int duracion, string titulo, string director, string productora, string genero)
+        {
+            _anio = anio;
+            _duracion = duracion;
+            _titulo = titulo;
+            _director = director;
+            _productora = productora;
+            _genero = genero;
+        }
+
+
+        [DataMember(Name = "id")]
         public int IdPelicula
         {
             get
@@ -47,6 +46,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "anio")]
         public int Anio
         {
             get
@@ -59,6 +59,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "duracion")]
         public int Duracion
         {
             get
@@ -71,6 +72,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "titulo")]
         public string Titulo
         {
             get
@@ -83,6 +85,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "director")]
         public string Director
         {
             get
@@ -95,6 +98,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "productora")]
         public string Productora
         {
             get
@@ -107,6 +111,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "genero")]
         public string Genero
         {
             get
@@ -118,7 +123,11 @@ namespace NLayer.Entidades
                 _genero = value;
             }
         }
-
        
+
+        public override string ToString()
+        {
+            return $"id: {IdPelicula} - {Titulo}";
+        }
     }
 }

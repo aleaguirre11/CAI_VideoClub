@@ -10,19 +10,15 @@ namespace NLayer.Entidades
     [DataContract]
     public class Prestamo
     {
-        public Prestamo(int idcliente, int idcopia, int idprestamo, DateTime fechadevolucionreal, DateTime fechadevoluciontentativa, DateTime fechaprestamo, bool abierto, int plazo)
+
+        public Prestamo() { }
+        public Prestamo(int idcliente, int idcopia, bool abierto, int plazo)
         {
             _idcliente = idcliente;
             _idcopia = idcopia;
-            _idprestamo = idprestamo;
-            _fechadevolucionreal = fechadevolucionreal;
-            _fechadevoluciontentativa = fechadevoluciontentativa;
-            _fechaprestamo = fechaprestamo;
             _abierto = abierto;
             _plazo = plazo;
         }
-
-        public Prestamo() { }
 
         public Copia copia;
         public Pelicula pelicula;
@@ -31,7 +27,7 @@ namespace NLayer.Entidades
         private int _idcliente;
         private int _idcopia;
         private int _idprestamo;
-        private DateTime _fechadevolucionreal;
+        //private DateTime _fechadevolucionreal; --> no es necesario declararlo
         private DateTime _fechadevoluciontentativa;
         private DateTime _fechaprestamo;
         private bool _abierto;
@@ -82,11 +78,7 @@ namespace NLayer.Entidades
         {
             get
             {
-                return _fechadevolucionreal;
-            }
-            set
-            {
-                _fechadevolucionreal = value;
+                return _fechaprestamo.AddDays(10);
             }
         }
 
@@ -108,11 +100,7 @@ namespace NLayer.Entidades
         {
             get
             {
-                return _fechaprestamo;
-            }
-            set
-            {
-                _fechaprestamo = value;
+                return DateTime.Now;
             }
         }
 
@@ -142,7 +130,7 @@ namespace NLayer.Entidades
             }
         }
 
-        public override ToString()
+        public override string ToString()
         {
             return $"id: {Idprestamo} - Pelicula: {pelicula.Titulo} - Cliente: {cliente.Idcliente} - {cliente.Nombre} - {cliente.Apellido} - Plazo: {Plazo}";
         }

@@ -10,6 +10,7 @@ namespace NLayer.Entidades
     [DataContract]
     public abstract class Persona
     {
+
         public Persona() { }
         public Persona(string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac)
         {
@@ -21,8 +22,6 @@ namespace NLayer.Entidades
             _mail = mail;
             _fechaNac = fechaNac;
         }
-
-        public Persona() { }
 
         protected string _nombre;
         protected string _apellido;
