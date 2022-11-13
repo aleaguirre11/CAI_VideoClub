@@ -8,6 +8,7 @@ namespace NLayer.Entidades
 {
     public class Prestamo
     {
+        public Prestamo() { }
         public Prestamo(int idprestamo, DateTime fechadevolucionreal, DateTime fechadevoluciontentativa, DateTime fechaprestamo, bool abierto, int plazo, int idcopia, int idcliente)
         {
             _idprestamo = idprestamo;

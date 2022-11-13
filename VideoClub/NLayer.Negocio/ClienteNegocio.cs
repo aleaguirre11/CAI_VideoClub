@@ -13,6 +13,7 @@ namespace NLayer.Negocio
     public class ClienteNegocio
     {
         private ClienteMapper _clienteMapper;
+        private List<Cliente> _listaClientes;
 
         //public List<Cliente> TraerClientes()
         //{
@@ -23,23 +24,27 @@ namespace NLayer.Negocio
         public ClienteNegocio()
         {
             _clienteMapper = new ClienteMapper();
+            _listaClientes = new List<Cliente>();
         }
 
 
         //pedirle al mapper la lista de clientes
         public List<Cliente> TraerLista()
         {
-            List<Cliente> lst = _clienteMapper.TraerTodos();
+            _listaClientes = _clienteMapper.TraerTodos();
 
-            return lst;
+            if (_listaClientes == null)
+                throw new Exception("No hay clientes.");
+
+            return _listaClientes;
         }
 
         //traer cliente por nro de id
-        public Cliente TraerPorId(int idCliente)
+        public Cliente TraerPorId(string idCliente)
         {
             foreach (var item in TraerLista())
             {
-                if (idCliente == item.id)
+                if (idCliente == item.Idcliente)
                     return item;
             }
 
@@ -67,9 +72,9 @@ namespace NLayer.Negocio
             cliente.Nombre = nombre;
             cliente.Apellido = apellido;
             cliente.Direccion = direccion;
-            cliente.DNI = dni;
+            cliente.Dni = dni;
             cliente.Telefono = telefono;
-            cliente.Email = mail;
+            cliente.Mail = mail;
             cliente.FechaNacimiento = fechaNac;
 
             //Validar que no se pueda dar de alta a un cliente si ya se registro ese nro de telefono
@@ -78,8 +83,8 @@ namespace NLayer.Negocio
 
             TransactionResult transaction = _clienteMapper.Insertar(cliente);
 
-            //if (!transaction.IsOk)
-            //    throw new Exception(transaction.Error);
+            if (!transaction.IsOk)
+                throw new Exception(transaction.Error);
         }
 
         //pedirle al mapper que actualice el cliente (update)
@@ -89,8 +94,8 @@ namespace NLayer.Negocio
 
             TransactionResult transaction = _clienteMapper.Actualizar(cliente);
 
-            //if (!transaction.IsOk)
-            //    throw new Exception(transaction.Error);
+            if (!transaction.IsOk)
+               throw new Exception(transaction.Error);
         }
 
         //pedirle al mapper que elimine un cliente (delete)
@@ -100,8 +105,8 @@ namespace NLayer.Negocio
 
             TransactionResult transaction = _clienteMapper.Eliminar(cliente);
 
-            //if (!transaction.IsOk)
-            //    throw new Exception(transaction.Error);
+            if (!transaction.IsOk)
+                throw new Exception(transaction.Error);
         }
     }
 }

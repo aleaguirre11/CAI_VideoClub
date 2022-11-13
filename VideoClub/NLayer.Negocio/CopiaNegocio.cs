@@ -45,16 +45,16 @@ namespace NLayer.Negocio
         }
 
         //traer copia por nro de id
-        public Pelicula TraerPorId(int idcopia)
-        {
-            foreach (var item in TraerLista())
-            {
-                if (idcopia == item.id)
-                    return item;
-            }
+        //public Pelicula TraerPorId(int idcopia)
+        //{
+        //    foreach (var item in TraerLista())
+        //    {
+        //        if (idcopia == item.id)
+        //            return item;
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
         //pedirle al mapper que actualice la copia (update)
         private void ActualizarCopia(Copia copia)

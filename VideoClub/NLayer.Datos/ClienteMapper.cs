@@ -19,7 +19,7 @@ namespace NLayer.Datos
         {
             string json = WebHelper.Get("cliente");
             List<Cliente> resultado = MapList(json);
-            return resultado
+            return resultado;
         }
 
 

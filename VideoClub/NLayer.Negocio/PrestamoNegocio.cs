@@ -28,7 +28,7 @@ namespace NLayer.Negocio
             prestamo.Fechadevolucionreal = fechadevolucionreal;
             prestamo.Fechadevoluciontentativa = fechadevoluciontentativa;
             prestamo.Fechaprestamo = fechaprestamo;
-            prestamo.Abierto = abierto;
+            prestamo.Abierto = true;
             prestamo.Plazo = plazo;
             prestamo.Idcopia = idcopia;
             prestamo.Idcliente = idcliente;
@@ -47,7 +47,7 @@ namespace NLayer.Negocio
             return lst;
         }
 
-        public Prestamo TraerPrestamoPorCliente(Prestamo idcliente)
+        public List<Prestamo> TraerPrestamoPorCliente(Prestamo idcliente)
         {
             //validar id no nulo
             List<Prestamo> lst1 = _prestamoMapper.TraerPorId(idcliente);
@@ -68,7 +68,7 @@ namespace NLayer.Negocio
         {
             foreach (var item in TraerLista())
             {
-                if (idprestamo == item.id)
+                if (idprestamo == item.Idprestamo)
                     return item;
             }
 
@@ -76,27 +76,13 @@ namespace NLayer.Negocio
         }
 
         //cancelar el prestamo por su id (unico prestamo)
-        public void CancelarPrestamoPorIdPrestamo(Prestamo idprestamo)
+        public void CancelarPrestamoPorIdPrestamo(Prestamo prestamo)
         {
-            
-            // validar prestamo no nulo
-            var item = TraerPorId(idprestamo);
-
-            ActualizarPrestamo(item);
-            TransactionResult transaction = _prestamoMapper.Cancelar(item);
-
-        }
-
-        //si el cliente desea cancelar todos sus prestamos de una vez, buscar por Id del cliente y cancelar todos
-        public void CancelarPrestamoPorIdCliente(Prestamo idcliente)
-        {
-            // validar idcliente no nulo
-
-            foreach (var item in TraerPrestamoPorCliente(idcliente))
+            foreach (Prestamo p in TraerLista())
             {
-                if (item.abierto == true)
-                    ActualizarPrestamo(item);
-                TransactionResult transaction = _prestamoMapper.Cancelar(item);
+                if (prestamo.Idprestamo == p.Idprestamo)
+                    ActualizarPrestamo(p);
+                TransactionResult transaction = _prestamoMapper.Cancelar(p);
             }
 
         }
@@ -105,7 +91,7 @@ namespace NLayer.Negocio
         { 
             // validar prestamo no nulo y no cancelado
 
-            prestamo.abierto = false;
+            prestamo.Abierto = false;
             
         }
     }

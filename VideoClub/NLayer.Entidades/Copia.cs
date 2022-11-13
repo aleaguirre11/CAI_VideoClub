@@ -14,6 +14,7 @@ namespace NLayer.Entidades
             _observaciones = observaciones;
             _precio = precio;
             _fechaalta = fechaalta;
+            //falta id de pelicula
         }
 
         public Copia()

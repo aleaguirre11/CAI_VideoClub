@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NLayer.Entidades
+namespace NLayer.Datos
 {
-    internal class Hola
+    internal class CopiaMapper
     {
     }
 }

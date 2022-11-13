@@ -41,8 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ClienteMapper.cs" />
+    <Compile Include="CopiaMapper.cs" />
+    <Compile Include="PeliculaMapper.cs" />
+    <Compile Include="PrestamoMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\WebHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NLayer.Entidades\NLayer.Entidades.csproj">
