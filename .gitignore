@@ -3,3 +3,7 @@
 *.sqlite
 *.cache
 *.txt
+VideoClub/.vs/VideoClub/v16/.suo
+*.user
+VideoClub/NLayer.Datos/obj/Debug/NLayer.Datos.csproj.AssemblyReference.cache
+*.cache
