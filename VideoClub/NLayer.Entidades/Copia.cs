@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace NLayer.Entidades
 {
     [DataContract]
     public class Copia 
     {
-        public Copia(int idcopia, string observaciones, double precio, DateTime fechaalta, int idpelicula)
+
+        public Copia() { }
+
+        public Copia(string observaciones, double precio, DateTime fechaalta, int idpelicula)
         {
-            _idcopia = idcopia;
             _observaciones = observaciones;
             _precio = precio;
             _fechaalta = fechaalta;
             _idpelicula = idpelicula;
-        }
-
-        public Copia()
-        {
-            //constructor vacío para mapeo
         }
 
         private int _idcopia;

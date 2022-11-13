@@ -24,18 +24,18 @@ namespace NLayer.Datos
 
 
         // Método para traer todos los clientes según un número de registro enviado por parámetro (en nuestro caso siempre vamos a utilizar 890191)
-        public List<Cliente> TraerPorRegistro(int registro)
+        public List<Cliente> TraerPorRegistro(string registro)
         {
-            string json = WebHelper.Get("cliente/" + registro.ToString());
+            string json = WebHelper.Get("cliente/" + registro);
             List<Cliente> resultado = MapList(json);
             return resultado;
         }
 
 
         // Método para traer todos los clientes según un número de teléfono
-        public List<Cliente> TraerPorTelefono(int telefono)
+        public List<Cliente> TraerPorTelefono(string telefono)
         {
-            string json = WebHelper.Get("cliente/" + telefono.ToString() + "/telefono");
+            string json = WebHelper.Get("cliente/" + telefono + "/telefono");
             List<Cliente> resultado = MapList(json);
             return resultado;
         }

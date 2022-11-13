@@ -32,12 +32,12 @@ namespace NLayer.Datos
             return resultadoTransaccion;
         }
 
-
+        // Método privado utilizado por el POST-REQUEST para mapear los valores de las variables correspondientes
         private NameValueCollection ReverseMap(Prestamo prestamo)
         {
             NameValueCollection pres = new NameValueCollection();
-            pres.Add("idCliente", prestamo.idCliente.ToString()); //--> falta propiedad en la clase Prestamo
-            pres.Add("idCopia", prestamo.idCopia.ToString()); //--> falta propiedad en la clase Prestamo
+            pres.Add("idCliente", prestamo.Idcliente.ToString()); 
+            pres.Add("idCopia", prestamo.Idcopia.ToString()); 
             pres.Add("Plazo", prestamo.Plazo.ToString());
             pres.Add("Abierto", prestamo.Abierto.ToString());
             pres.Add("FechaPrestamo", prestamo.Fechaprestamo.ToString());

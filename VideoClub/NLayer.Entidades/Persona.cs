@@ -10,6 +10,8 @@ namespace NLayer.Entidades
     [DataContract]
     public abstract class Persona
     {
+
+        public Persona() { }
         public Persona(string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac)
         {
             _nombre = nombre;
@@ -20,8 +22,6 @@ namespace NLayer.Entidades
             _mail = mail;
             _fechaNac = fechaNac;
         }
-
-        public Persona() { }
 
         protected string _nombre;
         protected string _apellido;
@@ -38,10 +38,10 @@ namespace NLayer.Entidades
             {
                 return _nombre;
             }
-            //set
-            //{
-            //    _nombre = value;
-            //}
+            set
+            {
+                _nombre = value;
+            }
         }
 
         [DataMember(Name = "apellido")]
@@ -51,10 +51,10 @@ namespace NLayer.Entidades
             {
                 return _apellido;
             }
-            //set
-            //{
-            //    _apellido = value;
-            //}
+            set
+            {
+                _apellido = value;
+            }
         }
 
         [DataMember(Name = "direccion")]
@@ -64,10 +64,10 @@ namespace NLayer.Entidades
             {
                 return _direccion;
             }
-            //set
-            //{
-            //    _direccion = value;
-            //}
+            set
+            {
+                _direccion = value;
+            }
         }
 
         [DataMember(Name = "dni")]
@@ -77,10 +77,10 @@ namespace NLayer.Entidades
             {
                 return _dni;
             }
-            //set
-            //{
-            //    _dni = value;
-            //}
+            set
+            {
+                _dni = value;
+            }
         }
 
         [DataMember(Name = "telefono")]
@@ -90,10 +90,10 @@ namespace NLayer.Entidades
             {
                 return _telefono;
             }
-            //set
-            //{
-            //    _telefono = value;  
-            //}
+            set
+            {
+                _telefono = value;
+            }
         }
 
         [DataMember(Name = "email")]
@@ -103,10 +103,10 @@ namespace NLayer.Entidades
             {
                 return _mail;   
             }
-            //set
-            //{
-            //    _mail = value;  
-            //}
+            set
+            {
+                _mail = value;
+            }
         }
 
         [DataMember(Name = "fechaNacimiento")]
@@ -116,10 +116,10 @@ namespace NLayer.Entidades
             {
                 return _fechaNac;
             }
-            //set
-            //{
-            //    _fechaNac = value;  
-            //}
+            set
+            {
+                _fechaNac = value;
+            }
         }
     }
 }
