@@ -8,13 +8,13 @@ namespace NLayer.Entidades
 {
     public class Copia 
     {
-        public Copia(int idcopia, string observaciones, double precio, DateTime fechaalta)
+        public Copia(int idcopia, string observaciones, double precio, DateTime fechaalta, int idpelicula)
         {
             _idcopia = idcopia;
             _observaciones = observaciones;
             _precio = precio;
             _fechaalta = fechaalta;
-            //falta id de pelicula
+            _idpelicula = idpelicula;
         }
 
         public Copia()
@@ -26,6 +26,7 @@ namespace NLayer.Entidades
         private string _observaciones;
         private double _precio;
         private DateTime _fechaalta;
+        private int _idpelicula;
 
 
         public int Idcopia
@@ -37,6 +38,17 @@ namespace NLayer.Entidades
             set
             {
                 _idcopia = value;
+            }
+        }
+        public int Idpelicula
+        {
+            get
+            {
+                return _idpelicula;
+            }
+            set
+            {
+                _idpelicula = value;
             }
         }
 
