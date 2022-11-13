@@ -51,7 +51,7 @@ namespace NLayer.Negocio
             return null;
         }
 
-        //Pedirle al mappaer los clientes a partir del nro de telefono (CORREGIR EN MAPPER INT)
+        //Pedirle al mappaer los clientes a partir del nro de telefono 
         //Validar que no se pueda dar de alta a un cliente si ya se registro ese nro de telefono
         public Cliente TraerPorTelefono(string telefono)
         {
@@ -107,6 +107,19 @@ namespace NLayer.Negocio
 
             if (!transaction.IsOk)
                 throw new Exception(transaction.Error);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Cliente))
+                return false;
+            Cliente cObj = (Cliente)obj;
+
+            if (cObj.Telefono != telefono)
+                return false;
+
+
+            return true;
         }
     }
 }

@@ -39,7 +39,7 @@ namespace NLayer.Negocio
         //pedirle al mapper la lista de copias
         public List<Copia> TraerLista()
         {
-            List<Copia> lst = _copiaMapper.TraerTodas();
+            List<Copia> lst = _copiaMapper.TraerTodos();
 
             return lst;
         }

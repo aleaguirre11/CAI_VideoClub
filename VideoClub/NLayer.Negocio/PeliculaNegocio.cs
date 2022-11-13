@@ -48,7 +48,7 @@ namespace NLayer.Negocio
         //pedirle al mapper la lista de peliculas
         public List<Pelicula> TraerLista()
         {
-            _listaPeliculas = _peliculaMapper.TraerTodas();
+            _listaPeliculas = _peliculaMapper.TraerTodos();
 
             return _listaPeliculas;
         }
