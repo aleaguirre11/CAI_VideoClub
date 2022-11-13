@@ -17,7 +17,7 @@ namespace NLayer.Entidades
             _usuario = usuario;
         }
 
-       
+        
 
         private string _idcliente;
         private string _fechaalta;
