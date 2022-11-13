@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NLayer.Datos
 {
-    internal class PeliculaMapper
+    public class PeliculaMapper
     {
     }
 }

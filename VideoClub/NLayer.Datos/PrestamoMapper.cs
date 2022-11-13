@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NLayer.Datos
 {
-    internal class PrestamoMapper
+    public class PrestamoMapper
     {
     }
 }

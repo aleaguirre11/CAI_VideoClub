@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NLayer.Datos
 {
-    internal class CopiaMapper
+    public class CopiaMapper
     {
     }
 }
