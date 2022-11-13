@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "tarea-NLayer.Consola",
+      "appliesTo": "VideoClub/NLayer.Consola/NLayer.Consola.csproj",
+      "type": "msbuild"
+    }
+  ]
+}
