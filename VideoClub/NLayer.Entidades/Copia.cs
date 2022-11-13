@@ -3,31 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace NLayer.Entidades
 {
+    [DataContract]
     public class Copia 
     {
-        public Copia(int idcopia, string observaciones, double precio, DateTime fechaalta)
+
+        public Copia() { }
+
+        public Copia(string observaciones, double precio, DateTime fechaalta, int idpelicula)
         {
-            _idcopia = idcopia;
             _observaciones = observaciones;
             _precio = precio;
             _fechaalta = fechaalta;
-            //falta id de pelicula
-        }
-
-        public Copia()
-        {
-            //constructor vacío para mapeo
+            _idpelicula = idpelicula;
         }
 
         private int _idcopia;
         private string _observaciones;
         private double _precio;
         private DateTime _fechaalta;
+        private int _idpelicula;
 
-
+        [DataMember(Name = "id")]
         public int Idcopia
         {
             get
@@ -40,6 +40,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "observaciones")]
         public string Observaciones
         {
             get
@@ -52,6 +53,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "precio")]
         public double Precio
         {
             get
@@ -64,6 +66,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "fechaAlta")]
         public DateTime Fechaalta
         {
             get
@@ -73,6 +76,19 @@ namespace NLayer.Entidades
             set
             {
                 _fechaalta = value;
+            }
+        }
+
+        [DataMember(Name = "idPelicula")]
+        public int Idpelicula
+        {
+            get
+            {
+                return _idpelicula;
+            }
+            set
+            {
+                _idpelicula = value;
             }
         }
     }

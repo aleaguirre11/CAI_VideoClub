@@ -44,7 +44,7 @@ namespace NLayer.Datos
         private NameValueCollection ReverseMap(Copia copia)
         {
             NameValueCollection cop = new NameValueCollection();
-            cop.Add("idPelicula", copia.idPelicula); //---> falta crear en la entidad la variable idPelicula
+            cop.Add("idPelicula", copia.Idpelicula.ToString());
             cop.Add("Observaciones", copia.Observaciones);
             cop.Add("Precio", copia.Precio.ToString());
             cop.Add("FechaAlta", copia.Fechaalta.ToString("yyyy-MM-dd"));

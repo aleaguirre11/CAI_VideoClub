@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace NLayer.Entidades
 {
+    [DataContract]
     public class Cliente : Persona
     {
         private string _idcliente;
@@ -15,51 +16,56 @@ namespace NLayer.Entidades
         private string _host;
         private string _usuario;
 
-        //public Cliente(string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac) : base(nombre, apellido, direccion, dni, telefono, mail, fechaNac)
-        //{
 
-        //}
-        public Cliente() : base()
-        {
+        public Cliente() { }//constructor vacío para mapeo
 
-        }
-        public Cliente(string idcliente, string fechaalta, bool cliActivo, string host, string usuario, string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac) : base(nombre, apellido, direccion, dni, telefono, mail, fechaNac)
+        public Cliente(string fechaalta, bool cliActivo, string host, string usuario, string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac) : base(nombre, apellido, direccion, dni, telefono, mail, fechaNac)
         {
-            _idcliente = idcliente;
             _fechaalta = fechaalta;
             _cliActivo = cliActivo;
             _host = host;
             _usuario = usuario;
         }
 
+        [DataMember(Name = "id")]
         public string Idcliente
         {
             get
             {
                 return _idcliente;
             }
+            set
+            {
+                _idcliente = value;
+            }
         }
 
+        [DataMember(Name = "fechaAlta")]
         public string Fechaalta
         {
             get
             {
                 return _fechaalta;
             }
+            set
+            {
+                _fechaalta = value;
+            }
         }
 
+        [DataMember(Name = "activo")]
         public bool CliActivo
         {
             get
             {
                 return _cliActivo;
-            }
-            set
+            }set
             {
                 _cliActivo = value;
             }
         }
 
+        [DataMember(Name = "host")]
         public string Host
         {
             get
@@ -72,17 +78,22 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "usuario")]
         public string Usuario
         {
             get
             {
-                return _usuario;
-            }
+                return Usuario;
+            }    
             set
             {
                 _usuario = value;
             }
         }
 
+        public override string ToString()
+        {
+            return $"id: {Idcliente} - {Apellido} - {Nombre} - {Dni}";
+        }
     }
 }

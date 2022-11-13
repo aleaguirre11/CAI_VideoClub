@@ -10,22 +10,6 @@ namespace NLayer.Entidades
     [DataContract]
     public class Pelicula
     {
-        public Pelicula(int idpelicula, int anio, int duracion, string titulo, string director, string productora, string genero, int idcopia, string observaciones, double precio, DateTime fechaalta)
-        {
-            _idpelicula = idpelicula;
-            _anio = anio;
-            _duracion = duracion;
-            _titulo = titulo;
-            _director = director;
-            _productora = productora;
-            _genero = genero;
-            
-        }
-
-        public Pelicula()
-        {
-            //constructor vacío para mapeo
-        }
 
         private int _idpelicula;
         private int _anio;
@@ -34,6 +18,19 @@ namespace NLayer.Entidades
         private string _director;
         private string _productora;
         private string _genero;
+
+        public Pelicula() { } //constructor vacío para mapeo
+
+        public Pelicula(int anio, int duracion, string titulo, string director, string productora, string genero)
+        {
+            _anio = anio;
+            _duracion = duracion;
+            _titulo = titulo;
+            _director = director;
+            _productora = productora;
+            _genero = genero;
+        }
+
 
         [DataMember(Name = "id")]
         public int IdPelicula
@@ -62,7 +59,7 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "duraciom")]
+        [DataMember(Name = "duracion")]
         public int Duracion
         {
             get
@@ -126,10 +123,9 @@ namespace NLayer.Entidades
                 _genero = value;
             }
         }
-
        
 
-        public override ToString()
+        public override string ToString()
         {
             return $"id: {IdPelicula} - {Titulo}";
         }
