@@ -19,6 +19,7 @@ namespace NLayer.Entidades
             _director = director;
             _productora = productora;
             _genero = genero;
+            
         }
 
         public Pelicula()
@@ -125,6 +126,7 @@ namespace NLayer.Entidades
                 _genero = value;
             }
         }
+
        
 
         public override ToString()

@@ -11,27 +11,30 @@ namespace NLayer.Negocio
 	public class PeliculaNegocio
 	{
         private PeliculaMapper _peliculaMapper;
+        private List<Pelicula> _listaPeliculas;
+
 
         public PeliculaNegocio()
 		{
 
             _peliculaMapper = new PeliculaMapper();
+            _listaPeliculas = new List<Pelicula>();
 
         }
 
         //Dar de alta a las peliculas pidiendole al mapper que los inserte (post)
         public void AltaPelicula(int idpelicula, int anio, int duracion, string titulo, string director,
-            string productora, string genero, int idcopia, string observaciones, double precio, DateTime fechaalta)
+            string productora, string genero)
         {
             Pelicula pelicula = new Pelicula();
-            pelicula.Idpelicula = idpelicula;
+            pelicula.IdPelicula = idpelicula;
             pelicula.Anio = anio;
             pelicula.Duracion = duracion;
             pelicula.Titulo = titulo;
             pelicula.Director = director;
             pelicula.Productora = productora;
             pelicula.Genero = genero;
-            pelicula.Idcopia = idcopia;
+            //pelicula.Idcopia = idcopia;
 
             //Validar que no se pueda dar de alta a una pelicula si ya se registro ese id
             //Validar que no se pueda dar de alta a una pelicula si ya se registro ese id con ese id de copia
@@ -45,9 +48,9 @@ namespace NLayer.Negocio
         //pedirle al mapper la lista de peliculas
         public List<Pelicula> TraerLista()
         {
-            List<Pelicula> lst = _peliculaMapper.TraerTodas();
+            _listaPeliculas = _peliculaMapper.TraerTodas();
 
-            return lst;
+            return _listaPeliculas;
         }
 
         //traer pelicula por nro de id
@@ -55,7 +58,7 @@ namespace NLayer.Negocio
         {
             foreach (var item in TraerLista())
             {
-                if (idpelicula == item.id)
+                if (idpelicula == item.IdPelicula)
                     return item;
             }
 
@@ -63,39 +66,39 @@ namespace NLayer.Negocio
         }
 
         //Pedirle al mappaer las peliculas que hizo un director 
-        public Pelicula TraerPorDirector(Pelicula director)
-        {
-            //validar director no nulo
-            List<Pelicula> lst1 = _peliculaMapper.TraerPorDirector(director);
+        //public Pelicula TraerPorDirector(Pelicula director)
+        //{
+        //    //validar director no nulo
+        //    List<Pelicula> lst1 = _peliculaMapper.TraerPorDirector(director);
 
-            return lst1;
-        }
+        //    return lst1;
+        //}
 
-        public Pelicula TraerPorGenero(Pelicula genero)
-        {
-            //validar genero no nulo
-            List<Pelicula> lst2 = _peliculaMapper.TraerPorGenero(genero);
+        //public Pelicula TraerPorGenero(Pelicula genero)
+        //{
+        //    //validar genero no nulo
+        //    List<Pelicula> lst2 = _peliculaMapper.TraerPorGenero(genero);
 
-            return lst2;
-        }
+        //    return lst2;
+        //}
 
-        public Pelicula TraerPorTitulo(Pelicula titulo)
-        {
-            //validar titulo no nulo
-            List<Pelicula> lst3 = _peliculaMapper.TraerPorTitulo(titulo);
+        //public Pelicula TraerPorTitulo(Pelicula titulo)
+        //{
+        //    //validar titulo no nulo
+        //    List<Pelicula> lst3 = _peliculaMapper.TraerPorTitulo(titulo);
 
-            return lst3;
-        }
+        //    return lst3;
+        //}
 
         //Una pelicula tiene un unico id pero puede tener mas de una copia
-        public Pelicula TraerTotalCopias(int idpelicula)
+        public int TraerTotalCopias(int idpelicula)
         {
             int contador = 0;
 
             //validar id no nulo
             foreach (var item in TraerLista())
             {
-                if (idpelicula == item.id)
+                if (idpelicula == item.IdPelicula)
                     contador++;
                 
             }
