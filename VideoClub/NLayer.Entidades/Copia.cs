@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace NLayer.Entidades
 {
+    [DataContract]
     public class Copia 
     {
         public Copia(int idcopia, string observaciones, double precio, DateTime fechaalta, int idpelicula)
@@ -28,7 +29,7 @@ namespace NLayer.Entidades
         private DateTime _fechaalta;
         private int _idpelicula;
 
-
+        [DataMember(Name = "id")]
         public int Idcopia
         {
             get
@@ -41,6 +42,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "observaciones")]
         public string Observaciones
         {
             get
@@ -53,6 +55,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "precio")]
         public double Precio
         {
             get
@@ -65,6 +68,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "fechaAlta")]
         public DateTime Fechaalta
         {
             get
@@ -77,6 +81,7 @@ namespace NLayer.Entidades
             }
         }
 
+        [DataMember(Name = "idPelicula")]
         public int Idpelicula
         {
             get

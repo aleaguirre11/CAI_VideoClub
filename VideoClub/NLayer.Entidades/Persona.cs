@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace NLayer.Entidades
 {
+    [DataContract]
     public abstract class Persona
     {
         public Persona(string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac)
@@ -19,6 +21,8 @@ namespace NLayer.Entidades
             _fechaNac = fechaNac;
         }
 
+        public Persona() { }
+
         protected string _nombre;
         protected string _apellido;
         protected string _direccion;
@@ -27,6 +31,7 @@ namespace NLayer.Entidades
         protected string _mail;
         protected DateTime _fechaNac;
 
+        [DataMember(Name = "nombre")]
         public string Nombre
         {
             get
@@ -39,6 +44,7 @@ namespace NLayer.Entidades
             //}
         }
 
+        [DataMember(Name = "apellido")]
         public string Apellido
         {
             get
@@ -51,6 +57,7 @@ namespace NLayer.Entidades
             //}
         }
 
+        [DataMember(Name = "direccion")]
         public string Direccion
         {
             get
@@ -63,6 +70,7 @@ namespace NLayer.Entidades
             //}
         }
 
+        [DataMember(Name = "dni")]
         public int Dni
         {
             get
@@ -75,6 +83,7 @@ namespace NLayer.Entidades
             //}
         }
 
+        [DataMember(Name = "telefono")]
         public string Telefono
         {
             get
@@ -87,6 +96,7 @@ namespace NLayer.Entidades
             //}
         }
 
+        [DataMember(Name = "email")]
         public string Mail
         {
             get
@@ -99,6 +109,7 @@ namespace NLayer.Entidades
             //}
         }
 
+        [DataMember(Name = "fechaNacimiento")]
         public DateTime FechaNac
         {
             get
