@@ -1,4 +1,5 @@
 ﻿using NLayer.Entidades;
+using NLayer.Datos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +14,14 @@ namespace NLayer.Negocio.ValidacionesNegocio
         ////Validar que no se pueda dar de alta a un cliente si ya se registro ese dni
         public bool ValidarDNI(int dni)
         {
-            bool flag = false;
-
+            
             foreach (var item in ClienteNegocio.TraerLista())
             {
-                if (dni == item.dni)
-                    return item;
+                if (dni == item.Dni)
+                    return true;
             }
 
-            return null;
+            return false;
         }
         ////Validar que no se pueda dar de alta a un cliente si ya se registro ese mail
         //bool flag1 = ValidarMail(cliente.Mail);

@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
+using NLayer.Negocio.ValidacionesNegocio;
 
 namespace NLayer.Negocio
 {
@@ -27,7 +26,7 @@ namespace NLayer.Negocio
 
             Prestamo prestamo = new Prestamo();
             prestamo.Idprestamo = idprestamo;
-            prestamo.Fechadevolucionreal = null;
+            prestamo.Fechadevolucionreal = fechadevolucionreal;
             prestamo.Fechadevoluciontentativa = fechadevoluciontentativa; //(DateTime.Now).AddDays(10)
             prestamo.Fechaprestamo = fechaprestamo;
             prestamo.Abierto = true;
@@ -71,7 +70,7 @@ namespace NLayer.Negocio
             return null;
         }
 
-        
+        //trar prestamos por id de copia
         public List<Prestamo> TraerPorIdCopia(int idcopia)
         {
 
@@ -88,7 +87,23 @@ namespace NLayer.Negocio
             return lst;
         }
 
-        //cancelar el prestamo por su id (unico prestamo)
+        public List<Prestamo> TraerPorIdPelicula(int idpelicula)
+        {
+
+            List<Prestamo> lst = new List<Prestamo>();
+
+
+            if (_listaPrestamos.Count() > 0)
+            {
+                lst.AddRange(_listaPrestamos.Where(item => item.Idcopia == idcopia));
+            }
+            else
+                throw new Exception("No se han otorgado prestamos de la copia {0} aun." + idcopia);
+
+            return lst;
+        }
+
+        //cancelar el prestamo por su id(unico prestamo)
         //public void CancelarPrestamoPorIdPrestamo(Prestamo prestamo)
         //{
         //    foreach (Prestamo p in TraerLista())
@@ -101,10 +116,11 @@ namespace NLayer.Negocio
         //}
 
         //public void ActualizarPrestamo(Prestamo prestamo)
-        //{ 
+        //{
         //    // validar prestamo no nulo y no cancelado
 
-        //    prestamo.Abierto = false;
+
+        //     prestamo.Abierto = false;
 
         //}
     }

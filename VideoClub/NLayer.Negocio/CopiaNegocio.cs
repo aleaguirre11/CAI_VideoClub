@@ -36,8 +36,8 @@ namespace NLayer.Negocio
 
             TransactionResult transaction = _copiaMapper.Insertar(copia);
 
-            //if (!transaction.IsOk)
-            //    throw new Exception(transaction.Error);
+            if (!transaction.IsOk)
+                throw new Exception(transaction.Error);
         }
 
         //pedirle al mapper la lista de copias
