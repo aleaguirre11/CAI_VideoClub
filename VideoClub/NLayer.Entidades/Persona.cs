@@ -31,7 +31,7 @@ namespace NLayer.Entidades
         protected string _mail;
         protected DateTime _fechaNac;
 
-        [DataMember(Name = "nombre")]
+        [DataMember(Name = "Nombre")]
         public string Nombre
         {
             get
@@ -44,7 +44,7 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "apellido")]
+        [DataMember(Name = "Apellido")]
         public string Apellido
         {
             get
@@ -57,7 +57,7 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "direccion")]
+        [DataMember(Name = "Direccion")]
         public string Direccion
         {
             get
@@ -70,7 +70,7 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "dni")]
+        [DataMember(Name = "DNI")]
         public int Dni
         {
             get
@@ -83,7 +83,7 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "telefono")]
+        [DataMember(Name = "Telefono")]
         public string Telefono
         {
             get
@@ -96,7 +96,7 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "email")]
+        [DataMember(Name = "Email")]
         public string Mail
         {
             get
@@ -109,8 +109,8 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "fechaNacimiento")]
-        public DateTime FechaNac
+        [DataMember(Name = "FechaNacimiento")]
+        public DateTime FechaNacimiento
         {
             get
             {
