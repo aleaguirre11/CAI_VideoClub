@@ -53,11 +53,11 @@ namespace NLayer.Negocio
 
         //Pedirle al mappaer los clientes a partir del nro de telefono 
         //Validar que no se pueda dar de alta a un cliente si ya se registro ese nro de telefono
-        public Cliente TraerPorTelefono(string telefono)
+        public List<Cliente> TraerPorTelefono(string telefono)
         {
-            Cliente client = _clienteMapper.TraerPorTelefono(telefono);
+            List < Cliente > lst = _clienteMapper.TraerPorTelefono(telefono);
 
-            return client;
+            return lst;
         }
 
         //Dar de alta a los clientes pidiendole al mapper que los inserte (post)
