@@ -16,10 +16,10 @@ namespace NLayer.Consola
         {
             try
             {
-                Cliente cliente = new Cliente();
-                Copia copia = new Copia();
-                Prestamo prestamo = new Prestamo();
-                Pelicula pelicula = new Pelicula();
+                ClienteNegocio cliente = new ClienteNegocio();
+                CopiaNegocio copia = new CopiaNegocio();
+                PrestamoNegocio prestamo = new PrestamoNegocio();
+                PeliculaNegocio pelicula = new PeliculaNegocio();
 
                 bool consolaActiva = true;
 
@@ -65,14 +65,14 @@ namespace NLayer.Consola
                                     CrearCliente(cliente);
                                     break;
                                 case "C":
-                                    NoDisponible();
+                                    FuncionesHelper.NoDisponible();
                                     DesplegarOpcionesMenu();
                                     /*Console.WriteLine("Detalle el id del cliente que desea actualizar:");
                                     string idClienteModificar = Console.ReadLine();
                                     ModificarCliente(idClienteModificar);*/
                                     break;
                                 case "D":
-                                    NoDisponible();
+                                    FuncionesHelper.NoDisponible();
                                     DesplegarOpcionesMenu();
                                     /*Console.WriteLine("Detalle el id del cliente que desea eliminar:");
                                     string idClienteEliminar = Console.ReadLine();
@@ -171,36 +171,27 @@ namespace NLayer.Consola
         }
 
 
-
-        static void NoDisponible()
+        static void TraerTodos(ClienteNegocio clientes)
         {
-            Console.WriteLine("Próximamente estará disponible esta funcionalidad. ¡Te invitamos a volver al menú anterior para explorar las otras opciones!");
-            Thread.Sleep(5000);
-        }
-
-
-
-        static void TraerTodos(Cliente clientes)
-        {
-            List<Cliente> lst = clientes.[Metodo]; //agregar método para obtener todos los clientes (y validaciones en el caso que no haya ningún cliente)
+            List<Cliente> lst = clientes.TraerLista();//agregar método para obtener todos los clientes (y validaciones en el caso que no haya ningún cliente)
             foreach (Cliente item in lst)
             {
                 Console.WriteLine(item);
             }
         }
 
-        static void TraerPorRegistro(string nroRegistro,Cliente clientes)
+        static void TraerPorRegistro(string nroRegistro,ClienteNegocio clientes)
         {
-            List<Cliente> lst = clientes.[Metodo](nroRegistro); //agregar método para obtener todos los clientes con un número de registro (y validaciones del nro ingresado)
+            List<Cliente> lst = clientes.TraerPorRegistro(nroRegistro); //agregar método para obtener todos los clientes con un número de registro (y validaciones del nro ingresado)
             foreach (Cliente item in lst)
             {
                 Console.WriteLine(item);
             }
         }
 
-        static void TraerPorTelefono (string nroTelefono, Cliente clientes)
+        static void TraerPorTelefono (string nroTelefono, ClienteNegocio clientes)
         {
-            List<Cliente> lst = clientes.[Metodo](nroTelefono); //agregar método para obtener todos los clientes con un número de teléfono (y validaciones del nro ingresado)
+            List<Cliente> lst = clientes.TraerPorTelefono(nroTelefono); //agregar método para obtener todos los clientes con un número de teléfono (y validaciones del nro ingresado)
             foreach (Cliente item in lst)
             {
                 Console.WriteLine(item);
@@ -209,7 +200,7 @@ namespace NLayer.Consola
 
 
 
-        static void CrearCliente(Cliente cliente)
+        static void CrearCliente(ClienteNegocio cliente)
         {
             Console.WriteLine("Ingresar el DNI del cliente:");
             string dniCliente = Console.ReadLine();
@@ -238,18 +229,20 @@ namespace NLayer.Consola
             Console.WriteLine("Ingresar el mail del cliente:");
             string mailCliente = Console.ReadLine();
 
-            
             //pasar por parámetro al método de la capa de negocio los valores para crear el cliente 
             //Cliente clienteNuevo = new Cliente((DateTime.Now).ToString(), true, "", "890191", nombreCliente, apellidoCliente, domicilioCliente, int.Parse(dniCliente), telefonoCliente,mailCliente, DateTime.Parse(fechaNacCliente));
 
-            //Console.WriteLine("¡El cliente se ha creado correctamente! Detalles:");
-            //Console.WriteLine(clienteNuevo);
+            cliente.AltaClientes("", (DateTime.Now).ToString(), true, "", "890191", nombreCliente, apellidoCliente, domicilioCliente, int.Parse(dniCliente), telefonoCliente, mailCliente, DateTime.Parse(fechaNacCliente));
+            Console.WriteLine("¡El cliente se ha creado correctamente! Detalles:");
+            Console.WriteLine(cliente);
 
         }
 
-        static void ListarPrestamos(Prestamo prestamos)
+
+
+        static void ListarPrestamos(PrestamoNegocio prestamos)
         {
-            List<Prestamo> lst = prestamos.[Metodo]; //agregar método para obtener todos los préstamos (y validaciones en el caso que no haya ninguno)
+            List<Prestamo> lst = prestamos.TraerLista(); //agregar método para obtener todos los préstamos (y validaciones en el caso que no haya ninguno)
             foreach (Prestamo item in lst)
             {
                 Console.WriteLine(item);
@@ -257,7 +250,7 @@ namespace NLayer.Consola
         }
 
 
-        static void CargarPrestamo(Prestamo prestamo)
+        static void CargarPrestamo(PrestamoNegocio prestamo)
         {
             Console.WriteLine("Ingresar el DNI del cliente al cual se le va a realizar el préstamo:");
             string dniPrestamo = Console.ReadLine();
@@ -266,29 +259,25 @@ namespace NLayer.Consola
             // 2. Que el cliente no supere determinada cantidad de préstamos
             // 3. Que se haya ingresado un número
 
-            Console.WriteLine("Ingresar el id de la película:");
-            string idPeliculaPrestamo = Console.ReadLine();
-            //método para validar:
-            // 1. Que exista la película
-            // 2. Que existan copias disponibles de esta película
-            // 3. Que se haya ingresado un número
+            //obtener id según el dni
+            int idClientePrestamo = 1;
+
 
             Console.WriteLine("Ingresar el número de copia a prestar:");
             string nroCopiaPrestamo = Console.ReadLine();
             //método para validar:
             // 1. Que exista la copia
-            // 2. Que se haya ingresado un número
-
-            Console.WriteLine("¿La fecha del préstamo es la fecha de hoy? Responder con Si o No");
-            string respuestaFechaPrestamo = Console.ReadLine().ToUpper();
+            // 2. Que la copia esté disponible
+            // 3. Que se haya ingresado un número
 
 
-            Console.WriteLine("Ingresar la cantidad de días del préstamo:");
-            string plazoPrestamo = Console.ReadLine();
-            //método para validar:
-            // 1. Que no supere determinada cantidad de días
-            // 2. Que se haya ingresado un número
-           
+            // Revisar los valores que deberían pasarse --> creo que sólo id_cliente, id_copia y si está activo, el resto no haría falta por reglas de negocio definidas.
+            prestamo.AltaPrestamo(int.Parse(""), DateTime.Parse(""),DateTime.Parse(""), DateTime.Now, true, int.Parse(""), int.Parse(nroCopiaPrestamo), idClientePrestamo);
+            Console.WriteLine("¡El préstamo se ha cargado correctamente! Detalles:");
+            Console.WriteLine(prestamo);
+
+
+            
 
         }
 

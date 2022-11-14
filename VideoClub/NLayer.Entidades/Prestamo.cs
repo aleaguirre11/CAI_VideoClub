@@ -12,12 +12,12 @@ namespace NLayer.Entidades
     {
 
         public Prestamo() { }
-        public Prestamo(int idcliente, int idcopia, bool abierto, int plazo)
+        public Prestamo(int idcliente, int idcopia, bool abierto) //, int plazo)
         {
             _idcliente = idcliente;
             _idcopia = idcopia;
             _abierto = abierto;
-            _plazo = plazo; 
+            //_plazo = plazo; --> se comenta la variable del constructor ya que se setea en la propiedad que siempre sea igual a 10.
         }
 
         public Copia copia;
@@ -27,9 +27,9 @@ namespace NLayer.Entidades
         private int _idcliente;
         private int _idcopia;
         private int _idprestamo;
-        //private DateTime _fechadevolucionreal; --> no es necesario declararlo
-        private DateTime _fechadevoluciontentativa;
-        private DateTime _fechaprestamo;
+        private DateTime _fechadevolucionreal;
+        //private DateTime _fechadevoluciontentativa; --> no es necesario declararlo
+        //private DateTime _fechaprestamo; --> no es necesario declararlo
         private bool _abierto;
         private int _plazo;
 
@@ -73,29 +73,31 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "fechaDevolucionReal")]
+        [DataMember(Name = "FechaDevolucionReal")]
         public DateTime Fechadevolucionreal
         {
+
             get
             {
-                return _fechaprestamo.AddDays(10);
+                return _fechadevolucionreal;
             }
+            set
+            {
+                _fechadevolucionreal = value;
+            }
+
         }
 
-        [DataMember(Name = "fechaDevolucionTentativa")]
+        [DataMember(Name = "FechaDevolucionTentativa")]
         public DateTime Fechadevoluciontentativa
         {
             get
             {
-                return _fechadevoluciontentativa;
-            }
-            set
-            {
-                _fechadevoluciontentativa = value;
+                return DateTime.Now.AddDays(_plazo);
             }
         }
 
-        [DataMember(Name = "fechaPrestamo")]
+        [DataMember(Name = "FechaPrestamo")]
         public DateTime Fechaprestamo
         {
             get
@@ -104,7 +106,7 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "abierto")]
+        [DataMember(Name = "Abierto")]
         public bool Abierto
         {
             get
@@ -117,12 +119,12 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "plazo")]
+        [DataMember(Name = "Plazo")]
         public int Plazo
         {
             get
             {
-                return _plazo;
+                return _plazo = 10; // por regla de negocio, establecimos que la cantidad máxima de días que se puede otorgar un préstamo es de 10.
             }
             set
             {

@@ -53,7 +53,7 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "activo")]
+        [DataMember(Name = "Activo")]
         public bool CliActivo
         {
             get
@@ -78,12 +78,12 @@ namespace NLayer.Entidades
             }
         }
 
-        [DataMember(Name = "usuario")]
+        [DataMember(Name = "Usuario")]
         public string Usuario
         {
             get
             {
-                return Usuario;
+                return _usuario;
             }    
             set
             {

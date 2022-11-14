@@ -92,7 +92,7 @@ namespace NLayer.Datos
             c.Add("Email", cliente.Mail);
             c.Add("DNI", cliente.Dni.ToString());
             c.Add("Activo", cliente.CliActivo.ToString());
-            c.Add("FechaNacimiento", cliente.FechaNac.ToString("yyyy-MM-dd"));
+            c.Add("FechaNacimiento", cliente.FechaNacimiento.ToString("yyyy-MM-dd"));
             c.Add("Usuario", "890191");
             return c;
         }
@@ -110,7 +110,7 @@ namespace NLayer.Datos
             c.Add("Email", cliente.Mail);
             c.Add("DNI", cliente.Dni.ToString());
             c.Add("Activo", cliente.CliActivo.ToString());
-            c.Add("FechaNacimiento", cliente.FechaNac.ToString("yyyy-MM-dd"));
+            c.Add("FechaNacimiento", cliente.FechaNacimiento.ToString("yyyy-MM-dd"));
             return c;
         }
 
