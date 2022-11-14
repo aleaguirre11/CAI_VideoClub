@@ -13,9 +13,11 @@ namespace NLayer.Negocio
     public class PrestamoNegocio
     {
         private PrestamoMapper _prestamoMapper;
+        private List<Prestamo> _listaPrestamos;
         public PrestamoNegocio()
         {
             _prestamoMapper = new PrestamoMapper();
+            _listaPrestamos = new List<Prestamo>();
 
         }
 
@@ -25,8 +27,8 @@ namespace NLayer.Negocio
 
             Prestamo prestamo = new Prestamo();
             prestamo.Idprestamo = idprestamo;
-            prestamo.Fechadevolucionreal = fechadevolucionreal;
-            prestamo.Fechadevoluciontentativa = fechadevoluciontentativa;
+            prestamo.Fechadevolucionreal = null;
+            prestamo.Fechadevoluciontentativa = fechadevoluciontentativa; //(DateTime.Now).AddDays(10)
             prestamo.Fechaprestamo = fechaprestamo;
             prestamo.Abierto = true;
             prestamo.Plazo = plazo;
@@ -36,8 +38,8 @@ namespace NLayer.Negocio
 
             TransactionResult transaction = _prestamoMapper.Insertar(prestamo);
 
-            //if (!transaction.IsOk)
-            //    throw new Exception(transaction.Error);
+            if (!transaction.IsOk)
+                throw new Exception(transaction.Error);
         }
 
         public List<Prestamo> TraerLista()
@@ -47,18 +49,12 @@ namespace NLayer.Negocio
             return lst;
         }
 
-        public List<Prestamo> TraerPrestamoPorCliente(Prestamo idcliente)
-        {
-            //validar id no nulo
-            List<Prestamo> lst1 = _prestamoMapper.TraerPorId(idcliente);
+     
 
-            return lst1;
-        }
-
-        //public Prestamo TraerPrestamoPorCliente(Cliente idcliente)
+        //public List<Prestamo> TraerPrestamoPorCliente(int idcliente)
         //{
         //    // validar cliente no nulo
-        //    List<Prestamo> lst = _prestamoMapper.TraerPorId(cliente.idcliente);
+        //    List<Prestamo> lst = _prestamoMapper.TraerPorId(idcliente);
 
         //    return lst;
         //}
@@ -75,25 +71,42 @@ namespace NLayer.Negocio
             return null;
         }
 
-        //cancelar el prestamo por su id (unico prestamo)
-        public void CancelarPrestamoPorIdPrestamo(Prestamo prestamo)
+        
+        public List<Prestamo> TraerPorIdCopia(int idcopia)
         {
-            foreach (Prestamo p in TraerLista())
+
+            List<Prestamo> lst = new List<Prestamo>();
+
+
+            if (_listaPrestamos.Count() > 0)
             {
-                if (prestamo.Idprestamo == p.Idprestamo)
-                    ActualizarPrestamo(p);
-                TransactionResult transaction = _prestamoMapper.Cancelar(p);
+                lst.AddRange(_listaPrestamos.Where(item => item.Idcopia == idcopia));
             }
+            else
+                throw new Exception("No se han otorgado prestamos de la copia {0} aun." + idcopia);
 
+            return lst;
         }
 
-        public void ActualizarPrestamo(Prestamo prestamo)
-        { 
-            // validar prestamo no nulo y no cancelado
+        //cancelar el prestamo por su id (unico prestamo)
+        //public void CancelarPrestamoPorIdPrestamo(Prestamo prestamo)
+        //{
+        //    foreach (Prestamo p in TraerLista())
+        //    {
+        //        if (prestamo.Idprestamo == p.Idprestamo)
+        //            ActualizarPrestamo(p);
+        //        TransactionResult transaction = _prestamoMapper.Cancelar(p);
+        //    }
 
-            prestamo.Abierto = false;
-            
-        }
+        //}
+
+        //public void ActualizarPrestamo(Prestamo prestamo)
+        //{ 
+        //    // validar prestamo no nulo y no cancelado
+
+        //    prestamo.Abierto = false;
+
+        //}
     }
 
 }

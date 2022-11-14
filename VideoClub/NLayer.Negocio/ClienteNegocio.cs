@@ -40,21 +40,41 @@ namespace NLayer.Negocio
         }
 
         //traer cliente por nro de id
-        public Cliente TraerPorId(string idCliente)
-        {
-            foreach (var item in TraerLista())
-            {
-                if (idCliente == item.Idcliente)
-                    return item;
-            }
+        //public Cliente TraerPorId(string idCliente)
+        //{
+        //    foreach (var item in TraerLista())
+        //    {
+        //        if (idCliente == item.Idcliente)
+        //            return item;
+        //    }
 
-            return null;
+        //    return null;
+        //}
+
+        //traer cliente por nro de registro validando que hayan clientes registrados
+        public List<Cliente> TraerPorRegistro(string idCliente)
+        {
+
+            List<Cliente> lst1 = new List<Cliente>();
+
+            if (_listaClientes.Count() > 0)
+            {
+                lst1.AddRange(_listaClientes.Where(item => item.Idcliente == idCliente));
+            }
+            else
+                throw new Exception("No se han registrado clientes aun.");
+
+            return lst1;
+
         }
 
         //Pedirle al mappaer los clientes a partir del nro de telefono 
-        //Validar que no se pueda dar de alta a un cliente si ya se registro ese nro de telefono
+ 
         public List<Cliente> TraerPorTelefono(string telefono)
         {
+            if (!(_listaClientes.Count() > 0))
+                throw new Exception("No se han registrado clientes aun.");
+
             List < Cliente > lst = _clienteMapper.TraerPorTelefono(telefono);
 
             return lst;
@@ -75,16 +95,48 @@ namespace NLayer.Negocio
             cliente.Dni = dni;
             cliente.Telefono = telefono;
             cliente.Mail = mail;
-            cliente.FechaNacimiento = fechaNac;
+            cliente.FechaNac = fechaNac;
 
-            //Validar que no se pueda dar de alta a un cliente si ya se registro ese nro de telefono
             //Validar que no se pueda dar de alta a un cliente si ya se registro ese dni
+            bool flag = ValidarDNI(cliente.Dni);
             //Validar que no se pueda dar de alta a un cliente si ya se registro ese mail
+            bool flag1 = ValidarMail(cliente.Mail);
+
+            if(flag == true)
+            {
+                throw new Exception("Ya existe un cliente con el DNI ingresado.");
+            }
+            else if (flag1 == true)
+            {
+                throw new Exception("Ya existe un cliente con el mail ingresado.");
+            }
 
             TransactionResult transaction = _clienteMapper.Insertar(cliente);
 
             if (!transaction.IsOk)
                 throw new Exception(transaction.Error);
+        }
+        public bool ValidarDNI(int dni)
+        {
+
+            foreach (var item in TraerLista())
+            {
+                if (dni == item.Dni)
+                    return true;
+            }
+
+            return false;
+        }
+        public bool ValidarMail(string mail)
+        {
+
+            foreach (var item in TraerLista())
+            {
+                if (mail == item.Mail)
+                    return true;
+            }
+
+            return false;
         }
 
         //pedirle al mapper que actualice el cliente (update)
@@ -109,17 +161,5 @@ namespace NLayer.Negocio
                 throw new Exception(transaction.Error);
         }
 
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Cliente))
-                return false;
-            Cliente cObj = (Cliente)obj;
-
-            if (cObj.Telefono != telefono)
-                return false;
-
-
-            return true;
-        }
     }
 }

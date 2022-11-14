@@ -17,7 +17,7 @@ namespace NLayer.Entidades
             _idcliente = idcliente;
             _idcopia = idcopia;
             _abierto = abierto;
-            _plazo = plazo;
+            _plazo = plazo; 
         }
 
         public Copia copia;
