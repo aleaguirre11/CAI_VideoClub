@@ -87,20 +87,22 @@ namespace NLayer.Negocio
             return lst;
         }
 
+        //Consultar prestamos por id pelicula
         public List<Prestamo> TraerPorIdPelicula(int idpelicula)
         {
 
-            List<Prestamo> lst = new List<Prestamo>();
-
+            List<Prestamo> prestamos = new List<Prestamo>();
+            List<Copia> copias = new List<Copia>();
 
             if (_listaPrestamos.Count() > 0)
             {
-                lst.AddRange(_listaPrestamos.Where(item => item.Idcopia == idcopia));
+                copias.
+                prestamos.AddRange(_listaPrestamos.Where(item => item.Idcopia == idcopia));
             }
             else
                 throw new Exception("No se han otorgado prestamos de la copia {0} aun." + idcopia);
 
-            return lst;
+            return prestamos;
         }
 
         //cancelar el prestamo por su id(unico prestamo)
@@ -110,17 +112,27 @@ namespace NLayer.Negocio
         //    {
         //        if (prestamo.Idprestamo == p.Idprestamo)
         //            ActualizarPrestamo(p);
-        //        TransactionResult transaction = _prestamoMapper.Cancelar(p);
+        //        TransactionResult transaction = _prestamoMapper.Cancelar(p); //actualizar prestamo
+                
+        //        if (!transaction.IsOk)
+        //            throw new Exception(transaction.Error);
         //    }
 
         //}
 
-        //public void ActualizarPrestamo(Prestamo prestamo)
+        //public void ActualizarPrestamo(Object obj)
         //{
         //    // validar prestamo no nulo y no cancelado
+        //    if (obj == null) throw new Exception("El prestamo es invalido.");
+        //    if (!(obj is Prestamo)) throw new Exception("No se ingresó un prestamo.");
 
+        //    Prestamo pObj = (Prestamo)obj;
 
-        //     prestamo.Abierto = false;
+        //    if (pObj.Abierto != true)
+        //        throw new Exception("El prestamo ya se cerró.");
+
+        //    pObj.Fechadevolucionreal = DateTime.Now;
+        //    pObj.Abierto = false;
 
         //}
     }
