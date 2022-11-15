@@ -48,6 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilidades\FuncionesHelper.cs" />
     <Compile Include="Utilidades\MenuHelper.cs" />
+    <Compile Include="Utilidades\ValidacionesHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
