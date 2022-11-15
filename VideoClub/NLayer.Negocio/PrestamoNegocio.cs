@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NLayer.Negocio.ValidacionesNegocio;
+using System.ComponentModel;
 
 namespace NLayer.Negocio
 {
@@ -13,19 +14,21 @@ namespace NLayer.Negocio
     {
         private PrestamoMapper _prestamoMapper;
         private List<Prestamo> _listaPrestamos;
+        private List<Copia> _listacopias;
         public PrestamoNegocio()
         {
             _prestamoMapper = new PrestamoMapper();
             _listaPrestamos = new List<Prestamo>();
+            _listacopias = new List<Copia>();
 
         }
 
-        public void AltaPrestamo(int idprestamo, DateTime fechadevolucionreal, DateTime fechadevoluciontentativa, DateTime fechaprestamo, bool abierto, int plazo, int idcopia, int idcliente)
+        public void AltaPrestamo(/*int idprestamo,*/ DateTime fechadevolucionreal, DateTime fechadevoluciontentativa, DateTime fechaprestamo, bool abierto, int plazo, int idcopia, int idcliente)
         {
             // validar prestamo no nulo
 
             Prestamo prestamo = new Prestamo();
-            prestamo.Idprestamo = idprestamo;
+            //prestamo.Idprestamo = idprestamo;
             prestamo.Fechadevolucionreal = fechadevolucionreal;
             prestamo.Fechadevoluciontentativa = fechadevoluciontentativa; //(DateTime.Now).AddDays(10)
             prestamo.Fechaprestamo = fechaprestamo;
@@ -43,9 +46,8 @@ namespace NLayer.Negocio
 
         public List<Prestamo> TraerLista()
         {
-            List<Prestamo> lst = _prestamoMapper.TraerTodos();
+            return _prestamoMapper.TraerTodos();
 
-            return lst;
         }
 
      
@@ -87,6 +89,7 @@ namespace NLayer.Negocio
             return lst;
         }
 
+
         //Consultar prestamos por id pelicula
         public List<Prestamo> TraerPorIdPelicula(int idpelicula)
         {
@@ -94,15 +97,71 @@ namespace NLayer.Negocio
             List<Prestamo> prestamos = new List<Prestamo>();
             List<Copia> copias = new List<Copia>();
 
+
+
             if (_listaPrestamos.Count() > 0)
             {
-                copias.
-                prestamos.AddRange(_listaPrestamos.Where(item => item.Idcopia == idcopia));
+
+
+                if (_listacopias.Count() > 0)
+                {
+                    copias.AddRange(_listacopias.Where(c => c.Idpelicula == idpelicula));
+
+                    foreach (var c in copias) 
+                    {
+                        foreach (var p in TraerLista().TakeWhile(p => p.Idcopia == c.Idcopia))
+                        {
+                            prestamos.Add(p);
+                        }
+
+                    }
+
+                }
+                else
+                    throw new Exception("No se han otorgado préstamos de la copia aun.");
+
             }
             else
-                throw new Exception("No se han otorgado prestamos de la copia {0} aun." + idcopia);
+                throw new Exception("No se han otorgado prestamos de la película {0} aun." + idpelicula);
 
             return prestamos;
+        }
+
+        //Consultar prestamos por id pelicula
+        public string TraerPorIdPelicula2(int idpelicula)
+        {
+
+
+            List<Copia> copias = new List<Copia>();
+            string acumulador = "Los prestamos asociados a la película ingresada son: " + System.Environment.NewLine;
+
+            if (_listaPrestamos.Count() > 0)
+            {
+
+                if (_listacopias.Count() > 0)
+                {
+                    copias.AddRange(_listacopias.Where(c => c.Idpelicula == idpelicula));
+
+                    foreach (var p in TraerLista())
+                    {
+
+                        foreach (var c in copias.TakeWhile(c => c.Idcopia == p.Idcopia))
+                        {
+                            acumulador += c.ToString() + System.Environment.NewLine;
+
+                        }
+
+                    }
+
+                }
+                else
+                    throw new Exception("No se han otorgado préstamos de la copia aun.");
+
+            }
+            else
+                throw new Exception("No se han otorgado prestamos de la película {0} aun." + idpelicula);
+
+            return acumulador;
         }
 
         //cancelar el prestamo por su id(unico prestamo)
@@ -113,7 +172,7 @@ namespace NLayer.Negocio
         //        if (prestamo.Idprestamo == p.Idprestamo)
         //            ActualizarPrestamo(p);
         //        TransactionResult transaction = _prestamoMapper.Cancelar(p); //actualizar prestamo
-                
+
         //        if (!transaction.IsOk)
         //            throw new Exception(transaction.Error);
         //    }

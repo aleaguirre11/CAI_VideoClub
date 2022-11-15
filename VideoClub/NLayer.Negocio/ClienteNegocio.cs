@@ -40,26 +40,39 @@ namespace NLayer.Negocio
         }
 
         //traer cliente por nro de id
-        //public Cliente TraerPorId(string idCliente)
-        //{
-        //    foreach (var item in TraerLista())
-        //    {
-        //        if (idCliente == item.Idcliente)
-        //            return item;
-        //    }
+        public Cliente TraerPorId(string idCliente)
+        {
 
-        //    return null;
-        //}
+            foreach (var item in TraerLista())
+            {
+                if (idCliente == item.Idcliente)
+                    return item;
+            }
+
+            return null;
+        }
+
+        //obtener el id del cliente por DNI
+        public string TraerIdPorDNI(int dni)
+        {
+            foreach (var item in TraerLista())
+            {
+                if (dni == item.Dni)
+                    return item.Idcliente;
+            }
+
+            return null;
+        }
 
         //traer cliente por nro de registro validando que hayan clientes registrados
-        public List<Cliente> TraerPorRegistro(string idCliente)
+        public List<Cliente> TraerPorRegistro(string usuario)
         {
 
             List<Cliente> lst1 = new List<Cliente>();
 
             if (_listaClientes.Count() > 0)
             {
-                lst1.AddRange(_listaClientes.Where(item => item.Idcliente == idCliente));
+                lst1.AddRange(_listaClientes.Where(item => item.Usuario == usuario));
             }
             else
                 throw new Exception("No se han registrado clientes aun.");
@@ -81,13 +94,13 @@ namespace NLayer.Negocio
         }
 
         //Dar de alta a los clientes pidiendole al mapper que los inserte (post)
-        public void AltaClientes(string idcliente, string fechaalta, bool cliActivo, string host, string usuario, 
+        public void AltaClientes(/*string idcliente,*/ string fechaalta, bool cliActivo, string host, string usuario, 
             string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac)
         {
             Cliente cliente = new Cliente();
-            cliente.Idcliente = idcliente;
+            //cliente.Idcliente = idcliente;
             cliente.Fechaalta = fechaalta;
-            cliente.CliActivo = cliActivo;
+            cliente.CliActivo = true;
             cliente.Host = host;
             cliente.Nombre = nombre;
             cliente.Apellido = apellido;
@@ -95,7 +108,7 @@ namespace NLayer.Negocio
             cliente.Dni = dni;
             cliente.Telefono = telefono;
             cliente.Mail = mail;
-            cliente.FechaNac = fechaNac;
+            cliente.FechaNacimiento = fechaNac;
 
             //Validar que no se pueda dar de alta a un cliente si ya se registro ese dni
             bool flag = ValidarDNI(cliente.Dni);

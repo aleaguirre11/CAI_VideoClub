@@ -23,18 +23,18 @@ namespace NLayer.Negocio
         }
 
         //Dar de alta a las peliculas pidiendole al mapper que los inserte (post)
-        public void AltaPelicula(int idpelicula, int anio, int duracion, string titulo, string director,
+        public void AltaPelicula(/*int idpelicula,*/ int anio, int duracion, string titulo, string director,
             string productora, string genero)
         {
             Pelicula pelicula = new Pelicula();
-            pelicula.IdPelicula = idpelicula;
+            //pelicula.IdPelicula = idpelicula;
             pelicula.Anio = anio;
             pelicula.Duracion = duracion;
             pelicula.Titulo = titulo;
             pelicula.Director = director;
             pelicula.Productora = productora;
             pelicula.Genero = genero;
-            //pelicula.Idcopia = idcopia;
+            
 
             //Validar que no se pueda dar de alta a una pelicula si ya se registro ese id
             //Validar que no se pueda dar de alta a una pelicula si ya se registro ese id con ese id de copia
