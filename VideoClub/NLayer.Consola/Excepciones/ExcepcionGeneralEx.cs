@@ -8,6 +8,6 @@ namespace NLayer.Consola.Excepciones
 {
     internal class ExcepcionGeneralEx : Exception
     {
-        public ExcepcionGeneralEx() : base("Ha ocurrido un error general.") { }
+        public ExcepcionGeneralEx() : base ("Ha ocurrido un error general.") { }
     }
 }
