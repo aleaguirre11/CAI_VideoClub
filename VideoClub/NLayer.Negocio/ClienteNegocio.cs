@@ -110,19 +110,19 @@ namespace NLayer.Negocio
             cliente.Mail = mail;
             cliente.FechaNacimiento = fechaNac;
 
-            ////Validar que no se pueda dar de alta a un cliente si ya se registro ese dni
-            //bool flag = ValidarDNI(cliente.Dni);
-            ////Validar que no se pueda dar de alta a un cliente si ya se registro ese mail
-            //bool flag1 = ValidarMail(cliente.Mail);
+            //Validar que no se pueda dar de alta a un cliente si ya se registro ese dni
+            bool flag = ValidarDNI(cliente.Dni);
+            //Validar que no se pueda dar de alta a un cliente si ya se registro ese mail
+            bool flag1 = ValidarMail(cliente.Mail);
 
-            //if(flag == true)
-            //{
-            //    throw new Exception("Ya existe un cliente con el DNI ingresado.");
-            //}
-            //else if (flag1 == true)
-            //{
-            //    throw new Exception("Ya existe un cliente con el mail ingresado.");
-            //}
+            if (flag == true)
+            {
+                throw new Exception("Ya existe un cliente con el DNI ingresado.");
+            }
+            else if (flag1 == true)
+            {
+                throw new Exception("Ya existe un cliente con el mail ingresado.");
+            }
 
             TransactionResult transaction = _clienteMapper.Insertar(cliente);
 
@@ -131,6 +131,8 @@ namespace NLayer.Negocio
         }
         public bool ValidarDNI(int dni)
         {
+            if (!(_listaClientes.Count() > 0))
+                throw new Exception("No se han registrado clientes aun.");
 
             foreach (var item in TraerLista())
             {
@@ -142,6 +144,8 @@ namespace NLayer.Negocio
         }
         public bool ValidarMail(string mail)
         {
+            if (!(_listaClientes.Count() > 0))
+                throw new Exception("No se han registrado clientes aun.");
 
             foreach (var item in TraerLista())
             {

@@ -35,15 +35,11 @@ namespace NLayer.Negocio
             pelicula.Director = director;
             pelicula.Productora = productora;
             pelicula.Genero = genero;
-            
-
-            //Validar que no se pueda dar de alta a una pelicula si ya se registro ese id
-            //Validar que no se pueda dar de alta a una pelicula si ya se registro ese id con ese id de copia
 
             TransactionResult transaction = _peliculaMapper.Insertar(pelicula);
 
-            //if (!transaction.IsOk)
-            //    throw new Exception(transaction.Error);
+            if (!transaction.IsOk)
+                throw new Exception(transaction.Error);
         }
 
         //pedirle al mapper la lista de peliculas
