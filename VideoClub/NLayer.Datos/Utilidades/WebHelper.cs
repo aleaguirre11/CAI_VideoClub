@@ -45,7 +45,7 @@ namespace NLayer.Datos.Utilidades
 
                 return responseString;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "{ \"isOk\":false,\"id\":-1,\"error\":\"Error en el llamado al servicio\"}";
             }
@@ -63,7 +63,7 @@ namespace NLayer.Datos.Utilidades
 
                 return responseString;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "{ \"isOk\":false,\"id\":-1,\"error\":\"Error en el llamado al servicio\"}";
             }
@@ -81,7 +81,7 @@ namespace NLayer.Datos.Utilidades
 
                 return responseString;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "{ \"isOk\":false,\"id\":-1,\"error\":\"Error en el llamado al servicio\"}";
             }
