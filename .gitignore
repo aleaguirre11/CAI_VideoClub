@@ -22,3 +22,5 @@ VideoClub/NLayer.Datos/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 *.sqlite
 *.sqlite
 *.sqlite
+*.cache
+VideoClub/.vs/VideoClub/v16/.suo
