@@ -1,12 +1,13 @@
 ﻿using NLayer.Negocio;
 using NLayer.Entidades;
+using NLayer.Consola.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using NLayer.Consola.Utilidades;
+
 
 namespace NLayer.Consola
 {
@@ -25,37 +26,37 @@ namespace NLayer.Consola
 
                 while (consolaActiva)
                 {
-                    DesplegarOpcionesMenu();
+                    MenuHelper.DesplegarOpcionesMenu();
                     string opcionMenu = Console.ReadLine();
                     switch (opcionMenu)
                     {
                         case "1":
-                            Clientes();
+                            MenuHelper.Clientes();
                             string opcionMenuCliente = Console.ReadLine();
                             switch(opcionMenuCliente.ToUpper())
                             {
                                 case "A":
-                                    ListarClientes();
+                                    MenuHelper.ListarClientes();
                                     string opcionMenuListarCliente = Console.ReadLine();
                                     switch (opcionMenuListarCliente)
                                     {
                                         case "1":
-                                            TraerTodos(cliente);
+                                            CliTraerTodos(cliente);
                                             break;
                                         case "2":
                                             Console.WriteLine("Detalle el número de registro a buscar: ");
                                             string nroRegistro = Console.ReadLine();
-                                            TraerPorRegistro(nroRegistro,cliente);
+                                            CliTraerPorRegistro(nroRegistro,cliente);
                                             break;
                                         case "3":
                                             Console.WriteLine("Detalle el número de teléfono a buscar:");
                                             string nroTelefono = Console.ReadLine();
-                                            TraerPorTelefono(nroTelefono,cliente); 
+                                            CliTraerPorTelefono(nroTelefono,cliente); 
                                             break;
                                         case "X":
                                             Console.WriteLine("Volviendo al menú anterior...");
                                             Thread.Sleep(3000);
-                                            ListarClientes();
+                                            MenuHelper.ListarClientes();
                                             break;
                                         default:
                                             break;
@@ -66,14 +67,14 @@ namespace NLayer.Consola
                                     break;
                                 case "C":
                                     FuncionesHelper.NoDisponible();
-                                    DesplegarOpcionesMenu();
+                                    MenuHelper.DesplegarOpcionesMenu();
                                     /*Console.WriteLine("Detalle el id del cliente que desea actualizar:");
                                     string idClienteModificar = Console.ReadLine();
                                     ModificarCliente(idClienteModificar);*/
                                     break;
                                 case "D":
                                     FuncionesHelper.NoDisponible();
-                                    DesplegarOpcionesMenu();
+                                    MenuHelper.DesplegarOpcionesMenu();
                                     /*Console.WriteLine("Detalle el id del cliente que desea eliminar:");
                                     string idClienteEliminar = Console.ReadLine();
                                     EliminarCliente(idClienteEliminar);*/
@@ -81,17 +82,19 @@ namespace NLayer.Consola
                                 case "X":
                                     Console.WriteLine("Volviendo al menú anterior...");
                                     Thread.Sleep(3000);
-                                    DesplegarOpcionesMenu();
+                                    MenuHelper.DesplegarOpcionesMenu();
                                     break;
                             }
                             break;
                         case "2":
-                            Prestamos();
+                            MenuHelper.Prestamos();
                             string opcionMenuPrestamos = Console.ReadLine();
                             switch (opcionMenuPrestamos.ToUpper())
                             {
                                 case "A":
-                                    ListarPrestamos(prestamo);
+                                    Console.WriteLine("Ingrese el número identificador de la película para la cual desea ver los préstamos:");
+                                    string idPeliculaPrestamo = Console.ReadLine();
+                                    ListarPrestamos(idPeliculaPrestamo,prestamo);
                                     break;
                                 case "B":
                                     CargarPrestamo(prestamo);
@@ -99,20 +102,79 @@ namespace NLayer.Consola
                                 case "X":
                                     Console.WriteLine("Volviendo al menú anterior...");
                                     Thread.Sleep(3000);
-                                    DesplegarOpcionesMenu();
+                                    MenuHelper.DesplegarOpcionesMenu();
                                     break;
                                 default:
                                     break;
                             }
                             break;
                         case "3":
-                            // Peliculas
+                            MenuHelper.Peliculas();
+                            string opcionMenuPeliculas = Console.ReadLine();
+                            switch (opcionMenuPeliculas.ToUpper())
+                            {
+                                case "A":
+                                    Console.WriteLine("Ingrese el número identificador de la película que desea visualizar:");
+                                    string idPelicula = Console.ReadLine();
+                                    ListarPelicula(idPelicula, pelicula);
+                                    break;
+                                case "B":
+                                    CargarPelicula(pelicula);
+                                    break;
+                                case "X":
+                                    Console.WriteLine("Volviendo al menú anterior...");
+                                    Thread.Sleep(3000);
+                                    MenuHelper.DesplegarOpcionesMenu();
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case "4":
-                            // Copias
+                            MenuHelper.Copias();
+                            string opcionMenuCopia = Console.ReadLine();
+                            switch (opcionMenuCopia.ToUpper())
+                            {
+                                case "A":
+                                    Console.WriteLine("Ingrese el número identificador de la película que desea visualizar:");
+                                    string idPelicula = Console.ReadLine();
+                                    ListarCopia(idPelicula, copia);
+                                    break;
+                                case "B":
+                                    CargarCopia(copia);
+                                    break;
+                                case "X":
+                                    Console.WriteLine("Volviendo al menú anterior...");
+                                    Thread.Sleep(3000);
+                                    MenuHelper.DesplegarOpcionesMenu();
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case "5":
-                            // Reportes
+                            MenuHelper.Reportes();
+                            string opcionMenuReportes = Console.ReadLine();
+                            switch (opcionMenuReportes.ToUpper())
+                            {
+                                case "A":
+                                    Console.WriteLine("Ingrese el número de documento del cliente:");
+                                    string dniCliente = Console.ReadLine();
+                                    PrestamosPorCliente(dniCliente, prestamo);
+                                    break;
+                                case "B":
+                                    Console.WriteLine("Ingrese el número identificador de la película:");
+                                    string idPelicula = Console.ReadLine();
+                                    CopiasPorPelicula(idPelicula, copia);
+                                    break;
+                                case "X":
+                                    Console.WriteLine("Volviendo al menú anterior...");
+                                    Thread.Sleep(3000);
+                                    MenuHelper.DesplegarOpcionesMenu();
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case "X":
                             consolaActiva = false;
@@ -129,49 +191,11 @@ namespace NLayer.Consola
 
         }
 
-        static void DesplegarOpcionesMenu()
-        {
-            Console.WriteLine("-------------MENU PRINCIPAL-------------");
-            Console.WriteLine("");
-            Console.WriteLine("Escriba el número de la opción del menú al cual quiere acceder:");
-            Console.WriteLine("     1) Clientes");
-            Console.WriteLine("     2) Préstamos");
-            Console.WriteLine("     3) Películas");
-            Console.WriteLine("     4) Copias");
-            Console.WriteLine("     5) Reportes");
-            Console.WriteLine("     X: Salir del programa");
-        }
-
-        static void Clientes()
-        {
-            Console.WriteLine("Seleccionó la opción clientes. ¿Qué desea hacer?");
-            Console.WriteLine("     A) Ver clientes");
-            Console.WriteLine("     B) Crear nuevo cliente");
-            Console.WriteLine("     C) Modificar cliente existente");
-            Console.WriteLine("     D) Eliminar cliente");
-            Console.WriteLine("     X: Volver al menú anterior");
-        }
-
-        static void ListarClientes()
-        {
-            Console.WriteLine("Detalle la forma en que desea ver a los clientes");
-            Console.WriteLine("     1. Ver todos los clientes");
-            Console.WriteLine("     2. Ver todos los clientes de un número de registro");
-            Console.WriteLine("     3. Buscar cliente por número de teléfono");
-            Console.WriteLine("     X: Volver al menú anterior");
-        }
 
 
-        static void Prestamos()
-        {
-            Console.WriteLine("Seleccionó la opción préstamos. ¿Qué desea hacer?");
-            Console.WriteLine("     A) Ver préstamos vigentes");
-            Console.WriteLine("     B) Cargar nuevo préstamo");
-            Console.WriteLine("     X: Volver al menú anterior");
-        }
 
 
-        static void TraerTodos(ClienteNegocio clientes)
+        static void CliTraerTodos(ClienteNegocio clientes)
         {
             List<Cliente> lst = clientes.TraerLista();//agregar método para obtener todos los clientes (y validaciones en el caso que no haya ningún cliente)
             foreach (Cliente item in lst)
@@ -180,7 +204,7 @@ namespace NLayer.Consola
             }
         }
 
-        static void TraerPorRegistro(string nroRegistro,ClienteNegocio clientes)
+        static void CliTraerPorRegistro(string nroRegistro,ClienteNegocio clientes)
         {
             List<Cliente> lst = clientes.TraerPorRegistro(nroRegistro); //agregar método para obtener todos los clientes con un número de registro (y validaciones del nro ingresado)
             foreach (Cliente item in lst)
@@ -189,7 +213,7 @@ namespace NLayer.Consola
             }
         }
 
-        static void TraerPorTelefono (string nroTelefono, ClienteNegocio clientes)
+        static void CliTraerPorTelefono (string nroTelefono, ClienteNegocio clientes)
         {
             List<Cliente> lst = clientes.TraerPorTelefono(nroTelefono); //agregar método para obtener todos los clientes con un número de teléfono (y validaciones del nro ingresado)
             foreach (Cliente item in lst)
@@ -202,31 +226,31 @@ namespace NLayer.Consola
 
         static void CrearCliente(ClienteNegocio cliente)
         {
-            Console.WriteLine("Ingresar el DNI del cliente:");
+            Console.WriteLine("Ingresar el DNI del nuevo cliente:");
             string dniCliente = Console.ReadLine();
             //método para validar que no exista un cliente cargado con el mismo DNI, que tenga la cantidad de caracteres correspondientes y que se ingresen solo números.
             //sugerencia: en el caso que exista un cliente cargado con el mismo DNI, mostrar nombre y apellido de la persona.
 
-            Console.WriteLine("Ingresar el nombre del cliente:");
+            Console.WriteLine("Ingresar el nombre del nuevo cliente:");
             string nombreCliente = Console.ReadLine();
             //método para validar que no se inserte cualquier cosa
 
-            Console.WriteLine("Ingresar el apellido del cliente:");
+            Console.WriteLine("Ingresar el apellido del nuevo cliente:");
             string apellidoCliente = Console.ReadLine();
             //método para validar que no se inserte cualquier cosa
 
-            Console.WriteLine("Ingresar la fecha de nacimiento del cliente:");
+            Console.WriteLine("Ingresar la fecha de nacimiento del nuevo cliente:");
             string fechaNacCliente = Console.ReadLine();
             //método para validar que el cliente sea mayor a determinada edad o que la fecha no sea mayor al día de hoy
 
-            Console.WriteLine("Ingresar el teléfono del cliente:");
+            Console.WriteLine("Ingresar el teléfono del nuevo cliente:");
             string telefonoCliente = Console.ReadLine();
             //método para validar que no se inserte cualquier cosa
 
-            Console.WriteLine("Ingresar el domicilio del cliente:");
+            Console.WriteLine("Ingresar el domicilio del nuevo cliente:");
             string domicilioCliente = Console.ReadLine();
 
-            Console.WriteLine("Ingresar el mail del cliente:");
+            Console.WriteLine("Ingresar el mail del nuevo cliente:");
             string mailCliente = Console.ReadLine();
 
             //pasar por parámetro al método de la capa de negocio los valores para crear el cliente 
@@ -240,10 +264,13 @@ namespace NLayer.Consola
 
 
 
-        static void ListarPrestamos(PrestamoNegocio prestamos)
+        static void ListarPrestamos(string idPelicula,PrestamoNegocio prestamos)
         {
-            List<Prestamo> lst = prestamos.TraerLista(); //agregar método para obtener todos los préstamos (y validaciones en el caso que no haya ninguno)
-            foreach (Prestamo item in lst)
+            //validar que el idPelicula sea un int
+            int id = int.Parse(idPelicula);
+
+            List<Prestamo> p = prestamos.TraerPorIdPelicula(id); //agregar validaciones en el caso que no haya ningún préstamo
+            foreach (Prestamo item in p)
             {
                 Console.WriteLine(item);
             }
@@ -258,6 +285,9 @@ namespace NLayer.Consola
             // 1. Que el cliente exista
             // 2. Que el cliente no supere determinada cantidad de préstamos
             // 3. Que se haya ingresado un número
+
+            // convertir dniPrestamo a int para pasar al método de la capa de negocio
+
 
             //obtener id según el dni
             int idClientePrestamo = 1;
@@ -276,9 +306,111 @@ namespace NLayer.Consola
             Console.WriteLine("¡El préstamo se ha cargado correctamente! Detalles:");
             Console.WriteLine(prestamo);
 
+        }
 
-            
 
+        static void ListarPelicula(string idPelicula, PeliculaNegocio pelicula)
+        {
+            //validar que el idPelicula sea un int
+            int id = int.Parse(idPelicula);
+
+            Pelicula p = pelicula.TraerPorId(id); 
+            Console.WriteLine(p);
+        }
+
+
+        static void CargarPelicula(PeliculaNegocio pelicula)
+        {
+            Console.WriteLine("Ingrese el título de la película a cargar:");
+            string tituloPeli = Console.ReadLine();
+            //validar título similar? es bastante complicado porque es string. Se puede validar longitud
+
+            Console.WriteLine("Ingrese el director de la película a cargar:");
+            string directorPeli = Console.ReadLine();
+            // idem titulo. Se puede validar longitud
+
+            Console.WriteLine("Ingrese la productora de la película a cargar:");
+            string productoraPeli = Console.ReadLine();
+            //idem titulo. Se puede validar longitud
+
+            Console.WriteLine("Ingrese el año de estreno de la película a cargar:");
+            string anioPeli = Console.ReadLine();
+            //validar que sea un int, menor o igual a este año y mayor o igual a 1895 (año de la primera película de la historia)
+
+            Console.WriteLine("Ingrese la duración (en minutos) de la película a cargar:");
+            string duracionPeli = Console.ReadLine();
+            //validar que sea un int mayor a 0 
+
+            string generoPeli;
+            int intGeneroPeli = 0;
+
+            do
+            {
+                Console.WriteLine("Por favor, seleccione el número del género que corresponda de la película a cargar:");
+                MenuHelper.ListarGeneros();
+
+                generoPeli = Console.ReadLine();
+                
+
+                if (int.TryParse(generoPeli,out intGeneroPeli) || (int.Parse(generoPeli)>=10 || int.Parse(generoPeli)<0))
+                {
+                    Console.WriteLine("La opcion seleccionada es incorrecta.");
+                }
+
+            } while (int.TryParse(generoPeli,out intGeneroPeli));
+
+            pelicula.AltaPelicula(int.Parse(""), int.Parse(anioPeli), int.Parse(duracionPeli), tituloPeli, directorPeli, productoraPeli, (GeneroEnum)int.Parse(generoPeli));
+
+            Console.WriteLine("¡La película se ha cargado correctamente! Detalles:");
+            Console.WriteLine(pelicula);
+
+        }
+
+        static void ListarCopia(string idPelicula, CopiaNegocio copia)
+        {
+            //validar que el idPelicula sea un int
+            int id = int.Parse(idPelicula);
+
+            Copia c = copia.TraerPorId(id);
+            Console.WriteLine(c);
+        }
+
+
+        static void CargarCopia(CopiaNegocio copia)
+        {
+            Console.WriteLine("Ingrese el número identificador de la película de la nueva copia:");
+            string idPeliCopia = Console.ReadLine();
+            //validar que exista el id de pelicula antes de continuar, y que sea un int.
+
+            Console.WriteLine("Ingrese el precio de la nueva copia:");
+            string precioCopia = Console.ReadLine();
+            //validar que sea mayor a cero y que se pueda convertir a double.
+
+            Console.WriteLine("Ingrese las observaciones de la nueva copia. En el caso de no contar con observaciones, detallar: 'N/A'");
+            string observacionesCopia = Console.ReadLine();
+            //validar que el largo del string sea mayor o igual a 3, partiendo de la base que se debe detallar N/A en el caso de que no haya observaciones aplicables.
+
+            copia.AltaCopia(int.Parse(""), observacionesCopia, double.Parse(precioCopia), DateTime.Now);
+            Console.WriteLine("¡La copia se ha cargado correctamente! Detalles:");
+            Console.WriteLine(copia);
+
+
+        }
+
+        static void PrestamosPorCliente(string dniCliente, PrestamoNegocio prestamo, ClienteNegocio cliente)
+        {
+            // validar que el nro de cliente sea un int y convertir dniCliente a int 
+            int dni = FuncionesHelper.ValidarDNI(dniCliente, cliente); 
+            // llamar al método para generar el reporte
+            prestamo.TraerPrestamoPorDNI(dni);
+
+        }
+
+        static void CopiasPorPelicula(string idPelicula, CopiaNegocio copia)
+        {
+            // validar que el nro de cliente sea un int
+            // convertir dniCliente a int 
+            // llamar al método para generar el reporte
         }
 
     }

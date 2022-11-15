@@ -4,19 +4,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using NLayer.Negocio;
 
 namespace NLayer.Consola.Utilidades
 {
-    public class FuncionesHelper
+    internal class FuncionesHelper
     {
 
-        public static void NoDisponible()
+        internal static void NoDisponible()
         {
             Console.WriteLine("Próximamente estará disponible esta funcionalidad. ¡Te invitamos a volver al menú anterior para explorar las otras opciones!");
             Thread.Sleep(5000);
         }
 
 
+        internal static int ValidarDNI(string dni, ClienteNegocio cliente)
+        {
+            if(ValidacionesHelper.ValidarVacio(dni) == false)
+            {
+                int dniInt = ValidacionesHelper.ValidarInt(dni);
+                bool resultado = cliente.ValidarDNI(dniInt);
+                if(resultado == false)
+                {
+                    return dniInt;
+                }
+                else
+                {
+                    throw new Exception("Ya existe un cliente cargado con el DNI ingresado.");
+                }
+            }
+            else
+            {
+                throw new Exception("Ha ocurrido un error general.");
+            }
+        }
 
 
 
