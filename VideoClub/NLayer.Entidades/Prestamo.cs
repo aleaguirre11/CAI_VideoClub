@@ -20,9 +20,8 @@ namespace NLayer.Entidades
             //_plazo = plazo; --> se comenta la variable del constructor ya que se setea en la propiedad que siempre sea igual a 10.
         }
 
-        public Copia copia;
-        public Pelicula pelicula;
-        public Cliente cliente;
+        public Copia _copia;
+        public Cliente _cliente;
 
         private int _idcliente;
         private int _idcopia;
@@ -132,9 +131,34 @@ namespace NLayer.Entidades
             }
         }
 
+        public Cliente cliente
+        {
+            get
+            {
+                return _cliente;
+            }
+            set
+            {
+                _cliente = value;
+            }
+        }
+
+        public Copia copia
+        {
+            get
+            {
+                return _copia;
+            }
+            set
+            {
+                _copia = value;
+            }
+        }
+            
+
         public override string ToString()
         {
-            return $"id: {Idprestamo} - Pelicula: {pelicula.Titulo} - Cliente: {cliente.Idcliente} - {cliente.Nombre} - {cliente.Apellido} - Plazo: {Plazo}";
+            return $"id: {Idprestamo} - Cliente: {_cliente.Idcliente} - {_cliente.Nombre} - {_cliente.Apellido} - Plazo: {Plazo}";
         }
 
 

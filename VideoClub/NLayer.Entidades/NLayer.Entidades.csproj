@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Cliente.cs" />
     <Compile Include="Copia.cs" />
+    <Compile Include="Enums\GeneroEnum.cs" />
     <Compile Include="Pelicula.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Prestamo.cs" />
