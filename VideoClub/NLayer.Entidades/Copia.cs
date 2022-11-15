@@ -26,6 +26,8 @@ namespace NLayer.Entidades
         private double _precio;
         private DateTime _fechaalta;
         private int _idpelicula;
+        private Pelicula _pelicula;
+
 
         [DataMember(Name = "id")]
         public int Idcopia
@@ -89,6 +91,18 @@ namespace NLayer.Entidades
             set
             {
                 _idpelicula = value;
+            }
+        }
+
+        public Pelicula Pelicula
+        {
+            get
+            {
+                return _pelicula;
+            }
+            set
+            {
+                _pelicula = value;
             }
         }
     }

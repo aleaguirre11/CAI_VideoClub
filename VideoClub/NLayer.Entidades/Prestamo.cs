@@ -20,8 +20,8 @@ namespace NLayer.Entidades
             //_plazo = plazo; --> se comenta la variable del constructor ya que se setea en la propiedad que siempre sea igual a 10.
         }
 
-        public Copia _copia;
-        public Cliente _cliente;
+        private Copia _copia;
+        private Cliente _cliente;
 
         private int _idcliente;
         private int _idcopia;
