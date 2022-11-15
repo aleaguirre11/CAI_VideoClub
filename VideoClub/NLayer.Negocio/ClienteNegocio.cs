@@ -34,7 +34,7 @@ namespace NLayer.Negocio
             _listaClientes = _clienteMapper.TraerTodos();
 
             if (_listaClientes == null)
-                throw new Exception("No hay clientes.");
+                throw new Exception("No se han registrado clientes aun.");
 
             return _listaClientes;
         }
