@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using NLayer.Consola.Excepciones;
-
+using NLayer.Entidades.Enums;
 
 namespace NLayer.Consola
 {
@@ -98,7 +98,7 @@ namespace NLayer.Consola
                                     ListarPrestamos(idPeliculaPrestamo,prestamo);
                                     break;
                                 case "B":
-                                    CargarPrestamo(prestamo);
+                                    CargarPrestamo(prestamo, cliente);
                                     break;
                                 case "X":
                                     Console.WriteLine("Volviendo al menú anterior...");
@@ -372,7 +372,7 @@ namespace NLayer.Consola
 
             } while (int.TryParse(generoPeli,out intGeneroPeli));
 
-            pelicula.AltaPelicula(int.Parse(""), int.Parse(anioPeli), int.Parse(duracionPeli), tituloPeli, directorPeli, productoraPeli, (GeneroEnum)int.Parse(generoPeli));
+            pelicula.AltaPelicula(int.Parse(anioPeli), int.Parse(duracionPeli), tituloPeli, directorPeli, productoraPeli, (GeneroEnum)generoPeli);
 
             Console.WriteLine("¡La película se ha cargado correctamente! Detalles:");
             Console.WriteLine(pelicula);
@@ -403,7 +403,7 @@ namespace NLayer.Consola
             string observacionesCopia = Console.ReadLine();
             //validar que el largo del string sea mayor o igual a 3, partiendo de la base que se debe detallar N/A en el caso de que no haya observaciones aplicables.
 
-            copia.AltaCopia(int.Parse(""), observacionesCopia, double.Parse(precioCopia), DateTime.Now);
+            copia.AltaCopia(observacionesCopia, double.Parse(precioCopia), DateTime.Now,int.Parse(idPeliCopia));
             Console.WriteLine("¡La copia se ha cargado correctamente! Detalles:");
             Console.WriteLine(copia);
 
@@ -413,7 +413,7 @@ namespace NLayer.Consola
         static void PrestamosPorCliente(string dniCliente, PrestamoNegocio prestamo, ClienteNegocio cliente)
         {
             // validar que el nro de cliente sea un int y convertir dniCliente a int 
-            int dni = FuncionesHelper.ValidarDNI(dniCliente, cliente); 
+            int dni = FuncionesHelper.ValidarBusquedaDNI(dniCliente, cliente); 
             // llamar al método para generar el reporte
             prestamo.TraerPrestamoPorDNI(dni);
 
