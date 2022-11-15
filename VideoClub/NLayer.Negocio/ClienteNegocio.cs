@@ -1,5 +1,6 @@
 ﻿using NLayer.Entidades;
 using NLayer.Datos;
+using NLayer.Negocio.ExcepcionesNegocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -114,6 +115,8 @@ namespace NLayer.Negocio
             bool flag = ValidarDNI(cliente.Dni);
             //Validar que no se pueda dar de alta a un cliente si ya se registro ese mail
             bool flag1 = ValidarMail(cliente.Mail);
+            //Validar que no se pueda dar de alta a un cliente si es menos de 16 anios
+            bool flag2 = ValidarEdad(cliente.FechaNacimiento);
 
             if (flag == true)
             {
@@ -122,6 +125,13 @@ namespace NLayer.Negocio
             else if (flag1 == true)
             {
                 throw new Exception("Ya existe un cliente con el mail ingresado.");
+            }
+            else if (flag2 == false)
+            {
+                Exception ex = new ExcepcionesNegocio.MenorDeEdadEx();
+                Console.WriteLine("Error. Detalle: " + ex.Message);
+
+                //Console.WriteLine("Error detectado. La edad del cliente ingresado es menor a 16.");
             }
 
             TransactionResult transaction = _clienteMapper.Insertar(cliente);
@@ -154,6 +164,40 @@ namespace NLayer.Negocio
             }
 
             return false;
+        }
+
+        public bool ValidarEdad(DateTime fechaNac)
+        {
+            DateTime fechaHoy = DateTime.Today;
+
+            // Comprueba que la se haya introducido una fecha válida
+            if (fechaNac > fechaHoy)
+            {
+                //Console.WriteLine("La fecha de nacimiento es inválida.");
+                //return false;
+                throw new Exception("La fecha de nacimiento es inválida.");
+                
+            }
+            else
+            {
+                int edad = fechaHoy.Year - fechaNac.Year;
+
+                // Si el mes de la fecha de nacimiento no pasó todavía, resta un anio:
+                if (fechaNac.Month > fechaHoy.Month)
+                {
+                    edad--;
+                }
+                if (edad > 100) //valida que la edad no supere los 100 anios (REGLA DE NEGOCIO)
+                {
+                    //Console.WriteLine("La fecha de nacimiento es inválida.");
+                    //return false;
+                    throw new Exception("La fecha de nacimiento es inválida.");
+                }
+
+                if (edad >= 16 && edad < 100) //valida que la edad sea o supere los 16 anios (REGLA DE NEGOCIO)
+                    return true;
+                else return false;
+            }
         }
 
         //pedirle al mapper que actualice el cliente (update)
