@@ -64,6 +64,22 @@ namespace NLayer.Negocio
             return lst1;
         }
 
+        //Una pelicula tiene un unico id pero puede tener mas de una copia
+        public int TraerTotalCopias(int idpelicula)
+        {
+            //validar id no nulo
+            int contador = 0;
+
+            foreach (var item in TraerLista())
+            {
+                if (idpelicula == item.Idpelicula)
+                    contador++;
+
+            }
+
+            return contador;
+        }
+
         //traer copia por nro de id
         //public Copia TraerPorId(int idcopia)
         //{
