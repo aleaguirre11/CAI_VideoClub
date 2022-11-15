@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NLayer.Negocio.ValidacionesNegocio;
 using System.ComponentModel;
 
 namespace NLayer.Negocio
@@ -25,7 +24,7 @@ namespace NLayer.Negocio
 
         public void AltaPrestamo(/*int idprestamo, DateTime fechadevolucionreal, DateTime fechadevoluciontentativa, DateTime fechaprestamo,*/ bool abierto,/* int plazo,*/ int idcopia, int idcliente)
         {
-            // validar prestamo no nulo
+            // validar préstamo no nulo
 
             Prestamo prestamo = new Prestamo();
             //prestamo.Idprestamo = idprestamo;
@@ -37,11 +36,81 @@ namespace NLayer.Negocio
             prestamo.Idcopia = idcopia;
             prestamo.Idcliente = idcliente;
 
+            //Validar que el cliente existe
+            bool flag = ValidarCliente(prestamo.Idcliente);
+            //Validar que la copia existe
+            bool flag1 = ValidarCopia(prestamo.Idcopia);
 
+            if (flag == false)
+            {
+                throw new Exception("No existe un cliente ingresado.");
+            }
+            else if (flag1 == false)
+            {
+                throw new Exception("No existe la copia ingresada.");
+            }
+
+            //Validar que no se pueda dar de alta un préstamos si el cliente tiene más de 3 préstamos abiertos
+            int result = ValidarPrestamosCliente(prestamo.Idcliente);
+            if (result >= 3)
+            {
+                throw new Exception("El cliente ingresado hoy tiene 3 préstamos abiertos.");
+            }
+            
             TransactionResult transaction = _prestamoMapper.Insertar(prestamo);
 
             if (!transaction.IsOk)
                 throw new Exception(transaction.Error);
+        }
+
+        public bool ValidarCliente(int idcli)
+        {
+            ClienteNegocio cliN = new ClienteNegocio();
+
+            if (!(cliN.TraerLista().Count() > 0))
+                throw new Exception("No se han registrado clientes aun.");
+
+
+            foreach (var item in cliN.TraerLista())
+            {
+                if (idcli.ToString() == item.Idcliente)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public bool ValidarCopia(int idcopy)
+        {
+            CopiaNegocio copyN = new CopiaNegocio();
+
+            if (!(copyN.TraerLista().Count() > 0))
+                throw new Exception("No se han registrado copias aun.");
+
+
+            foreach (var item in copyN.TraerLista())
+            {
+                if (idcopy == item.Idcopia)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public int ValidarPrestamosCliente(int idclient)
+        {
+            int contador = 0;
+
+            if (!(_listaPrestamos.Count() > 0))
+                throw new Exception("No se han registrado préstamos aun.");
+
+            foreach (var item in TraerLista().TakeWhile(item => item.Abierto == true))
+            {
+                if (idclient == item.Idcliente)
+                    contador += 1;
+            }
+
+            return contador;
         }
 
         public List<Prestamo> TraerLista()
@@ -51,7 +120,7 @@ namespace NLayer.Negocio
         }
 
 
-        //Consultar prestamos segun id del cliente
+        //Consultar préstamos segun id del cliente
         public List<Prestamo> TraerPrestamoPorCliente(int idcliente)
         {
             
@@ -62,12 +131,12 @@ namespace NLayer.Negocio
                 lst.AddRange(_listaPrestamos.Where(item => item.Idcliente == idcliente));
             }
             else
-                throw new Exception("No se han registrado prestamos aun.");
+                throw new Exception("No se han registrado préstamos aun.");
 
             return lst;
         }
 
-        //Consultar prestamos segun dni del cliente
+        //Consultar préstamos segun dni del cliente
         public List<Prestamo> TraerPrestamoPorDNI(int dni)
         {
             
@@ -102,7 +171,7 @@ namespace NLayer.Negocio
             
         }
 
-        //trar prestamos por id de copia
+        //trar préstamos por id de copia
         public List<Prestamo> TraerPorIdCopia(int idcopia)
         {
 
@@ -120,7 +189,7 @@ namespace NLayer.Negocio
         }
 
 
-        //Consultar prestamos por id pelicula
+        //Consultar préstamos por id pelicula
         public List<Prestamo> TraerPorIdPelicula(int idpelicula)
         {
 
@@ -157,7 +226,7 @@ namespace NLayer.Negocio
             return prestamos;
         }
 
-        //Consultar prestamos por id pelicula
+        //Consultar préstamos por id pelicula
         public string TraerPorIdPelicula2(int idpelicula)
         {
 
