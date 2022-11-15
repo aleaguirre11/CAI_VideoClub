@@ -194,7 +194,7 @@ namespace NLayer.Negocio
                     throw new Exception("La fecha de nacimiento es inválida.");
                 }
 
-                if (edad >= 16 && edad < 100) //valida que la edad sea o supere los 16 anios (REGLA DE NEGOCIO)
+                if (edad >= 16 && edad <= 100) //valida que la edad sea o supere los 16 anios (REGLA DE NEGOCIO)
                     return true;
                 else return false;
             }
