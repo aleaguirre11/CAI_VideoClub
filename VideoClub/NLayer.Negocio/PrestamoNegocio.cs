@@ -5,67 +5,92 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
+using NLayer.Negocio.ValidacionesNegocio;
+using System.ComponentModel;
 
 namespace NLayer.Negocio
 {
     public class PrestamoNegocio
     {
         private PrestamoMapper _prestamoMapper;
+        private List<Prestamo> _listaPrestamos;
+        private List<Copia> _listacopias;
         public PrestamoNegocio()
         {
             _prestamoMapper = new PrestamoMapper();
+            _listaPrestamos = new List<Prestamo>();
+            _listacopias = new List<Copia>();
 
         }
 
-        public void AltaPrestamo(int idprestamo, DateTime fechadevolucionreal, DateTime fechadevoluciontentativa, DateTime fechaprestamo, bool abierto, int plazo, int idcopia, int idcliente)
+        public void AltaPrestamo(/*int idprestamo, DateTime fechadevolucionreal, DateTime fechadevoluciontentativa, DateTime fechaprestamo,*/ bool abierto,/* int plazo,*/ int idcopia, int idcliente)
         {
             // validar prestamo no nulo
 
             Prestamo prestamo = new Prestamo();
-            prestamo.Idprestamo = idprestamo;
-            prestamo.Fechadevolucionreal = fechadevolucionreal;
-            prestamo.Fechadevoluciontentativa = fechadevoluciontentativa;
-            prestamo.Fechaprestamo = fechaprestamo;
+            //prestamo.Idprestamo = idprestamo;
+            //prestamo.Fechadevolucionreal = fechadevolucionreal;
+            //prestamo.Fechadevoluciontentativa = fechadevoluciontentativa; //(DateTime.Now).AddDays(10)
+            //prestamo.Fechaprestamo = fechaprestamo;
             prestamo.Abierto = true;
-            prestamo.Plazo = plazo;
+            //prestamo.Plazo = plazo;
             prestamo.Idcopia = idcopia;
             prestamo.Idcliente = idcliente;
 
 
             TransactionResult transaction = _prestamoMapper.Insertar(prestamo);
 
-            //if (!transaction.IsOk)
-            //    throw new Exception(transaction.Error);
+            if (!transaction.IsOk)
+                throw new Exception(transaction.Error);
         }
 
         public List<Prestamo> TraerLista()
         {
-            List<Prestamo> lst = _prestamoMapper.TraerTodos();
+            return _prestamoMapper.TraerTodos();
+
+        }
+
+
+        //Consultar prestamos segun id del cliente
+        public List<Prestamo> TraerPrestamoPorCliente(int idcliente)
+        {
+            
+            List<Prestamo> lst = new List<Prestamo>();
+
+            if (_listaPrestamos.Count() > 0)
+            {
+                lst.AddRange(_listaPrestamos.Where(item => item.Idcliente == idcliente));
+            }
+            else
+                throw new Exception("No se han registrado prestamos aun.");
 
             return lst;
         }
 
-        public List<Prestamo> TraerPrestamoPorCliente(Prestamo idcliente)
+        //Consultar prestamos segun dni del cliente
+        public List<Prestamo> TraerPrestamoPorDNI(int dni)
         {
-            //validar id no nulo
-            List<Prestamo> lst1 = _prestamoMapper.TraerPorId(idcliente);
+            
+            List<Prestamo> lst = new List<Prestamo>();
+            ClienteNegocio cn = new ClienteNegocio();
 
-            return lst1;
+            if (_listaPrestamos.Count() > 0)
+            {
+                string id = cn.TraerIdPorDNI(dni);
+                int id2 = Convert.ToInt32(id);
+                lst.AddRange(_listaPrestamos.Where(item => item.Idcliente == id2));
+            }
+            else
+                throw new Exception("No se han registrado prestamos aun.");
+
+            return lst;
         }
-
-        //public Prestamo TraerPrestamoPorCliente(Cliente idcliente)
-        //{
-        //    // validar cliente no nulo
-        //    List<Prestamo> lst = _prestamoMapper.TraerPorId(cliente.idcliente);
-
-        //    return lst;
-        //}
-
 
         public Prestamo TraerPorId(int idprestamo)
         {
+            if (!(_listaPrestamos.Count() > 0))
+                throw new Exception("No se han registrado prestamos aun.");
+
             foreach (var item in TraerLista())
             {
                 if (idprestamo == item.Idprestamo)
@@ -73,27 +98,132 @@ namespace NLayer.Negocio
             }
 
             return null;
-        }
 
-        //cancelar el prestamo por su id (unico prestamo)
-        public void CancelarPrestamoPorIdPrestamo(Prestamo prestamo)
-        {
-            foreach (Prestamo p in TraerLista())
-            {
-                if (prestamo.Idprestamo == p.Idprestamo)
-                    ActualizarPrestamo(p);
-                TransactionResult transaction = _prestamoMapper.Cancelar(p);
-            }
-
-        }
-
-        public void ActualizarPrestamo(Prestamo prestamo)
-        { 
-            // validar prestamo no nulo y no cancelado
-
-            prestamo.Abierto = false;
             
         }
+
+        //trar prestamos por id de copia
+        public List<Prestamo> TraerPorIdCopia(int idcopia)
+        {
+
+            List<Prestamo> lst = new List<Prestamo>();
+
+
+            if (_listaPrestamos.Count() > 0)
+            {
+                lst.AddRange(_listaPrestamos.Where(item => item.Idcopia == idcopia));
+            }
+            else
+                throw new Exception("No se han otorgado prestamos de la copia {0} aun." + idcopia);
+
+            return lst;
+        }
+
+
+        //Consultar prestamos por id pelicula
+        public List<Prestamo> TraerPorIdPelicula(int idpelicula)
+        {
+
+            List<Prestamo> prestamos = new List<Prestamo>();
+            List<Copia> copias = new List<Copia>();
+
+
+
+            if (_listaPrestamos.Count() > 0)
+            {
+
+
+                if (_listacopias.Count() > 0)
+                {
+                    copias.AddRange(_listacopias.Where(c => c.Idpelicula == idpelicula));
+
+                    foreach (var c in copias) 
+                    {
+                        foreach (var p in TraerLista().TakeWhile(p => p.Idcopia == c.Idcopia))
+                        {
+                            prestamos.Add(p);
+                        }
+
+                    }
+
+                }
+                else
+                    throw new Exception("No se han otorgado préstamos de la copia aun.");
+
+            }
+            else
+                throw new Exception("No se han otorgado prestamos de la película {0} aun." + idpelicula);
+
+            return prestamos;
+        }
+
+        //Consultar prestamos por id pelicula
+        public string TraerPorIdPelicula2(int idpelicula)
+        {
+
+
+            List<Copia> copias = new List<Copia>();
+            string acumulador = "Los prestamos asociados a la película ingresada son: " + System.Environment.NewLine;
+
+            if (_listaPrestamos.Count() > 0)
+            {
+
+                if (_listacopias.Count() > 0)
+                {
+                    copias.AddRange(_listacopias.Where(c => c.Idpelicula == idpelicula));
+
+                    foreach (var p in TraerLista())
+                    {
+
+                        foreach (var c in copias.TakeWhile(c => c.Idcopia == p.Idcopia))
+                        {
+                            acumulador += c.ToString() + System.Environment.NewLine;
+
+                        }
+
+                    }
+
+                }
+                else
+                    throw new Exception("No se han otorgado préstamos de la copia aun.");
+
+            }
+            else
+                throw new Exception("No se han otorgado prestamos de la película {0} aun." + idpelicula);
+
+            return acumulador;
+        }
+
+        //cancelar el prestamo por su id(unico prestamo)
+        //public void CancelarPrestamoPorIdPrestamo(Prestamo prestamo)
+        //{
+        //    foreach (Prestamo p in TraerLista())
+        //    {
+        //        if (prestamo.Idprestamo == p.Idprestamo)
+        //            ActualizarPrestamo(p);
+        //        TransactionResult transaction = _prestamoMapper.Cancelar(p); //actualizar prestamo
+
+        //        if (!transaction.IsOk)
+        //            throw new Exception(transaction.Error);
+        //    }
+
+        //}
+
+        //public void ActualizarPrestamo(Object obj)
+        //{
+        //    // validar prestamo no nulo y no cancelado
+        //    if (obj == null) throw new Exception("El prestamo es invalido.");
+        //    if (!(obj is Prestamo)) throw new Exception("No se ingresó un prestamo.");
+
+        //    Prestamo pObj = (Prestamo)obj;
+
+        //    if (pObj.Abierto != true)
+        //        throw new Exception("El prestamo ya se cerró.");
+
+        //    pObj.Fechadevolucionreal = DateTime.Now;
+        //    pObj.Abierto = false;
+
+        //}
     }
 
 }

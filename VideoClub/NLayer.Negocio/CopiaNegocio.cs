@@ -11,20 +11,24 @@ namespace NLayer.Negocio
     public class CopiaNegocio
     {
         private CopiaMapper _copiaMapper;
+        private List<Copia> _listaCopias;
         public CopiaNegocio()
         {
 
             _copiaMapper = new CopiaMapper();
+            _listaCopias = new List<Copia>();
+
         }
 
         //Dar de alta a las copias pidiendole al mapper que los inserte (post)
-        public void AltaCopia(int idcopia, string observaciones, double precio, DateTime fechaalta)
+        public void AltaCopia(int idcopia,string observaciones, double precio, DateTime fechaalta, int idpelicula)
         {
             Copia copia = new Copia();
             copia.Idcopia = idcopia;
             copia.Observaciones = observaciones;
             copia.Precio = precio;
             copia.Fechaalta = fechaalta;
+            copia.Idpelicula = idpelicula;
            
             
 
@@ -32,8 +36,8 @@ namespace NLayer.Negocio
 
             TransactionResult transaction = _copiaMapper.Insertar(copia);
 
-            //if (!transaction.IsOk)
-            //    throw new Exception(transaction.Error);
+            if (!transaction.IsOk)
+                throw new Exception(transaction.Error);
         }
 
         //pedirle al mapper la lista de copias
@@ -44,8 +48,40 @@ namespace NLayer.Negocio
             return lst;
         }
 
+        //traer copia por id de pelicula
+        public List<Copia> TraerPorIdPelicula(int idpelicula)
+        {
+
+            List<Copia> lst1 = new List<Copia>();
+
+            if (_listaCopias.Count() > 0)
+            {
+                lst1.AddRange(_listaCopias.Where(item => item.Idpelicula == idpelicula));
+            }
+            else
+                throw new Exception("No se han registrado copias de la pelicula aun.");
+
+            return lst1;
+        }
+
+        //Una pelicula tiene un unico id pero puede tener mas de una copia
+        public int TraerTotalCopias(int idpelicula)
+        {
+            //validar id no nulo
+            int contador = 0;
+
+            foreach (var item in TraerLista())
+            {
+                if (idpelicula == item.Idpelicula)
+                    contador++;
+
+            }
+
+            return contador;
+        }
+
         //traer copia por nro de id
-        //public Pelicula TraerPorId(int idcopia)
+        //public Copia TraerPorId(int idcopia)
         //{
         //    foreach (var item in TraerLista())
         //    {
@@ -57,25 +93,25 @@ namespace NLayer.Negocio
         //}
 
         //pedirle al mapper que actualice la copia (update)
-        private void ActualizarCopia(Copia copia)
-        {
+        //private void ActualizarCopia(Copia copia)
+        //{
 
 
-            TransactionResult transaction = _copiaMapper.Actualizar(copia);
+        //    TransactionResult transaction = _copiaMapper.Actualizar(copia);
 
-            //if (!transaction.IsOk)
-            //    throw new Exception(transaction.Error);
-        }
+        //    if (!transaction.IsOk)
+        //       throw new Exception(transaction.Error);
+        //}
 
         //pedirle al mapper que elimine una copia (delete)
-        private void EliminarCopia(Copia copia)
-        {
+        //private void EliminarCopia(Copia copia)
+        //{
 
 
-            TransactionResult transaction = _copiaMapper.Eliminar(copia);
+        //    TransactionResult transaction = _copiaMapper.Eliminar(copia);
 
-            //if (!transaction.IsOk)
-            //    throw new Exception(transaction.Error);
-        }
+        //    if (!transaction.IsOk)
+        //       throw new Exception(transaction.Error);
+        //}
     }
 }
