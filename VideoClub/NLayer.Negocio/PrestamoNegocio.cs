@@ -294,7 +294,29 @@ namespace NLayer.Negocio
 
         //}
 
-        
+        //Poder emitir un reporte de préstamos por cliente.
+        private static void ReportePrestamoCliente(Cliente cliente)
+        {
+            if (cliente == null)
+            {
+                throw new Exception("Error de ingreso.");
+            }
+
+            PrestamoNegocio prest = new PrestamoNegocio();
+            List<Prestamo> prestamos = prest.TraerLista();
+
+            List<Prestamo> PrCliente = new List<Prestamo>();
+
+            foreach (Prestamo p in prestamos.TakeWhile(p => p.Idcliente == Convert.ToInt32(cliente.Idcliente)))
+            {
+                PrCliente = prest.TraerPrestamoPorCliente(Convert.ToInt16(cliente.Idcliente));
+            }
+
+            Console.WriteLine($"Los prestamos del cliente son: " + System.Environment.NewLine + PrCliente);
+
+
+        }
+
     }
 
 }

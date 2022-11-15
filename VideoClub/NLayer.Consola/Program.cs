@@ -417,6 +417,8 @@ namespace NLayer.Consola
             // llamar al método para generar el reporte
             prestamo.TraerPrestamoPorDNI(dni);
 
+            //ReportePrestamoCliente(cliente);
+
         }
 
         static void CopiasPorPelicula(string idPelicula, CopiaNegocio copia)
@@ -424,6 +426,8 @@ namespace NLayer.Consola
             // validar que el nro de cliente sea un int
             // convertir dniCliente a int 
             // llamar al método para generar el reporte
+
+            //ReporteCopiaPelicula(pelicula);
         }
 
         
