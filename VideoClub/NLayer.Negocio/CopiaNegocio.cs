@@ -143,16 +143,16 @@ namespace NLayer.Negocio
         }
 
         //traer copia por nro de id
-        //public Copia TraerPorId(int idcopia)
-        //{
-        //    foreach (var item in TraerLista())
-        //    {
-        //        if (idcopia == item.id)
-        //            return item;
-        //    }
+        public Copia TraerPorId(int idcopia)
+        {
+            foreach (var item in TraerLista())
+            {
+                if (idcopia == item.Idcopia)
+                    return item;
+            }
 
-        //    return null;
-        //}
+            return null;
+        }
 
         //pedirle al mapper que actualice la copia (update)
         //private void ActualizarCopia(Copia copia)
@@ -175,5 +175,33 @@ namespace NLayer.Negocio
         //    if (!transaction.IsOk)
         //       throw new Exception(transaction.Error);
         //}
+
+
+
+        //Poder emitir un reporte de copias por película.
+        private static void ReporteCopiaPelicula(Pelicula pelicula)
+        {
+            if (pelicula == null)
+            {
+                throw new Exception("Error de ingreso.");
+            }
+
+            CopiaNegocio copyN = new CopiaNegocio();
+            List<Copia> copias = copyN.TraerLista();
+
+            List<Copia> CopyPeli = new List<Copia>();
+
+            foreach (Copia c in copias.TakeWhile(c => c.Idpelicula == pelicula.IdPelicula))
+            {
+                CopyPeli = copyN.TraerPorIdPelicula(pelicula.IdPelicula);
+            }
+
+            Console.WriteLine($"Las copias de la pelicula son: " + System.Environment.NewLine + CopyPeli);
+
+
+        }
+
+
+
     }
 }

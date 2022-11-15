@@ -51,7 +51,7 @@ namespace NLayer.Negocio
             }
 
             //Validar que no se pueda dar de alta un préstamos si el cliente tiene más de 3 préstamos abiertos
-            int result = ValidarPrestamosCliente(prestamo.Idcliente);
+            int result = ValidarPrestamosIdCliente(prestamo.Idcliente);
             if (result >= 3)
             {
                 throw new Exception("El cliente ingresado hoy tiene 3 préstamos abiertos.");
@@ -97,7 +97,7 @@ namespace NLayer.Negocio
             return false;
         }
 
-        public int ValidarPrestamosCliente(int idclient)
+        public int ValidarPrestamosIdCliente(int idclient)
         {
             int contador = 0;
 
@@ -293,6 +293,30 @@ namespace NLayer.Negocio
         //    pObj.Abierto = false;
 
         //}
+
+        //Poder emitir un reporte de préstamos por cliente.
+        private static void ReportePrestamoCliente(Cliente cliente)
+        {
+            if (cliente == null)
+            {
+                throw new Exception("Error de ingreso.");
+            }
+
+            PrestamoNegocio prest = new PrestamoNegocio();
+            List<Prestamo> prestamos = prest.TraerLista();
+
+            List<Prestamo> PrCliente = new List<Prestamo>();
+
+            foreach (Prestamo p in prestamos.TakeWhile(p => p.Idcliente == Convert.ToInt32(cliente.Idcliente)))
+            {
+                PrCliente = prest.TraerPrestamoPorCliente(Convert.ToInt16(cliente.Idcliente));
+            }
+
+            Console.WriteLine($"Los prestamos del cliente son: " + System.Environment.NewLine + PrCliente);
+
+
+        }
+
     }
 
 }
