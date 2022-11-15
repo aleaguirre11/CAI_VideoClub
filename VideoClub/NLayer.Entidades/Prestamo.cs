@@ -131,7 +131,7 @@ namespace NLayer.Entidades
             }
         }
 
-        public Cliente cliente
+        public Cliente Cliente
         {
             get
             {
@@ -143,7 +143,7 @@ namespace NLayer.Entidades
             }
         }
 
-        public Copia copia
+        public Copia Copia
         {
             get
             {

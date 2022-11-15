@@ -23,17 +23,17 @@ namespace NLayer.Negocio
 
         }
 
-        public void AltaPrestamo(/*int idprestamo,*/ DateTime fechadevolucionreal, DateTime fechadevoluciontentativa, DateTime fechaprestamo, bool abierto, int plazo, int idcopia, int idcliente)
+        public void AltaPrestamo(/*int idprestamo, DateTime fechadevolucionreal, DateTime fechadevoluciontentativa, DateTime fechaprestamo,*/ bool abierto,/* int plazo,*/ int idcopia, int idcliente)
         {
             // validar prestamo no nulo
 
             Prestamo prestamo = new Prestamo();
             //prestamo.Idprestamo = idprestamo;
-            prestamo.Fechadevolucionreal = fechadevolucionreal;
-            prestamo.Fechadevoluciontentativa = fechadevoluciontentativa; //(DateTime.Now).AddDays(10)
-            prestamo.Fechaprestamo = fechaprestamo;
+            //prestamo.Fechadevolucionreal = fechadevolucionreal;
+            //prestamo.Fechadevoluciontentativa = fechadevoluciontentativa; //(DateTime.Now).AddDays(10)
+            //prestamo.Fechaprestamo = fechaprestamo;
             prestamo.Abierto = true;
-            prestamo.Plazo = plazo;
+            //prestamo.Plazo = plazo;
             prestamo.Idcopia = idcopia;
             prestamo.Idcliente = idcliente;
 
@@ -50,19 +50,47 @@ namespace NLayer.Negocio
 
         }
 
-     
 
-        //public List<Prestamo> TraerPrestamoPorCliente(int idcliente)
-        //{
-        //    // validar cliente no nulo
-        //    List<Prestamo> lst = _prestamoMapper.TraerPorId(idcliente);
+        //Consultar prestamos segun id del cliente
+        public List<Prestamo> TraerPrestamoPorCliente(int idcliente)
+        {
+            
+            List<Prestamo> lst = new List<Prestamo>();
 
-        //    return lst;
-        //}
+            if (_listaPrestamos.Count() > 0)
+            {
+                lst.AddRange(_listaPrestamos.Where(item => item.Idcliente == idcliente));
+            }
+            else
+                throw new Exception("No se han registrado prestamos aun.");
 
+            return lst;
+        }
+
+        //Consultar prestamos segun dni del cliente
+        public List<Prestamo> TraerPrestamoPorDNI(int dni)
+        {
+            
+            List<Prestamo> lst = new List<Prestamo>();
+            ClienteNegocio cn = new ClienteNegocio();
+
+            if (_listaPrestamos.Count() > 0)
+            {
+                string id = cn.TraerIdPorDNI(dni);
+                int id2 = Convert.ToInt32(id);
+                lst.AddRange(_listaPrestamos.Where(item => item.Idcliente == id2));
+            }
+            else
+                throw new Exception("No se han registrado prestamos aun.");
+
+            return lst;
+        }
 
         public Prestamo TraerPorId(int idprestamo)
         {
+            if (!(_listaPrestamos.Count() > 0))
+                throw new Exception("No se han registrado prestamos aun.");
+
             foreach (var item in TraerLista())
             {
                 if (idprestamo == item.Idprestamo)
@@ -70,6 +98,8 @@ namespace NLayer.Negocio
             }
 
             return null;
+
+            
         }
 
         //trar prestamos por id de copia

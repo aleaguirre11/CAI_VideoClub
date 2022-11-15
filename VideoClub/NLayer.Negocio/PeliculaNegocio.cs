@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace NLayer.Negocio
 {
@@ -65,45 +66,49 @@ namespace NLayer.Negocio
             return null;
         }
 
-        //Pedirle al mappaer las peliculas que hizo un director 
-        //public List<Pelicula>  TraerPorDirector(Pelicula director)
-        //{
-        //    //validar director no nulo
-        //    List<Pelicula> lst1 = _peliculaMapper.TraerPorDirector(director);
-
-        //    return lst1;
-        //}
-
-        //public List<Pelicula>  TraerPorGenero(Pelicula genero)
-        //{
-        //    //validar genero no nulo
-        //    List<Pelicula> lst2 = _peliculaMapper.TraerPorGenero(genero);
-
-        //    return lst2;
-        //}
-
-        //public List<Pelicula>  TraerPorTitulo(Pelicula titulo)
-        //{
-        //    //validar titulo no nulo
-        //    List<Pelicula> lst3 = _peliculaMapper.TraerPorTitulo(titulo);
-
-        //    return lst3;
-        //}
-
-        //Una pelicula tiene un unico id pero puede tener mas de una copia
-        public int TraerTotalCopias(int idpelicula)
+        //Lista las peliculas que hizo un director 
+        public List<Pelicula> TraerPorDirector(string director)
         {
-            int contador = 0;
-
-            //validar id no nulo
-            foreach (var item in TraerLista())
+            List<Pelicula> lst = new List<Pelicula>();
+            //validar director no nulo
+            List<Pelicula> lst1 = _peliculaMapper.TraerTodos();
+            foreach (var item in lst1)
             {
-                if (idpelicula == item.IdPelicula)
-                    contador++;
-                
+                if (item.Director == director)
+                    lst.Add(item);
             }
 
-            return contador;
+            return lst;
+        }
+
+        //Lista las peliculas por genero 
+        public List<Pelicula> TraerPorGenero(string genero)
+        {
+            List<Pelicula> lst1 = new List<Pelicula>();
+            //validar genero no nulo
+            List<Pelicula> lst = _peliculaMapper.TraerTodos();
+            foreach (var item in lst)
+            {
+                if (item.Genero == genero)
+                    lst1.Add(item);
+            }
+
+            return lst1;
+        }
+
+        //Lista las peliculas por título
+        public List<Pelicula> TraerPorTitulo(string titulo)
+        {
+            List<Pelicula> lst2 = new List<Pelicula>();
+            //validar titulo no nulo
+            List<Pelicula> lst = _peliculaMapper.TraerTodos();
+            foreach (var item in lst)
+            {
+                if (item.Titulo == titulo)
+                    lst2.Add(item);
+            }
+
+            return lst2;
         }
 
 
