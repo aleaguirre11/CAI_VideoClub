@@ -40,6 +40,7 @@ namespace NLayer.Negocio
             return _listaClientes;
         }
 
+
         //traer cliente por nro de id
         public Cliente TraerPorId(string idCliente)
         {

@@ -51,7 +51,7 @@ namespace NLayer.Negocio
             }
 
             //Validar que no se pueda dar de alta un préstamos si el cliente tiene más de 3 préstamos abiertos
-            int result = ValidarPrestamosCliente(prestamo.Idcliente);
+            int result = ValidarPrestamosIdCliente(prestamo.Idcliente);
             if (result >= 3)
             {
                 throw new Exception("El cliente ingresado hoy tiene 3 préstamos abiertos.");
@@ -97,7 +97,7 @@ namespace NLayer.Negocio
             return false;
         }
 
-        public int ValidarPrestamosCliente(int idclient)
+        public int ValidarPrestamosIdCliente(int idclient)
         {
             int contador = 0;
 
@@ -293,6 +293,8 @@ namespace NLayer.Negocio
         //    pObj.Abierto = false;
 
         //}
+
+        
     }
 
 }

@@ -175,5 +175,7 @@ namespace NLayer.Negocio
         //    if (!transaction.IsOk)
         //       throw new Exception(transaction.Error);
         //}
+
+        //Poder emitir un reporte de copias por película.
     }
 }
