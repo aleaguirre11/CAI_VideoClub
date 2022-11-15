@@ -62,7 +62,8 @@ namespace NLayer.Negocio
                     return item.Idcliente;
             }
 
-            return null;
+            throw new Exception("No existe un cliente con ese DNI.");
+            //return null;
         }
 
         //traer cliente por nro de registro validando que hayan clientes registrados
