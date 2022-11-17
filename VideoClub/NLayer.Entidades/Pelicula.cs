@@ -127,7 +127,7 @@ namespace NLayer.Entidades
 
         public override string ToString()
         {
-            return $"id: {IdPelicula} - {Titulo}";
+            return $"ID: {IdPelicula} - Titulo: {Titulo} - Año: {Anio} - Duracion: {Duracion} - Director: {Director} - Productora: {Productora}";
         }
     }
 }

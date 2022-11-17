@@ -12,12 +12,11 @@ namespace NLayer.Entidades
     {
 
         public Prestamo() { }
-        public Prestamo(int idcliente, int idcopia, bool abierto) //, int plazo)
+        public Prestamo(int idcliente, int idcopia, bool abierto) 
         {
             _idcliente = idcliente;
             _idcopia = idcopia;
             _abierto = abierto;
-            //_plazo = plazo; --> se comenta la variable del constructor ya que se setea en la propiedad que siempre sea igual a 10.
         }
 
         private Copia _copia;
@@ -92,7 +91,7 @@ namespace NLayer.Entidades
         {
             get
             {
-                return DateTime.Now.AddDays(_plazo);
+                return DateTime.Now.AddDays(_plazo); //Le agregamos el plazo a la fecha de devolucion tentativa
             }
         }
 
@@ -158,7 +157,7 @@ namespace NLayer.Entidades
 
         public override string ToString()
         {
-            return $"id: {Idprestamo} - Cliente: {_cliente.Idcliente} - {_cliente.Nombre} - {_cliente.Apellido} - Plazo: {Plazo}";
+            return $"ID Prestamo: {Idprestamo} - ID Copia: {_copia.Idcopia} - Cliente: {_cliente.Idcliente} - {_cliente.Nombre} - {_cliente.Apellido} - Plazo: {Plazo}";
         }
 
 
