@@ -13,7 +13,7 @@ namespace NLayer.Negocio
     {
         private CopiaMapper _copiaMapper;
         private List<Copia> _listaCopias;
-        
+
         public CopiaNegocio()
         {
 
@@ -82,7 +82,7 @@ namespace NLayer.Negocio
 
 
             if (!(peliN.TraerLista().Count() > 0))
-            throw new Exception("No se han registrado películas aun.");
+                throw new Exception("No se han registrado películas aun.");
 
 
             foreach (var item in peliN.TraerLista())
@@ -111,7 +111,7 @@ namespace NLayer.Negocio
             if (!(_listaCopias.Count() > 0))
             {
                 throw new ExcepcionesNegocio.CopiaInexistenteEx();
-                
+
                 //throw new Exception("No se han registrado copias aun.");
             }
 
@@ -137,7 +137,7 @@ namespace NLayer.Negocio
         //Una pelicula tiene un unico id pero puede tener mas de una copia
         public int TraerTotalCopias(int idpelicula)
         {
-           
+
             int contador = 0;
 
             foreach (var item in TraerLista())
@@ -212,7 +212,7 @@ namespace NLayer.Negocio
             if (!(_listaCopias.Count() > 0))
             {
                 throw new ExcepcionesNegocio.CopiaInexistenteEx();
-                
+
                 //throw new Exception("No se han registrado copias aun.");
             }
 

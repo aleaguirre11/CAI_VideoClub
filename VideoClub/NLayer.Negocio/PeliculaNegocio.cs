@@ -9,14 +9,14 @@ using System.IO;
 
 namespace NLayer.Negocio
 {
-	public class PeliculaNegocio
-	{
+    public class PeliculaNegocio
+    {
         private PeliculaMapper _peliculaMapper;
         private List<Pelicula> _listaPeliculas;
 
 
         public PeliculaNegocio()
-		{
+        {
 
             _peliculaMapper = new PeliculaMapper();
             _listaPeliculas = new List<Pelicula>();
@@ -78,7 +78,7 @@ namespace NLayer.Negocio
         public List<Pelicula> TraerPorDirector(string director)
         {
             List<Pelicula> lst = new List<Pelicula>();
-            
+
             List<Pelicula> lst1 = _peliculaMapper.TraerTodos();
         //Lista las peliculas que hizo un director 
         public List<Pelicula> TraerPorDirector(string director)
@@ -113,7 +113,7 @@ namespace NLayer.Negocio
         public List<Pelicula> TraerPorGenero(string genero)
         {
             List<Pelicula> lst = new List<Pelicula>();
-            
+
             List<Pelicula> lst1 = _peliculaMapper.TraerTodos();
 
             if (!(lst1.Count() > 0))
@@ -147,7 +147,7 @@ namespace NLayer.Negocio
         public List<Pelicula> TraerPorTitulo(string titulo)
         {
             List<Pelicula> lst2 = new List<Pelicula>();
-            
+
             List<Pelicula> lst = _peliculaMapper.TraerTodos();
 
             if (!(lst.Count() > 0))

@@ -55,10 +55,10 @@ namespace NLayer.Negocio
             if (result >= 3)
             {
                 throw new ExcepcionesNegocio.PrestamoLimiteException();
-                
+
                 //throw new Exception("El cliente ingresado hoy tiene 3 préstamos abiertos.");
             }
-            
+
             TransactionResult transaction = _prestamoMapper.Insertar(prestamo);
 
             if (!transaction.IsOk)
@@ -72,7 +72,7 @@ namespace NLayer.Negocio
             if (!(cliN.TraerLista().Count() > 0))
             {
                 throw new ExcepcionesNegocio.ClienteException();
-                
+
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
@@ -95,7 +95,7 @@ namespace NLayer.Negocio
             if (!(copyN.TraerLista().Count() > 0))
             {
                 throw new ExcepcionesNegocio.CopiaInexistenteEx();
-                
+
                 //throw new Exception("No se han registrado copias aun.");
             }
 
@@ -124,10 +124,10 @@ namespace NLayer.Negocio
             if (!(_listaPrestamos.Count() > 0))
             {
                 throw new ExcepcionesNegocio.PrestamoException();
-                
+
                 //throw new Exception("No se han registrado préstamos aun.");
             }
-            
+
 
             foreach (var item in TraerLista().TakeWhile(item => item.Abierto == true))
             {
@@ -145,7 +145,7 @@ namespace NLayer.Negocio
             if (!(_listaPrestamos.Count() > 0))
             {
                 throw new ExcepcionesNegocio.PrestamoException();
-                
+
                 //throw new Exception("No se han registrado préstamos aun.");
             }
 
@@ -167,7 +167,7 @@ namespace NLayer.Negocio
             else
             {
                 throw new ExcepcionesNegocio.PrestamoException();
-                
+
                 //throw new Exception("No se han registrado préstamos aun.");
             }
 
@@ -185,13 +185,13 @@ namespace NLayer.Negocio
             {
 
                 int id = cn.TraerIdPorDNI(dni);
-                
+
                 lst.AddRange(_listaPrestamos.Where(item => item.Idcliente == id));
             }
             else
             {
                 throw new ExcepcionesNegocio.PrestamoException();
-                
+
                 //throw new Exception("No se han registrado préstamos aun.");
             }
 
@@ -204,7 +204,7 @@ namespace NLayer.Negocio
             if (!(_listaPrestamos.Count() > 0))
             {
                 throw new ExcepcionesNegocio.PrestamoException();
-                
+
                 //throw new Exception("No se han registrado préstamos aun.");
             }
 
@@ -216,7 +216,7 @@ namespace NLayer.Negocio
 
             return null;
 
-            
+
         }
 
         //trar préstamos por id de copia
@@ -241,7 +241,7 @@ namespace NLayer.Negocio
         public List<Prestamo> TraerPorIdPelicula(int idpelicula)
         {
             _listaPrestamos = _prestamoMapper.TraerTodos();
-            
+
             List<Prestamo> prestamos = new List<Prestamo>();
             List<Copia> copias = new List<Copia>();
             CopiaNegocio CN = new CopiaNegocio();
@@ -250,13 +250,13 @@ namespace NLayer.Negocio
 
             if (_listaPrestamos.Count() > 0)
             {
-                 
+
 
                 if (_listacopias.Count() > 0)
                 {
                     copias.AddRange(_listacopias.Where(c => c.Idpelicula == idpelicula));
 
-                    foreach (var c in copias) 
+                    foreach (var c in copias)
                     {
                         foreach (var p in TraerLista().TakeWhile(p => p.Idcopia == c.Idcopia))
                         {
@@ -373,7 +373,7 @@ namespace NLayer.Negocio
             if (!(_listaPrestamos.Count() > 0))
             {
                 throw new ExcepcionesNegocio.PrestamoException();
-                
+
                 //throw new Exception("No se han registrado préstamos aun.");
             }
 
@@ -418,7 +418,7 @@ namespace NLayer.Negocio
             if (!(_listaPrestamos.Count() > 0))
             {
                 throw new ExcepcionesNegocio.PrestamoException();
-                
+
                 //throw new Exception("No se han registrado préstamos aun.");
             }
 
