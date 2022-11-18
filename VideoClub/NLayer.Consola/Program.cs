@@ -166,12 +166,12 @@ namespace NLayer.Consola
                                         case "1":
                                             Console.WriteLine("Ingrese el número de documento del cliente:");
                                             string dniCliente = Console.ReadLine().Trim();
-                                            PrestamosPorDNICliente(dniCliente, prestamo, cliente);
+                                            PrestamosPorDNICliente(dniCliente, prestamo);
                                             break;
                                         case "2":
                                             Console.WriteLine("Ingrese el número identificador del cliente:");
                                             string idCliente = Console.ReadLine().Trim();
-                                            PrestamosPorIDCliente(idCliente, prestamo, cliente);
+                                            PrestamosPorIDCliente(idCliente, prestamo);
                                             break;
                                         case "X":
                                             Console.WriteLine("Volviendo al menú anterior...");
@@ -262,7 +262,7 @@ namespace NLayer.Consola
         {
             Console.WriteLine("Ingresar el DNI del nuevo cliente:");
             string dniCliente = Console.ReadLine();
-            int dniClienteValidado = FuncionesHelper.ValidarCargaDNI(dniCliente, cliente);
+            int dniClienteValidado = FuncionesHelper.ValidarCargaDNI(dniCliente);
             
 
             Console.WriteLine("Ingresar el nombre del nuevo cliente:");
@@ -275,7 +275,7 @@ namespace NLayer.Consola
 
             Console.WriteLine("Ingresar la fecha de nacimiento del nuevo cliente (con el formato dd/mm/aaaa):");
             string fechaNacCliente = Console.ReadLine();
-            DateTime fechaNacClienteValidada = FuncionesHelper.ValidarFechaNacimiento(fechaNacCliente,cliente);
+            DateTime fechaNacClienteValidada = FuncionesHelper.ValidarFechaNacimiento(fechaNacCliente);
 
             Console.WriteLine("Ingresar el teléfono del nuevo cliente:");
             string telefonoCliente = Console.ReadLine();
@@ -287,7 +287,7 @@ namespace NLayer.Consola
 
             Console.WriteLine("Ingresar el mail del nuevo cliente:");
             string mailCliente = Console.ReadLine();
-            string mailClienteValidado = FuncionesHelper.ValidarMail(mailCliente, cliente);
+            string mailClienteValidado = FuncionesHelper.ValidarMail(mailCliente);
 
             cliente.AltaClientes((DateTime.Now).ToString(), true, "", "890191", nombreClienteValidado, apellidoClienteValidado, domicilioClienteValidado, dniClienteValidado, telefonoClienteValidado, mailClienteValidado, fechaNacClienteValidada);
             Console.WriteLine("¡El cliente se ha creado correctamente! Detalles:");
@@ -320,7 +320,7 @@ namespace NLayer.Consola
             // 3. Que se haya ingresado un número --> en funciones/validaciones helper 
 
             // convertir dniPrestamo a int para pasar al método de la capa de negocio
-            int dniClienteValidado = FuncionesHelper.ValidarBusquedaDNI(dniPrestamo, cliente);
+            int dniClienteValidado = FuncionesHelper.ValidarBusquedaDNI(dniPrestamo);
             int idClientePrestamo = cliente.TraerIdPorDNI(dniClienteValidado);
 
 
@@ -432,24 +432,35 @@ namespace NLayer.Consola
 
         }
 
-        static void PrestamosPorDNICliente(string dniCliente, PrestamoNegocio prestamo, ClienteNegocio cliente)
+        static void PrestamosPorDNICliente(string dniCliente, PrestamoNegocio prestamo)
         {
-            // validar que el nro de cliente sea un int y convertir dniCliente a int 
-            int dni = FuncionesHelper.ValidarBusquedaDNI(dniCliente, cliente); 
+            // validar y convertir dniCliente a int 
+            int dni = FuncionesHelper.ValidarBusquedaDNI(dniCliente); 
             // llamar al método para generar el reporte
-            prestamo.TraerPrestamoPorDNI(dni);
+            List<Prestamo> Prestamos = prestamo.ReportePrestamoCliente2(dni);
 
-            //ReportePrestamoCliente(cliente);
+            Console.WriteLine($"El cliente con DNI {0} posee estos préstamos:",dni);
+            foreach (Prestamo item in Prestamos)
+            {
+                Console.WriteLine(item);
+            }
 
         }
 
 
-        static void PrestamosPorIDCliente(string dniCliente, PrestamoNegocio prestamo, ClienteNegocio cliente)
+        static void PrestamosPorIDCliente(string id, PrestamoNegocio prestamo)
         {
-            // validar que el nro de cliente sea un int y convertir dniCliente a int 
-            int dni = FuncionesHelper.ValidarBusquedaDNI(dniCliente, cliente);
+            // validar y convertir id del cliente a int 
+            int idCliente = FuncionesHelper.ValidarID(id);
             // llamar al método para generar el reporte
-            prestamo.TraerPrestamoPorDNI(dni);
+
+            List<Prestamo> Prestamos = prestamo.ReportePrestamoCliente(idCliente);
+
+            Console.WriteLine($"El cliente con ID {0} posee estos préstamos:", idCliente);
+            foreach (Prestamo item in Prestamos)
+            {
+                Console.WriteLine(item);
+            }
 
         }
 
@@ -457,12 +468,26 @@ namespace NLayer.Consola
 
         static void CopiasPorPelicula(string idPelicula, CopiaNegocio copia)
         {
-            // validar que el nro de cliente sea un int
-            // convertir dniCliente a int 
-            // llamar al método para generar el reporte
+            // validar y convertir id de la película a int 
+            int idPeliculaValidado = FuncionesHelper.ValidarID(idPelicula);
 
-            //ReporteCopiaPelicula(pelicula);
+            List<Copia> Copias = copia.ReporteCopiaPelicula(idPeliculaValidado);
+
+            Console.WriteLine($"La película con ID {0} posee estas copias:", idPelicula);
+            foreach (Copia item in Copias)
+            {
+                Console.WriteLine(item);
+            }
+
         }
+
+
+
+
+
+
+
+
 
         
 

@@ -44,8 +44,6 @@
     <Compile Include="ClienteNegocio.cs" />
     <Compile Include="CopiaNegocio.cs" />
     <Compile Include="ExcepcionesNegocio\MenorDeEdadEx.cs" />
-    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
-    <Compile Include="obj\Release\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="PeliculaNegocio.cs" />
     <Compile Include="PrestamoNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,15 +58,6 @@
       <Name>NLayer.Entidades</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Debug\NLayer.Negocio.csproj.AssemblyReference.cache" />
-    <None Include="obj\Release\NLayer.Negocio.csproj.AssemblyReference.cache" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Debug\" />
-    <Folder Include="bin\Release\" />
-    <Folder Include="obj\Debug\TempPE\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
