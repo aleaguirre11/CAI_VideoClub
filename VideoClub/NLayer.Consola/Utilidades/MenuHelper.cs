@@ -94,7 +94,13 @@ namespace NLayer.Consola.Utilidades
         }
 
 
-
+        internal static void ReportePrestamos()
+        {
+            Console.WriteLine("¿Cómo desea obtener el reporte de préstamos por cliente?");
+            Console.WriteLine("     1. Buscar préstamos por DNI del cliente.");
+            Console.WriteLine("     2. Buscar préstamos por el número identificador del cliente.");
+            Console.WriteLine("     X: Volver al menú anterior");
+        }
 
         //Utilizar en el caso que se quiera agregar la opción de listar todas las copias
         //

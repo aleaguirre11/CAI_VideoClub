@@ -159,9 +159,28 @@ namespace NLayer.Consola
                             switch (opcionMenuReportes.ToUpper())
                             {
                                 case "A":
-                                    Console.WriteLine("Ingrese el número de documento del cliente:");
-                                    string dniCliente = Console.ReadLine().Trim();
-                                    PrestamosPorCliente(dniCliente, prestamo,cliente);
+                                    MenuHelper.ReportePrestamos();
+                                    string opcionMenuReportesPrestamo = Console.ReadLine().Trim();
+                                    switch (opcionMenuReportesPrestamo)
+                                    {
+                                        case "1":
+                                            Console.WriteLine("Ingrese el número de documento del cliente:");
+                                            string dniCliente = Console.ReadLine().Trim();
+                                            PrestamosPorDNICliente(dniCliente, prestamo, cliente);
+                                            break;
+                                        case "2":
+                                            Console.WriteLine("Ingrese el número identificador del cliente:");
+                                            string idCliente = Console.ReadLine().Trim();
+                                            PrestamosPorIDCliente(idCliente, prestamo, cliente);
+                                            break;
+                                        case "X":
+                                            Console.WriteLine("Volviendo al menú anterior...");
+                                            Thread.Sleep(3000);
+                                            MenuHelper.ReportePrestamos();
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                     break;
                                 case "B":
                                     Console.WriteLine("Ingrese el número identificador de la película:");
@@ -302,7 +321,7 @@ namespace NLayer.Consola
 
             // convertir dniPrestamo a int para pasar al método de la capa de negocio
             int dniClienteValidado = FuncionesHelper.ValidarBusquedaDNI(dniPrestamo, cliente);
-            string idClientePrestamo = cliente.TraerIdPorDNI(dniClienteValidado);
+            int idClientePrestamo = cliente.TraerIdPorDNI(dniClienteValidado);
 
 
             Console.WriteLine("Ingresar el número de copia a prestar:");
@@ -314,8 +333,7 @@ namespace NLayer.Consola
             // 3. Que se haya ingresado un número
 
 
-            // Revisar los valores que deberían pasarse --> creo que sólo id_cliente, id_copia y si está activo, el resto no haría falta por reglas de negocio definidas.
-            prestamo.AltaPrestamo(true, int.Parse(nroCopiaPrestamo), idClientePrestamo);
+            prestamo.AltaPrestamo(true, nroCopiaValidado, idClientePrestamo);
             Console.WriteLine("¡El préstamo se ha cargado correctamente! Detalles:");
             Console.WriteLine(prestamo);
 
@@ -336,23 +354,25 @@ namespace NLayer.Consola
         {
             Console.WriteLine("Ingrese el título de la película a cargar:");
             string tituloPeli = Console.ReadLine();
-            //validar título similar? es bastante complicado porque es string. Se puede validar longitud
+            string tituloPeliValidado = FuncionesHelper.ValidarTexto(tituloPeli);
 
             Console.WriteLine("Ingrese el director de la película a cargar:");
             string directorPeli = Console.ReadLine();
-            // idem titulo. Se puede validar longitud
+            string directorPeliValidado = FuncionesHelper.ValidarTexto(directorPeli);
 
             Console.WriteLine("Ingrese la productora de la película a cargar:");
             string productoraPeli = Console.ReadLine();
-            //idem titulo. Se puede validar longitud
+            string productoraPeliValidado = FuncionesHelper.ValidarTexto(productoraPeli);
 
             Console.WriteLine("Ingrese el año de estreno de la película a cargar:");
             string anioPeli = Console.ReadLine();
-            //validar que sea un int, menor o igual a este año y mayor o igual a 1895 (año de la primera película de la historia)
+            int anioPeliValidado = FuncionesHelper.ValidarAnio(anioPeli);
+            
+            //dejo en stand by esto: mayor o igual a 1895 (año de la primera película de la historia)
 
             Console.WriteLine("Ingrese la duración (en minutos) de la película a cargar:");
             string duracionPeli = Console.ReadLine();
-            //validar que sea un int mayor a 0 
+            int duracionPeliVaidado = FuncionesHelper.ValidarNumero(duracionPeli);
 
             string generoPeli;
             int intGeneroPeli = 0;
@@ -372,7 +392,7 @@ namespace NLayer.Consola
 
             } while (int.TryParse(generoPeli,out intGeneroPeli));
 
-            pelicula.AltaPelicula(int.Parse(anioPeli), int.Parse(duracionPeli), tituloPeli, directorPeli, productoraPeli, (GeneroEnum)generoPeli);
+            pelicula.AltaPelicula(anioPeliValidado, duracionPeliVaidado, tituloPeliValidado, directorPeliValidado, productoraPeliValidado, ((GeneroEnum)int.Parse(generoPeli)).ToString());
 
             Console.WriteLine("¡La película se ha cargado correctamente! Detalles:");
             Console.WriteLine(pelicula);
@@ -394,23 +414,25 @@ namespace NLayer.Consola
             Console.WriteLine("Ingrese el número identificador de la película de la nueva copia:");
             string idPeliCopia = Console.ReadLine();
             //validar que exista el id de pelicula antes de continuar, y que sea un int.
+            int idPeliCopiaValidado = FuncionesHelper.ValidarID(idPeliCopia);
 
             Console.WriteLine("Ingrese el precio de la nueva copia:");
             string precioCopia = Console.ReadLine();
-            //validar que sea mayor a cero y que se pueda convertir a double.
+            double precioCopiaValidado = FuncionesHelper.ValidarPrecio(precioCopia);
 
             Console.WriteLine("Ingrese las observaciones de la nueva copia. En el caso de no contar con observaciones, detallar: 'N/A'");
             string observacionesCopia = Console.ReadLine();
             //validar que el largo del string sea mayor o igual a 3, partiendo de la base que se debe detallar N/A en el caso de que no haya observaciones aplicables.
+            string observacionesCopiaValidado = FuncionesHelper.ValidarTexto(observacionesCopia);
 
-            copia.AltaCopia(observacionesCopia, double.Parse(precioCopia), DateTime.Now,int.Parse(idPeliCopia));
+            copia.AltaCopia(observacionesCopiaValidado, precioCopiaValidado, DateTime.Now,idPeliCopiaValidado);
             Console.WriteLine("¡La copia se ha cargado correctamente! Detalles:");
             Console.WriteLine(copia);
 
 
         }
 
-        static void PrestamosPorCliente(string dniCliente, PrestamoNegocio prestamo, ClienteNegocio cliente)
+        static void PrestamosPorDNICliente(string dniCliente, PrestamoNegocio prestamo, ClienteNegocio cliente)
         {
             // validar que el nro de cliente sea un int y convertir dniCliente a int 
             int dni = FuncionesHelper.ValidarBusquedaDNI(dniCliente, cliente); 
@@ -418,6 +440,18 @@ namespace NLayer.Consola
             prestamo.TraerPrestamoPorDNI(dni);
 
         }
+
+
+        static void PrestamosPorIDCliente(string dniCliente, PrestamoNegocio prestamo, ClienteNegocio cliente)
+        {
+            // validar que el nro de cliente sea un int y convertir dniCliente a int 
+            int dni = FuncionesHelper.ValidarBusquedaDNI(dniCliente, cliente);
+            // llamar al método para generar el reporte
+            prestamo.TraerPrestamoPorDNI(dni);
+
+        }
+
+
 
         static void CopiasPorPelicula(string idPelicula, CopiaNegocio copia)
         {

@@ -140,7 +140,54 @@ namespace NLayer.Consola.Utilidades
             }
         }
 
+        internal static int ValidarNumero (string numero)
+        {
+            if (ValidacionesHelper.ValidarVacio(numero) == false)
+            {
+                int numeroInt = ValidacionesHelper.ValidarInt(numero);
+                return numeroInt;
+            }
+            else
+            {
+                throw new Exception("Ha ocurrido un error general.");
+            }
+        }
 
+
+        internal static int ValidarAnio (string anio)
+        {
+            if (ValidacionesHelper.ValidarVacio(anio) == false)
+            {
+                int anioInt = ValidacionesHelper.ValidarInt(anio);
+                bool resultadoAnio = ValidacionesHelper.ValidarAnio(anioInt);
+                if (!resultadoAnio)
+                {
+                    throw new Exception("El año ingresado es mayor al año actual. Por favor, revisar el valor ingresado.");
+                }
+                else
+                {
+                    return anioInt;
+                }
+            }
+            else
+            {
+                throw new Exception("Ha ocurrido un error general.");
+            }
+        }
+
+
+        internal static double ValidarPrecio (string precio)
+        {
+            if (ValidacionesHelper.ValidarVacio(precio) == false)
+            {
+                double precioDouble = ValidacionesHelper.ValidarDouble(precio);
+                return precioDouble;
+            }
+            else
+            {
+                throw new Exception("Ha ocurrido un error general.");
+            }
+        }
 
 
 
