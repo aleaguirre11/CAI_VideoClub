@@ -25,11 +25,10 @@ namespace NLayer.Consola.Utilidades
 
         internal static int ValidarInt(string ingreso)
         {
-            int number;
-
-            if (int.TryParse(ingreso, out number) == false)
+            
+            if (int.TryParse(ingreso, out int number) == false)
             {
-                throw new Exception("El valor ingresado no es numérico. Por favor, ingresar solamente valores numéricos.");
+                throw new Exception("El valor ingresado no es numérico o es muy largo. Por favor, ingresar solamente valores numéricos.");
             }
 
             if (!ValidarMayorCero(ingreso))

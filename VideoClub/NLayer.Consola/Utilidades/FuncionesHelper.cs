@@ -43,7 +43,8 @@ namespace NLayer.Consola.Utilidades
 
         internal static string ValidarTexto(string texto)
         {
-            if(ValidacionesHelper.ValidarVacio(texto) == false && ValidacionesHelper.ValidarString(texto))
+            
+            if(ValidacionesHelper.ValidarVacio(texto) == false && ValidacionesHelper.ValidarString(texto) && int.TryParse(texto, out int textoInt)==false)
             {
                 return texto;
             }
@@ -194,6 +195,10 @@ namespace NLayer.Consola.Utilidades
                 throw new Exception("Ha ocurrido un error general.");
             }
         }
+
+
+
+
 
 
 
