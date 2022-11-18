@@ -179,9 +179,18 @@ namespace NLayer.Negocio
 
 
         //Poder emitir un reporte de copias por película.
-        private static void ReporteCopiaPelicula(Pelicula pelicula)
+        public List<Copia> ReporteCopiaPelicula(int idpelicula)
         {
-            if (pelicula == null)
+            Pelicula m = new Pelicula();
+            PeliculaNegocio PN = new PeliculaNegocio();
+            m = PN.BuscarPeliculaPorID(idpelicula);
+
+            if (m == null)
+            {
+                throw new Exception("Error de ingreso.");
+            }
+
+            if (!(m is Pelicula))
             {
                 throw new Exception("Error de ingreso.");
             }
@@ -191,13 +200,12 @@ namespace NLayer.Negocio
 
             List<Copia> CopyPeli = new List<Copia>();
 
-            foreach (Copia c in copias.TakeWhile(c => c.Idpelicula == pelicula.IdPelicula))
+            foreach (Copia c in copias.TakeWhile(c => c.Idpelicula == m.IdPelicula))
             {
-                CopyPeli = copyN.TraerPorIdPelicula(pelicula.IdPelicula);
+                CopyPeli = copyN.TraerPorIdPelicula(m.IdPelicula);
             }
 
-            Console.WriteLine($"Las copias de la pelicula son: " + System.Environment.NewLine + CopyPeli);
-
+            return CopyPeli;
 
         }
 
