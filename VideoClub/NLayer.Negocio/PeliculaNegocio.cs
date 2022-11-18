@@ -1,4 +1,4 @@
-﻿using NLayer.Entidades;
+using NLayer.Entidades;
 using NLayer.Datos;
 using System;
 using System.Collections.Generic;
@@ -80,20 +80,6 @@ namespace NLayer.Negocio
             List<Pelicula> lst = new List<Pelicula>();
 
             List<Pelicula> lst1 = _peliculaMapper.TraerTodos();
-        //Lista las peliculas que hizo un director 
-        public List<Pelicula> TraerPorDirector(string director)
-        {
-            List<Pelicula> lst = new List<Pelicula>();
-            //validar director no nulo
-            List<Pelicula> lst1 = _peliculaMapper.TraerTodos();
-            foreach (var item in lst1)
-            {
-                if (item.Director == director)
-                    lst.Add(item);
-            }
-
-            return lst;
-        }
 
             if (!(lst1.Count() > 0))
             {
@@ -126,21 +112,8 @@ namespace NLayer.Negocio
                 if (item.Genero == genero)
                     lst.Add(item);
             }
-        //Lista las peliculas por genero 
-        public List<Pelicula> TraerPorGenero(string genero)
-        {
-            List<Pelicula> lst1 = new List<Pelicula>();
-            //validar genero no nulo
-            List<Pelicula> lst = _peliculaMapper.TraerTodos();
-            foreach (var item in lst)
-            {
-                if (item.Genero == genero)
-                    lst1.Add(item);
-            }
 
             return lst;
-        }
-            return lst1;
         }
 
         //Lista las peliculas por título
@@ -151,18 +124,12 @@ namespace NLayer.Negocio
             List<Pelicula> lst = _peliculaMapper.TraerTodos();
 
             if (!(lst.Count() > 0))
-            List<Pelicula> lst2 = new List<Pelicula>();
-            //validar titulo no nulo
-            List<Pelicula> lst = _peliculaMapper.TraerTodos();
-            foreach (var item in lst)
             {
                 throw new Exception("No se han registrado películas aun.");
             }
 
             foreach (var item in lst)
             {
-                if (item.Titulo == titulo)
-                    lst2.Add(item);
                 if (item.Titulo == titulo)
                     lst2.Add(item);
             }
