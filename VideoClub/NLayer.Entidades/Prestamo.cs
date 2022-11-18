@@ -32,6 +32,7 @@ namespace NLayer.Entidades
         private int _plazo;
 
 
+
         [DataMember(Name = "idCliente")]
         public int Idcliente
         {
@@ -153,11 +154,14 @@ namespace NLayer.Entidades
                 _copia = value;
             }
         }
+
+
+        
             
 
         public override string ToString()
         {
-            return $"ID Prestamo: {Idprestamo} - ID Copia: {_copia.Idcopia} - Cliente: {_cliente.Idcliente} - {_cliente.Nombre} - {_cliente.Apellido} - Plazo: {Plazo}";
+            return $"ID Prestamo: {Idprestamo} - ID Copia: {this.Idcopia} - ID Cliente: {this.Idcliente} - Plazo: {Plazo}";
         }
 
 

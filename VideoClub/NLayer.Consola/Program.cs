@@ -20,6 +20,7 @@ namespace NLayer.Consola
 
             do
             {
+                bool consolaActiva = true;
                 try
                 {
                     ClienteNegocio cliente = new ClienteNegocio();
@@ -27,13 +28,11 @@ namespace NLayer.Consola
                     PrestamoNegocio prestamo = new PrestamoNegocio();
                     PeliculaNegocio pelicula = new PeliculaNegocio();
 
-                    bool consolaActiva = true;
-
                     while (consolaActiva)
                     {
                         MenuHelper.DesplegarOpcionesMenu();
                         string opcionMenu = Console.ReadLine().Trim();
-                        switch (opcionMenu)
+                        switch (opcionMenu.ToUpper())
                         {
                             case "1":
                                 MenuHelper.Clientes();
@@ -60,7 +59,7 @@ namespace NLayer.Consola
                                                 break;
                                             case "X":
                                                 Console.WriteLine("Volviendo al menú principal...");
-                                                Thread.Sleep(2000);
+                                                Thread.Sleep(1500);
                                                 break;
                                             default:
                                                 break;
@@ -83,7 +82,7 @@ namespace NLayer.Consola
                                         break;
                                     case "X":
                                         Console.WriteLine("Volviendo al menú principal...");
-                                        Thread.Sleep(3000);
+                                        Thread.Sleep(1500);
                                         break;
                                 }
                                 break;
@@ -102,7 +101,7 @@ namespace NLayer.Consola
                                         break;
                                     case "X":
                                         Console.WriteLine("Volviendo al menú principal...");
-                                        Thread.Sleep(2000);
+                                        Thread.Sleep(1500);
                                         break;
                                     default:
                                         break;
@@ -123,7 +122,7 @@ namespace NLayer.Consola
                                         break;
                                     case "X":
                                         Console.WriteLine("Volviendo al menú principal...");
-                                        Thread.Sleep(3000);
+                                        Thread.Sleep(1500);
                                         break;
                                     default:
                                         break;
@@ -144,7 +143,7 @@ namespace NLayer.Consola
                                         break;
                                     case "X":
                                         Console.WriteLine("Volviendo al menú principal...");
-                                        Thread.Sleep(2000);
+                                        Thread.Sleep(1500);
                                         break;
                                     default:
                                         break;
@@ -172,7 +171,7 @@ namespace NLayer.Consola
                                                 break;
                                             case "X":
                                                 Console.WriteLine("Volviendo al menú principal...");
-                                                Thread.Sleep(2000);
+                                                Thread.Sleep(1500);
                                                 break;
                                             default:
                                                 break;
@@ -185,16 +184,16 @@ namespace NLayer.Consola
                                         break;
                                     case "X":
                                         Console.WriteLine("Volviendo al menú principal...");
-                                        Thread.Sleep(2000);
+                                        Thread.Sleep(1500);
                                         break;
                                     default:
                                         break;
                                 }
                                 break;
                             case "X":
-                                consolaActiva = false;
                                 Console.WriteLine("¡Hasta la próxima!");
-                                Thread.Sleep(2000);
+                                Thread.Sleep(1500);
+                                consolaActiva = false;
                                 break;
                             default:
                                 break;
@@ -207,19 +206,27 @@ namespace NLayer.Consola
                     Thread.Sleep(1500);
                 }
 
-                Console.WriteLine("¿Desea realizar otra operación?" + System.Environment.NewLine + "S - Desplegar las opciones del menú principal." + System.Environment.NewLine + "N - Salir del sistema.");
-                string resultado = Console.ReadLine().Trim();
-
-                if (resultado.ToUpper() == "S")
+                if (consolaActiva)
                 {
-                    flag = true;
+                    Console.WriteLine("¿Desea realizar otra operación?" + System.Environment.NewLine + "S - Desplegar las opciones del menú principal." + System.Environment.NewLine + "N - Salir del sistema.");
+                    string resultado = Console.ReadLine().Trim();
+
+                    if (resultado.ToUpper() == "S")
+                    {
+                        flag = true;
+                    }
+                    else if (!(resultado.ToUpper() == "S"))
+                    {
+                        flag = false;
+                        Console.WriteLine("¡Hasta la próxima!");
+                        Thread.Sleep(1500);
+                    }
                 }
-                else if (!(resultado.ToUpper()=="S"))
+                else
                 {
                     flag = false;
-                    Console.WriteLine("¡Hasta la próxima!");
-                    Thread.Sleep(2000);
                 }
+
 
             } while (flag == true);
 
@@ -415,8 +422,11 @@ namespace NLayer.Consola
             //validar que el idPelicula sea un int
             int idValidado = FuncionesHelper.ValidarID(idPelicula);
 
-            Copia c = copia.TraerPorId(idValidado);
-            Console.WriteLine(c);
+            List<Copia> c = copia.TraerPorIdPelicula(idValidado);
+            foreach (Copia item in c)
+            {
+                Console.WriteLine(item);
+            }
         }
 
 
@@ -449,7 +459,7 @@ namespace NLayer.Consola
             // llamar al método para generar el reporte
             List<Prestamo> Prestamos = prestamo.ReportePrestamoCliente2(dni);
 
-            Console.WriteLine($"El cliente con DNI {0} posee estos préstamos:",dni);
+            Console.WriteLine($"El cliente con DNI {dni} posee estos préstamos:");
             foreach (Prestamo item in Prestamos)
             {
                 Console.WriteLine(item);
@@ -466,7 +476,7 @@ namespace NLayer.Consola
 
             List<Prestamo> Prestamos = prestamo.ReportePrestamoCliente(idCliente);
 
-            Console.WriteLine($"El cliente con ID {0} posee estos préstamos:", idCliente);
+            Console.WriteLine($"El cliente con ID {idCliente} posee estos préstamos:");
             foreach (Prestamo item in Prestamos)
             {
                 Console.WriteLine(item);

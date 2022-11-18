@@ -54,14 +54,20 @@ namespace NLayer.Negocio
                 throw new ExcepcionesNegocio.ClienteException();
                 //throw new Exception("No se han registrado clientes aun.");
             }
-
-            foreach (Cliente item in _listaClientes.TakeWhile(item => dni == item.Dni))
+            else if (_listaClientes.Count() > 0)
             {
-                return item.Idcliente;
+                foreach (Cliente item in _listaClientes.TakeWhile(item => dni == item.Dni))
+                {
+                    return item.Idcliente;
+                }
             }
+            else
+            {
+                throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
+                //throw new Exception("No existe un cliente con ese DNI.");
+            }
+            return 0;
 
-            throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
-            //throw new Exception("No existe un cliente con ese DNI.");
         }
 
         //traer cliente por nro de registro validando que hayan clientes registrados
@@ -238,17 +244,21 @@ namespace NLayer.Negocio
 
                 //throw new Exception("No se han registrado clientes aun.");
             }
-
-            foreach (var item in TraerLista())
+            else if ((_listaClientes.Count() > 0))
             {
-                if (idCliente == item.Idcliente)
-                    return item;
-                else
+                foreach (var item in _listaClientes)
                 {
-                    throw new ExcepcionesNegocio.IDClienteInexistenteEx();
-
-                    //throw new Exception("No existe un cliente con ese ID.");
+                    if (idCliente == item.Idcliente)
+                    {
+                        return item;
+                    }
                 }
+            }
+            else
+            {
+                throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
+
+                //throw new Exception("No existe un cliente con ese DNI.");
             }
 
             return null;
@@ -265,17 +275,21 @@ namespace NLayer.Negocio
 
                 //throw new Exception("No se han registrado clientes aun.");
             }
-
-            foreach (var item in TraerLista())
+            else if ((_listaClientes.Count() >0 ))
             {
-                if (dni == item.Dni)
-                    return item;
-                else
+                foreach (var item in _listaClientes)
                 {
-                    throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
-
-                    //throw new Exception("No existe un cliente con ese DNI.");
+                    if (dni == item.Dni)
+                    {
+                        return item;
+                    }
                 }
+            }
+            else
+            {
+                 throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
+
+                 //throw new Exception("No existe un cliente con ese DNI.");
             }
 
             return null;

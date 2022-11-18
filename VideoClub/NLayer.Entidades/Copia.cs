@@ -105,6 +105,11 @@ namespace NLayer.Entidades
                 _pelicula = value;
             }
         }
+
+        public override string ToString()
+        {
+            return $"ID: {_idcopia} - Película: {_idpelicula} - Precio: {_precio} - Alta de la copia: {_fechaalta} - Observaciones: {_observaciones}";
+        }
     }
 
    
