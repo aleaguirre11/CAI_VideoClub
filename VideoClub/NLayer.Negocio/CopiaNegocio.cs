@@ -200,9 +200,21 @@ namespace NLayer.Negocio
 
             List<Copia> CopyPeli = new List<Copia>();
 
+            if (!(_listaCopias.Count() > 0))
+            {
+                Exception ex = new ExcepcionesNegocio.CopiaInexistenteEx();
+                Console.WriteLine("Error. Detalle: " + ex.Message);
+                //throw new Exception("No se han registrado copias aun.");
+            }
+
             foreach (Copia c in copias.TakeWhile(c => c.Idpelicula == m.IdPelicula))
             {
                 CopyPeli = copyN.TraerPorIdPelicula(m.IdPelicula);
+            }
+
+            if (!(CopyPeli.Count() > 0))
+            {
+                throw new Exception("La pelicula no tiene copias aun.");
             }
 
             return CopyPeli;
