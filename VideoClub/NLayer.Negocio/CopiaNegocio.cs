@@ -62,6 +62,7 @@ namespace NLayer.Negocio
         //se comenta porque el ID se autogenera
         //public bool ValidarCopiaExistente(int idcopy)
         //{
+        //     _listaCopias = _copiaMapper.TraerTodos();
         //    if (!(_listaCopias.Count() > 0))
         //        throw new Exception("No se han registrado copias aun.");
 
@@ -105,15 +106,22 @@ namespace NLayer.Negocio
         //pedirle al mapper la lista de copias
         public List<Copia> TraerLista()
         {
-            List<Copia> lst = _copiaMapper.TraerTodos();
+            _listaCopias = _copiaMapper.TraerTodos();
 
-            return lst;
+            if (!(_listaCopias.Count() > 0))
+            {
+                throw new ExcepcionesNegocio.CopiaInexistenteEx();
+                
+                //throw new Exception("No se han registrado copias aun.");
+            }
+
+            return _listaCopias;
         }
 
         //traer copia por id de pelicula
         public List<Copia> TraerPorIdPelicula(int idpelicula)
         {
-
+            _listaCopias = _copiaMapper.TraerTodos();
             List<Copia> lst1 = new List<Copia>();
 
             if (_listaCopias.Count() > 0)
@@ -129,7 +137,7 @@ namespace NLayer.Negocio
         //Una pelicula tiene un unico id pero puede tener mas de una copia
         public int TraerTotalCopias(int idpelicula)
         {
-            //validar id no nulo
+           
             int contador = 0;
 
             foreach (var item in TraerLista())
@@ -200,10 +208,11 @@ namespace NLayer.Negocio
 
             List<Copia> CopyPeli = new List<Copia>();
 
+            _listaCopias = _copiaMapper.TraerTodos();
             if (!(_listaCopias.Count() > 0))
             {
-                Exception ex = new ExcepcionesNegocio.CopiaInexistenteEx();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.CopiaInexistenteEx();
+                
                 //throw new Exception("No se han registrado copias aun.");
             }
 

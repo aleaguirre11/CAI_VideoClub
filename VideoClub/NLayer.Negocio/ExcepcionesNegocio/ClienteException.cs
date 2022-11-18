@@ -8,22 +8,22 @@ namespace NLayer.Negocio.ExcepcionesNegocio
 {
     internal class ClienteException : Exception
     {
-        public ClienteException() : base("No se han registrado clientes aun.") { }
+        public ClienteException() : base("Error. Detalle: No se han registrado clientes aun.") { }
     }
 
     internal class IDClienteInexistenteEx : Exception
     {
-        public IDClienteInexistenteEx() : base("No existe un cliente con ese ID.") { }
+        public IDClienteInexistenteEx() : base("Error. Detalle: No existe un cliente con ese ID.") { }
     }
 
     internal class DNIClienteInexistenteEx : Exception
     {
-        public DNIClienteInexistenteEx() : base("No existe un cliente con ese DNI.") { }
+        public DNIClienteInexistenteEx() : base("Error. Detalle: No existe un cliente con ese DNI.") { }
     }
     internal class MenorDeEdadEx : Exception
     {
 
-        public MenorDeEdadEx() : base("La edad del cliente ingresado es menor a 16.") { }
+        public MenorDeEdadEx() : base("Error. Detalle: La edad del cliente ingresado es menor a 16.") { }
 
     }
 

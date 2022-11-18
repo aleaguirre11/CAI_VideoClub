@@ -47,13 +47,25 @@ namespace NLayer.Negocio
         {
             _listaPeliculas = _peliculaMapper.TraerTodos();
 
+            if (!(_listaPeliculas.Count() > 0))
+            {
+                throw new Exception("No se han registrado películas aun.");
+            }
+
             return _listaPeliculas;
         }
 
         //Consultar pelicula por nro de id
         public Pelicula TraerPorId(int idpelicula)
         {
-            foreach (var item in TraerLista())
+            _listaPeliculas = _peliculaMapper.TraerTodos();
+
+            if (!(_listaPeliculas.Count() > 0))
+            {
+                throw new Exception("No se han registrado películas aun.");
+            }
+
+            foreach (var item in _listaPeliculas)
             {
                 if (idpelicula == item.IdPelicula)
                     return item;
@@ -66,8 +78,14 @@ namespace NLayer.Negocio
         public List<Pelicula> TraerPorDirector(string director)
         {
             List<Pelicula> lst = new List<Pelicula>();
-            //validar director no nulo
+            
             List<Pelicula> lst1 = _peliculaMapper.TraerTodos();
+
+            if (!(lst1.Count() > 0))
+            {
+                throw new Exception("No se han registrado películas aun.");
+            }
+
             foreach (var item in lst1)
             {
                 if (item.Director == director)
@@ -80,24 +98,36 @@ namespace NLayer.Negocio
         //Lista las peliculas por genero 
         public List<Pelicula> TraerPorGenero(string genero)
         {
-            List<Pelicula> lst1 = new List<Pelicula>();
-            //validar genero no nulo
-            List<Pelicula> lst = _peliculaMapper.TraerTodos();
-            foreach (var item in lst)
+            List<Pelicula> lst = new List<Pelicula>();
+            
+            List<Pelicula> lst1 = _peliculaMapper.TraerTodos();
+
+            if (!(lst1.Count() > 0))
             {
-                if (item.Genero == genero)
-                    lst1.Add(item);
+                throw new Exception("No se han registrado películas aun.");
             }
 
-            return lst1;
+            foreach (var item in lst1)
+            {
+                if (item.Genero == genero)
+                    lst.Add(item);
+            }
+
+            return lst;
         }
 
         //Lista las peliculas por título
         public List<Pelicula> TraerPorTitulo(string titulo)
         {
             List<Pelicula> lst2 = new List<Pelicula>();
-            //validar titulo no nulo
+            
             List<Pelicula> lst = _peliculaMapper.TraerTodos();
+
+            if (!(lst.Count() > 0))
+            {
+                throw new Exception("No se han registrado películas aun.");
+            }
+
             foreach (var item in lst)
             {
                 if (item.Titulo == titulo)
@@ -133,7 +163,14 @@ namespace NLayer.Negocio
         //Buscar Película a partir del ID de la película para el reporte
         public Pelicula BuscarPeliculaPorID(int idPelicula)
         {
-            foreach (var item in TraerLista())
+            _listaPeliculas = _peliculaMapper.TraerTodos();
+
+            if (!(_listaPeliculas.Count() > 0))
+            {
+                throw new Exception("No se han registrado películas aun.");
+            }
+
+            foreach (var item in _listaPeliculas)
             {
                 if (idPelicula == item.IdPelicula)
                     return item;

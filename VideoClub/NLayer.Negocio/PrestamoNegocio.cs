@@ -54,8 +54,8 @@ namespace NLayer.Negocio
             int result = ValidarPrestamosIdCliente(prestamo.Idcliente);
             if (result >= 3)
             {
-                Exception ex = new ExcepcionesNegocio.PrestamoLimiteException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.PrestamoLimiteException();
+                
                 //throw new Exception("El cliente ingresado hoy tiene 3 préstamos abiertos.");
             }
             
@@ -71,8 +71,8 @@ namespace NLayer.Negocio
 
             if (!(cliN.TraerLista().Count() > 0))
             {
-                Exception ex = new ExcepcionesNegocio.ClienteException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.ClienteException();
+                
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
@@ -90,11 +90,12 @@ namespace NLayer.Negocio
         {
             bool flag = false;
             CopiaNegocio copyN = new CopiaNegocio();
+            _listaPrestamos = _prestamoMapper.TraerTodos();
 
             if (!(copyN.TraerLista().Count() > 0))
             {
-                Exception ex = new ExcepcionesNegocio.CopiaInexistenteEx();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.CopiaInexistenteEx();
+                
                 //throw new Exception("No se han registrado copias aun.");
             }
 
@@ -119,11 +120,11 @@ namespace NLayer.Negocio
         public int ValidarPrestamosIdCliente(int idclient)
         {
             int contador = 0;
-
+            _listaPrestamos = _prestamoMapper.TraerTodos();
             if (!(_listaPrestamos.Count() > 0))
             {
-                Exception ex = new ExcepcionesNegocio.PrestamoException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.PrestamoException();
+                
                 //throw new Exception("No se han registrado préstamos aun.");
             }
             
@@ -139,7 +140,16 @@ namespace NLayer.Negocio
 
         public List<Prestamo> TraerLista()
         {
-            return _prestamoMapper.TraerTodos();
+            _listaPrestamos = _prestamoMapper.TraerTodos();
+
+            if (!(_listaPrestamos.Count() > 0))
+            {
+                throw new ExcepcionesNegocio.PrestamoException();
+                
+                //throw new Exception("No se han registrado préstamos aun.");
+            }
+
+            return _listaPrestamos;
 
         }
 
@@ -147,7 +157,7 @@ namespace NLayer.Negocio
         //Consultar préstamos segun id del cliente
         public List<Prestamo> TraerPrestamoPorCliente(int idcliente)
         {
-            
+            _listaPrestamos = _prestamoMapper.TraerTodos();
             List<Prestamo> lst = new List<Prestamo>();
 
             if (_listaPrestamos.Count() > 0)
@@ -156,8 +166,8 @@ namespace NLayer.Negocio
             }
             else
             {
-                Exception ex = new ExcepcionesNegocio.PrestamoException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.PrestamoException();
+                
                 //throw new Exception("No se han registrado préstamos aun.");
             }
 
@@ -167,7 +177,7 @@ namespace NLayer.Negocio
         //Consultar préstamos segun dni del cliente
         public List<Prestamo> TraerPrestamoPorDNI(int dni)
         {
-            
+            _listaPrestamos = _prestamoMapper.TraerTodos();
             List<Prestamo> lst = new List<Prestamo>();
             ClienteNegocio cn = new ClienteNegocio();
 
@@ -180,8 +190,8 @@ namespace NLayer.Negocio
             }
             else
             {
-                Exception ex = new ExcepcionesNegocio.PrestamoException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.PrestamoException();
+                
                 //throw new Exception("No se han registrado préstamos aun.");
             }
 
@@ -190,10 +200,11 @@ namespace NLayer.Negocio
 
         public Prestamo TraerPorId(int idprestamo)
         {
+            _listaPrestamos = _prestamoMapper.TraerTodos();
             if (!(_listaPrestamos.Count() > 0))
             {
-                Exception ex = new ExcepcionesNegocio.PrestamoException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.PrestamoException();
+                
                 //throw new Exception("No se han registrado préstamos aun.");
             }
 
@@ -211,7 +222,7 @@ namespace NLayer.Negocio
         //trar préstamos por id de copia
         public List<Prestamo> TraerPorIdCopia(int idcopia)
         {
-
+            _listaPrestamos = _prestamoMapper.TraerTodos();
             List<Prestamo> lst = new List<Prestamo>();
 
 
@@ -229,15 +240,17 @@ namespace NLayer.Negocio
         //Consultar préstamos por id pelicula
         public List<Prestamo> TraerPorIdPelicula(int idpelicula)
         {
-
+            _listaPrestamos = _prestamoMapper.TraerTodos();
+            
             List<Prestamo> prestamos = new List<Prestamo>();
             List<Copia> copias = new List<Copia>();
+            CopiaNegocio CN = new CopiaNegocio();
 
-
+            _listacopias = CN.TraerLista();
 
             if (_listaPrestamos.Count() > 0)
             {
-
+                 
 
                 if (_listacopias.Count() > 0)
                 {
@@ -267,6 +280,9 @@ namespace NLayer.Negocio
         public string TraerPorIdPelicula2(int idpelicula)
         {
 
+            _listaPrestamos = _prestamoMapper.TraerTodos();
+            CopiaNegocio CN = new CopiaNegocio();
+            _listacopias = CN.TraerLista();
 
             List<Copia> copias = new List<Copia>();
             string acumulador = "Los prestamos asociados a la película ingresada son: " + System.Environment.NewLine;
@@ -334,6 +350,7 @@ namespace NLayer.Negocio
         //Poder emitir un reporte de préstamos por cliente a partir del ID del cliente.
         public List<Prestamo> ReportePrestamoCliente(int idCliente)
         {
+            _listaPrestamos = _prestamoMapper.TraerTodos();
             Cliente c = new Cliente();
             ClienteNegocio CN = new ClienteNegocio();
             c = CN.BuscarClientePorID(idCliente);
@@ -355,8 +372,8 @@ namespace NLayer.Negocio
 
             if (!(_listaPrestamos.Count() > 0))
             {
-                Exception ex = new ExcepcionesNegocio.PrestamoException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.PrestamoException();
+                
                 //throw new Exception("No se han registrado préstamos aun.");
             }
 
@@ -378,6 +395,7 @@ namespace NLayer.Negocio
         //Poder emitir un reporte de préstamos por cliente a partir del DNI del cliente.
         public List<Prestamo> ReportePrestamoCliente2(int dni)
         {
+            _listaPrestamos = _prestamoMapper.TraerTodos();
             Cliente c = new Cliente();
             ClienteNegocio CN = new ClienteNegocio();
             c = CN.BuscarClientePorDNI(dni);
@@ -399,8 +417,8 @@ namespace NLayer.Negocio
 
             if (!(_listaPrestamos.Count() > 0))
             {
-                Exception ex = new ExcepcionesNegocio.PrestamoException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.PrestamoException();
+                
                 //throw new Exception("No se han registrado préstamos aun.");
             }
 
