@@ -63,10 +63,15 @@ namespace NLayer.Consola.Utilidades
 
         internal static bool ValidarStringTel(string ingreso)
         {
-            if (ingreso.Length < 10)
+            if (long.TryParse(ingreso, out long tel) == false)
+            {
+                throw new Exception("El teléfono ingresado es inválido. Por favor, revisar el valor detallado.");
+            }
+            else if (ingreso.Length < 10)
             {
                 throw new Exception("El teléfono ingresado es demasiado corto. Por favor, revisar el valor detallado.");
             }
+            
 
             return true;
         }
@@ -103,15 +108,18 @@ namespace NLayer.Consola.Utilidades
 
         internal static DateTime ValidarFecha (string ingreso)
         {
-            DateTime fecha;
 
-            if (!DateTime.TryParse(ingreso,out fecha))
+            if (!DateTime.TryParse(ingreso, out DateTime fecha))
             {
                 throw new Exception("El valor ingresado no corresponde a una fecha válida. Por favor, revisar el valor detallado");
             }
+            else if (ingreso.Length != 10)
+            {
+                throw new Exception("La fecha ingresada no cumple el formato preestablecido. Por favor, revisar el valor ingresado.");
+            }
             else
             {
-                return DateTime.Parse(ingreso);
+                return fecha;
             }
         }
 

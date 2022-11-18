@@ -250,7 +250,7 @@ namespace NLayer.Consola
 
             bool nroRegistroValido = ValidacionesHelper.ValidarVacio(nroRegistro);
 
-            if (nroRegistroValido)
+            if (nroRegistroValido == false)
             {
                 List<Cliente> lst = clientes.TraerPorRegistro(nroRegistro); 
                 foreach (Cliente item in lst)

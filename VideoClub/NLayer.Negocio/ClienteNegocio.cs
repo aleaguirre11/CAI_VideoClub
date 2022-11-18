@@ -74,6 +74,7 @@ namespace NLayer.Negocio
         {
 
             List<Cliente> lst1 = new List<Cliente>();
+            _listaClientes = _clienteMapper.TraerPorRegistro(usuario);
 
             if (_listaClientes.Count() > 0)
             {
