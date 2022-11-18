@@ -37,7 +37,7 @@ namespace NLayer.Negocio
             if (_listaClientes == null)
             {
                 throw new ExcepcionesNegocio.ClienteException();
-                
+
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
@@ -57,7 +57,7 @@ namespace NLayer.Negocio
 
             foreach (Cliente item in _listaClientes.TakeWhile(item => dni == item.Dni))
             {
-                    return item.Idcliente;
+                return item.Idcliente;
             }
 
             throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
@@ -78,7 +78,7 @@ namespace NLayer.Negocio
             else
             {
                 throw new ExcepcionesNegocio.ClienteException();
-                
+
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
@@ -87,7 +87,7 @@ namespace NLayer.Negocio
         }
 
         //Pedirle al mappaer los clientes a partir del nro de telefono 
- 
+
         public List<Cliente> TraerPorTelefono(string telefono)
         {
             _listaClientes = _clienteMapper.TraerTodos();
@@ -95,17 +95,17 @@ namespace NLayer.Negocio
             if (!(_listaClientes.Count() > 0))
             {
                 throw new ExcepcionesNegocio.ClienteException();
-               
+
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
-            List < Cliente > lst = _clienteMapper.TraerPorTelefono(telefono);
+            List<Cliente> lst = _clienteMapper.TraerPorTelefono(telefono);
 
             return lst;
         }
 
         //Dar de alta a los clientes pidiendole al mapper que los inserte (post)
-        public void AltaClientes(/*int idcliente,*/ string fechaalta, bool cliActivo, string host, string usuario, 
+        public void AltaClientes(/*int idcliente,*/ string fechaalta, bool cliActivo, string host, string usuario,
             string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac)
         {
             Cliente cliente = new Cliente();
@@ -139,7 +139,7 @@ namespace NLayer.Negocio
             else if (flag2 == false)
             {
                 throw new ExcepcionesNegocio.MenorDeEdadEx();
-                
+
                 //Console.WriteLine("Error detectado. La edad del cliente ingresado es menor a 16.");
             }
 
@@ -181,7 +181,7 @@ namespace NLayer.Negocio
                 //Console.WriteLine("La fecha de nacimiento es inválida.");
                 //return false;
                 throw new Exception("La fecha de nacimiento es inválida.");
-                
+
             }
             else
             {
@@ -213,7 +213,7 @@ namespace NLayer.Negocio
             TransactionResult transaction = _clienteMapper.Actualizar(cliente);
 
             if (!transaction.IsOk)
-               throw new Exception(transaction.Error);
+                throw new Exception(transaction.Error);
         }
 
         //pedirle al mapper que elimine un cliente (delete)
@@ -235,7 +235,7 @@ namespace NLayer.Negocio
             if (!(_listaClientes.Count() > 0))
             {
                 throw new ExcepcionesNegocio.ClienteException();
-               
+
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
@@ -246,7 +246,7 @@ namespace NLayer.Negocio
                 else
                 {
                     throw new ExcepcionesNegocio.IDClienteInexistenteEx();
-                    
+
                     //throw new Exception("No existe un cliente con ese ID.");
                 }
             }
@@ -262,7 +262,7 @@ namespace NLayer.Negocio
             if (!(_listaClientes.Count() > 0))
             {
                 throw new ExcepcionesNegocio.ClienteException();
-                
+
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
@@ -273,7 +273,7 @@ namespace NLayer.Negocio
                 else
                 {
                     throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
-                    
+
                     //throw new Exception("No existe un cliente con ese DNI.");
                 }
             }
