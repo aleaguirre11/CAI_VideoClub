@@ -281,10 +281,18 @@ namespace NLayer.Consola
 
         static void CrearCliente(ClienteNegocio cliente)
         {
+
+            //cliente.AltaClientes((DateTime.Now).ToString(), true, "", "890191", "Lucas", "Perez", "Av Santa Fe 888", 30444789, "1167895432", "chau@hotmail.com", DateTime.Parse("09/10/1980"));
+            //cliente.AltaClientes((DateTime.Now).ToString(), true, "", "890191", "Matias", "Aguirre", "Av Santa Fe 999", 30555729, "1167333439", "quepaso@hotmail.com", DateTime.Parse("05/01/1985"));
+            //cliente.AltaClientes((DateTime.Now).ToString(), true, "", "890191", "Mariano", "Iglesias", "Av Libertador 3289", 38455789, "1122895466", "buenosdias@gmail.com", DateTime.Parse("23/07/1990"));
+            //cliente.AltaClientes((DateTime.Now).ToString(), true, "", "890191", "Sofia", "Velez", "Av Corrientes 555", 40467843, "1161115438", "pinonfijo@yahoo.com", DateTime.Parse("02/12/1997"));
+            //cliente.AltaClientes((DateTime.Now).ToString(), true, "", "890191", "Lourdes", "Sanchez", "Nordelta 2022", 30599732, "1155595992", "chatoamor@outlook.com", DateTime.Parse("29/03/1975"));
+            //cliente.AltaClientes((DateTime.Now).ToString(), true, "", "890191", "Susana", "Gimenez", "Av Uruguay 389", 20444111, "1533895192", "lasugimenez@hotmail.com", DateTime.Parse("09/05/1950"));
+            //cliente.AltaClientes((DateTime.Now).ToString(), true, "", "890191", "Moria", "Casan", "Av Yoquese 656", 30569719, "1167891722", "eldecorado@secalla.com", DateTime.Parse("02/01/1950"));
             Console.WriteLine("Ingresar el DNI del nuevo cliente:");
             string dniCliente = Console.ReadLine();
             int dniClienteValidado = FuncionesHelper.ValidarCargaDNI(dniCliente);
-            
+
 
             Console.WriteLine("Ingresar el nombre del nuevo cliente:");
             string nombreCliente = Console.ReadLine();
@@ -332,6 +340,20 @@ namespace NLayer.Consola
 
         static void CargarPrestamo(PrestamoNegocio prestamo, ClienteNegocio cliente)
         {
+            //prestamo.AltaPrestamo(true, 22, 835);
+            //prestamo.AltaPrestamo(true, 21, 835);
+            //prestamo.AltaPrestamo(true, 20, 835);
+            //prestamo.AltaPrestamo(true, 19, 841);
+            //prestamo.AltaPrestamo(true, 18, 842);
+            //prestamo.AltaPrestamo(true, 17, 842);
+            //prestamo.AltaPrestamo(true, 16, 844);
+            //prestamo.AltaPrestamo(true, 15, 844);
+            //prestamo.AltaPrestamo(true, 14, 844);
+            //prestamo.AltaPrestamo(true, 13, 843);
+            //prestamo.AltaPrestamo(true, 12, 843);
+            //prestamo.AltaPrestamo(true, 11, 840);
+            //prestamo.AltaPrestamo(true, 10, 840);
+
             Console.WriteLine("Ingresar el DNI del cliente al cual se le va a realizar el préstamo:");
             string dniPrestamo = Console.ReadLine();
             //método para validar:
@@ -371,6 +393,16 @@ namespace NLayer.Consola
 
         static void CargarPelicula(PeliculaNegocio pelicula)
         {
+
+            //pelicula.AltaPelicula(2010, 160, "Avatar", "James Cameron", "Queseyo", ((GeneroEnum)int.Parse("9")).ToString());
+            //pelicula.AltaPelicula(2000, 100, "Shrek", "Juan Perez", "DreamWorks", ((GeneroEnum)int.Parse("9")).ToString());
+            //pelicula.AltaPelicula(2015, 120, "Avengers", "Tony Stark", "Marvel", ((GeneroEnum)int.Parse("4")).ToString());
+            //pelicula.AltaPelicula(2019, 130, "End Game", "Black Widow", "Marvel", ((GeneroEnum)int.Parse("4")).ToString());
+            //pelicula.AltaPelicula(2018, 120, "The Simpsons", "Ned Flanders", "Krusty Burger", ((GeneroEnum)int.Parse("5")).ToString());
+            //pelicula.AltaPelicula(1970, 100, "Top Gun", "Marcelo", "CAI", ((GeneroEnum)int.Parse("4")).ToString());
+            //pelicula.AltaPelicula(2008, 80, "Animal Planet", "El Mago sin dientes", "El Fan de Wanda", ((GeneroEnum)int.Parse("7")).ToString());
+
+
             Console.WriteLine("Ingrese el título de la película a cargar:");
             string tituloPeli = Console.ReadLine();
             string tituloPeliValidado = FuncionesHelper.ValidarTexto(tituloPeli);
@@ -386,7 +418,7 @@ namespace NLayer.Consola
             Console.WriteLine("Ingrese el año de estreno de la película a cargar:");
             string anioPeli = Console.ReadLine();
             int anioPeliValidado = FuncionesHelper.ValidarAnio(anioPeli);
-            
+
             //dejo en stand by esto: mayor o igual a 1895 (año de la primera película de la historia)
 
             Console.WriteLine("Ingrese la duración (en minutos) de la película a cargar:");
@@ -402,14 +434,14 @@ namespace NLayer.Consola
                 MenuHelper.ListarGeneros();
 
                 generoPeli = Console.ReadLine();
-                
 
-                if (int.TryParse(generoPeli,out intGeneroPeli) == false || (int.Parse(generoPeli)>10 || int.Parse(generoPeli)<0))
+
+                if (int.TryParse(generoPeli, out intGeneroPeli) == false || (int.Parse(generoPeli) > 10 || int.Parse(generoPeli) < 0))
                 {
                     Console.WriteLine("La opcion seleccionada es incorrecta.");
                 }
 
-            } while (!int.TryParse(generoPeli,out intGeneroPeli));
+            } while (!int.TryParse(generoPeli, out intGeneroPeli));
 
             pelicula.AltaPelicula(anioPeliValidado, duracionPeliVaidado, tituloPeliValidado, directorPeliValidado, productoraPeliValidado, ((GeneroEnum)int.Parse(generoPeli)).ToString());
 
@@ -432,6 +464,17 @@ namespace NLayer.Consola
 
         static void CargarCopia(CopiaNegocio copia)
         {
+            //copia.AltaCopia("Mala calidad", 600.0, DateTime.Now, 13);
+            //copia.AltaCopia("Hacemos lo que podemos", 1000.0, DateTime.Now, 12);
+            //copia.AltaCopia("Que noche tete!", 1500.0, DateTime.Now, 10);
+            //copia.AltaCopia("Pochoclera 100%", 1500.0, DateTime.Now, 10);
+            //copia.AltaCopia("Nostalgia sos vos", 800.0, DateTime.Now, 8);
+            //copia.AltaCopia("Son-Risas", 800.0, DateTime.Now, 8);
+            //copia.AltaCopia("Subimo el precio porque podemos", 5000.0, DateTime.Now, 7);
+            //copia.AltaCopia("Sea feliz, mirese una peli", 1800.0, DateTime.Now, 6);
+
+
+
             Console.WriteLine("Ingrese el número identificador de la película de la nueva copia:");
             string idPeliCopia = Console.ReadLine();
             //validar que exista el id de pelicula antes de continuar, y que sea un int.
@@ -446,7 +489,7 @@ namespace NLayer.Consola
             //validar que el largo del string sea mayor o igual a 3, partiendo de la base que se debe detallar N/A en el caso de que no haya observaciones aplicables.
             string observacionesCopiaValidado = FuncionesHelper.ValidarTexto(observacionesCopia);
 
-            copia.AltaCopia(observacionesCopiaValidado, precioCopiaValidado, DateTime.Now,idPeliCopiaValidado);
+            copia.AltaCopia(observacionesCopiaValidado, precioCopiaValidado, DateTime.Now, idPeliCopiaValidado);
             Console.WriteLine("¡La copia se ha cargado correctamente!");
 
 

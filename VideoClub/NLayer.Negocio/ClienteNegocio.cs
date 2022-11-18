@@ -54,7 +54,7 @@ namespace NLayer.Negocio
                 throw new ExcepcionesNegocio.ClienteException();
                 //throw new Exception("No se han registrado clientes aun.");
             }
-            else if (_listaClientes.Count() > 0)
+            else if(_listaClientes.Count() > 0)
             {
                 foreach (Cliente item in _listaClientes.TakeWhile(item => dni == item.Dni))
                 {
@@ -92,23 +92,63 @@ namespace NLayer.Negocio
 
         }
 
-        //Pedirle al mappaer los clientes a partir del nro de telefono 
-
+        //traer cliente por nro de telefono validando que hayan clientes registrados
         public List<Cliente> TraerPorTelefono(string telefono)
         {
+
+            List<Cliente> lst1 = new List<Cliente>();
             _listaClientes = _clienteMapper.TraerTodos();
 
-            if (!(_listaClientes.Count() > 0))
+            if (_listaClientes.Count() > 0)
+            {
+                lst1.AddRange(_listaClientes.Where(item => item.Telefono == telefono));
+            }
+            else
             {
                 throw new ExcepcionesNegocio.ClienteException();
 
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
-            List<Cliente> lst = _clienteMapper.TraerPorTelefono(telefono);
+            return lst1;
 
-            return lst;
         }
+
+        //Pedirle al mappaer los clientes a partir del nro de registro 
+
+        //public List<Cliente> TraerPorRegistro(string usuario)
+        //{
+        //    List<Cliente> lst1 = new List<Cliente>();
+        //    _listaClientes = _clienteMapper.TraerTodos();
+
+        //    if (!(_listaClientes.Count() > 0))
+        //    {
+        //        throw new ExcepcionesNegocio.ClienteException();
+
+        //        //throw new Exception("No se han registrado clientes aun.");
+        //    }
+
+        //    List<Cliente> lst = _clienteMapper.TraerPorRegistro(usuario);
+
+        //    return lst;
+
+        //}
+
+        //public List<Cliente> TraerPorTelefono(string telefono)
+        //{
+        //    _listaClientes = _clienteMapper.TraerTodos();
+
+        //    if (!(_listaClientes.Count() > 0))
+        //    {
+        //        throw new ExcepcionesNegocio.ClienteException();
+
+        //        //throw new Exception("No se han registrado clientes aun.");
+        //    }
+
+        //    List<Cliente> lst = _clienteMapper.TraerPorTelefono(telefono);
+
+        //    return lst;
+        //}
 
         //Dar de alta a los clientes pidiendole al mapper que los inserte (post)
         public void AltaClientes(/*int idcliente,*/ string fechaalta, bool cliActivo, string host, string usuario,
@@ -244,21 +284,17 @@ namespace NLayer.Negocio
 
                 //throw new Exception("No se han registrado clientes aun.");
             }
-            else if ((_listaClientes.Count() > 0))
-            {
-                foreach (var item in _listaClientes)
-                {
-                    if (idCliente == item.Idcliente)
-                    {
-                        return item;
-                    }
-                }
-            }
-            else
-            {
-                throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
 
-                //throw new Exception("No existe un cliente con ese DNI.");
+            foreach (var item in TraerLista())
+            {
+                if (idCliente == item.Idcliente)
+                    return item;
+                else
+                {
+                    throw new ExcepcionesNegocio.IDClienteInexistenteEx();
+
+                    //throw new Exception("No existe un cliente con ese ID.");
+                }
             }
 
             return null;
@@ -275,21 +311,17 @@ namespace NLayer.Negocio
 
                 //throw new Exception("No se han registrado clientes aun.");
             }
-            else if ((_listaClientes.Count() >0 ))
-            {
-                foreach (var item in _listaClientes)
-                {
-                    if (dni == item.Dni)
-                    {
-                        return item;
-                    }
-                }
-            }
-            else
-            {
-                 throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
 
-                 //throw new Exception("No existe un cliente con ese DNI.");
+            foreach (var item in TraerLista())
+            {
+                if (dni == item.Dni)
+                    return item;
+                else
+                {
+                    throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
+
+                    //throw new Exception("No existe un cliente con ese DNI.");
+                }
             }
 
             return null;

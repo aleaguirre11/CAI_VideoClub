@@ -67,9 +67,9 @@ namespace NLayer.Negocio
 
         public bool ValidarCliente(int idcli)
         {
-            ClienteNegocio cliN = new ClienteNegocio();
+            ClienteNegocio cn = new ClienteNegocio();
 
-            if (!(cliN.TraerLista().Count() > 0))
+            if (!(cn.TraerLista().Count() > 0))
             {
                 throw new ExcepcionesNegocio.ClienteException();
 
@@ -77,7 +77,7 @@ namespace NLayer.Negocio
             }
 
 
-            foreach (var item in cliN.TraerLista())
+            foreach (var item in cn.TraerLista())
             {
                 if (idcli == item.Idcliente)
                     return true;
@@ -90,30 +90,33 @@ namespace NLayer.Negocio
         {
             bool flag = false;
             CopiaNegocio copyN = new CopiaNegocio();
-            _listaPrestamos = _prestamoMapper.TraerTodos();
+            
+            List<Copia> copias = copyN.TraerLista();
 
-            if (!(copyN.TraerLista().Count() > 0))
+            if (!(copias.Count() > 0))
             {
                 throw new ExcepcionesNegocio.CopiaInexistenteEx();
 
                 //throw new Exception("No se han registrado copias aun.");
             }
-
-
-            foreach (var item in copyN.TraerLista())
+            else if (copias.Count() > 0)
             {
-                if (idcopy == item.Idcopia)
+                foreach (var item in copias)
                 {
-                    //Validamos que no exista un préstamo de esa copia activo
-                    foreach (Prestamo p in _listaPrestamos.TakeWhile(p => p.Idcopia == idcopy))
+                    if (idcopy == item.Idcopia)
                     {
-                        if (p.Abierto != true) flag = true;
-                        else { throw new Exception("Ya existe un préstamo activo de esa copia."); }
+                        
+                        flag = false;
+                        return flag;
+
                     }
+                    else return true;
 
                 }
-                else { throw new Exception("No existe la copia solicitada."); }
             }
+            else { throw new Exception("No existe la copia solicitada."); }
+
+
             return flag;
         }
 
@@ -352,8 +355,8 @@ namespace NLayer.Negocio
         {
             _listaPrestamos = _prestamoMapper.TraerTodos();
             Cliente c = new Cliente();
-            ClienteNegocio CN = new ClienteNegocio();
-            c = CN.BuscarClientePorID(idCliente);
+            ClienteNegocio cn = new ClienteNegocio();
+            c = cn.BuscarClientePorID(idCliente);
 
             if (c == null)
             {
@@ -397,8 +400,8 @@ namespace NLayer.Negocio
         {
             _listaPrestamos = _prestamoMapper.TraerTodos();
             Cliente c = new Cliente();
-            ClienteNegocio CN = new ClienteNegocio();
-            c = CN.BuscarClientePorDNI(dni);
+            ClienteNegocio cn = new ClienteNegocio();
+            c = cn.BuscarClientePorDNI(dni);
 
             if (c == null)
             {
