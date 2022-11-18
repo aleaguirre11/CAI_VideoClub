@@ -290,8 +290,7 @@ namespace NLayer.Consola
             string mailClienteValidado = FuncionesHelper.ValidarMail(mailCliente);
 
             cliente.AltaClientes((DateTime.Now).ToString(), true, "", "890191", nombreClienteValidado, apellidoClienteValidado, domicilioClienteValidado, dniClienteValidado, telefonoClienteValidado, mailClienteValidado, fechaNacClienteValidada);
-            Console.WriteLine("¡El cliente se ha creado correctamente! Detalles:");
-            Console.WriteLine(cliente);
+            Console.WriteLine("¡El cliente se ha creado correctamente!");
 
         }
 
@@ -334,8 +333,7 @@ namespace NLayer.Consola
 
 
             prestamo.AltaPrestamo(true, nroCopiaValidado, idClientePrestamo);
-            Console.WriteLine("¡El préstamo se ha cargado correctamente! Detalles:");
-            Console.WriteLine(prestamo);
+            Console.WriteLine("¡El préstamo se ha cargado correctamente!");
 
         }
 
@@ -394,8 +392,7 @@ namespace NLayer.Consola
 
             pelicula.AltaPelicula(anioPeliValidado, duracionPeliVaidado, tituloPeliValidado, directorPeliValidado, productoraPeliValidado, ((GeneroEnum)int.Parse(generoPeli)).ToString());
 
-            Console.WriteLine("¡La película se ha cargado correctamente! Detalles:");
-            Console.WriteLine(pelicula);
+            Console.WriteLine("¡La película se ha cargado correctamente!");
 
         }
 
@@ -426,8 +423,7 @@ namespace NLayer.Consola
             string observacionesCopiaValidado = FuncionesHelper.ValidarTexto(observacionesCopia);
 
             copia.AltaCopia(observacionesCopiaValidado, precioCopiaValidado, DateTime.Now,idPeliCopiaValidado);
-            Console.WriteLine("¡La copia se ha cargado correctamente! Detalles:");
-            Console.WriteLine(copia);
+            Console.WriteLine("¡La copia se ha cargado correctamente!");
 
 
         }
