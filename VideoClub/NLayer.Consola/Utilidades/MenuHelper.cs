@@ -29,7 +29,7 @@ namespace NLayer.Consola.Utilidades
             Console.WriteLine("     B) Crear nuevo cliente");
             Console.WriteLine("     C) Modificar cliente existente");
             Console.WriteLine("     D) Eliminar cliente");
-            Console.WriteLine("     X: Volver al menú anterior");
+            Console.WriteLine("     X: Volver al menú principal");
         }
 
         internal static void ListarClientes()
@@ -38,7 +38,7 @@ namespace NLayer.Consola.Utilidades
             Console.WriteLine("     1. Ver todos los clientes");
             Console.WriteLine("     2. Ver todos los clientes de un número de registro");
             Console.WriteLine("     3. Buscar cliente por número de teléfono");
-            Console.WriteLine("     X: Volver al menú anterior");
+            Console.WriteLine("     X: Volver al menú principal");
         }
 
 
@@ -47,7 +47,7 @@ namespace NLayer.Consola.Utilidades
             Console.WriteLine("Seleccionó la opción préstamos. ¿Qué desea hacer?");
             Console.WriteLine("     A) Ver préstamos vigentes");
             Console.WriteLine("     B) Cargar nuevo préstamo");
-            Console.WriteLine("     X: Volver al menú anterior");
+            Console.WriteLine("     X: Volver al menú principal");
         }
 
 
@@ -56,7 +56,7 @@ namespace NLayer.Consola.Utilidades
             Console.WriteLine("Seleccionó la opción películas. ¿Qué desea hacer?");
             Console.WriteLine("     A) Listar películas cargadas");
             Console.WriteLine("     B) Cargar nueva película");
-            Console.WriteLine("     X: Volver al menú anterior");
+            Console.WriteLine("     X: Volver al menú principal");
         }
 
 
@@ -66,7 +66,7 @@ namespace NLayer.Consola.Utilidades
             Console.WriteLine("Seleccionó la opción copias. ¿Qué desea hacer?");
             Console.WriteLine("     A) Listar copias cargadas");
             Console.WriteLine("     B) Cargar nueva copia");
-            Console.WriteLine("     X: Volver al menú anterior");
+            Console.WriteLine("     X: Volver al menú principal");
         }
 
 
@@ -75,7 +75,7 @@ namespace NLayer.Consola.Utilidades
             Console.WriteLine("Seleccionó la opción reportes. ¿Qué desea hacer?");
             Console.WriteLine("     A) Mostrar los préstamos por cliente");
             Console.WriteLine("     B) Mostrar la cantidad de copias por película");
-            Console.WriteLine("     X: Volver al menú anterior");
+            Console.WriteLine("     X: Volver al menú principal");
         }
 
 
@@ -99,7 +99,7 @@ namespace NLayer.Consola.Utilidades
             Console.WriteLine("¿Cómo desea obtener el reporte de préstamos por cliente?");
             Console.WriteLine("     1. Buscar préstamos por DNI del cliente.");
             Console.WriteLine("     2. Buscar préstamos por el número identificador del cliente.");
-            Console.WriteLine("     X: Volver al menú anterior");
+            Console.WriteLine("     X: Volver al menú principal");
         }
 
         //Utilizar en el caso que se quiera agregar la opción de listar todas las copias

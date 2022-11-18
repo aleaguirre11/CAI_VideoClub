@@ -43,7 +43,7 @@ namespace NLayer.Consola
                                     case "A":
                                         MenuHelper.ListarClientes();
                                         string opcionMenuListarCliente = Console.ReadLine().Trim();
-                                        switch (opcionMenuListarCliente)
+                                        switch (opcionMenuListarCliente.ToUpper())
                                         {
                                             case "1":
                                                 CliTraerTodos(cliente);
@@ -59,9 +59,8 @@ namespace NLayer.Consola
                                                 CliTraerPorTelefono(nroTelefono, cliente);
                                                 break;
                                             case "X":
-                                                Console.WriteLine("Volviendo al menú anterior...");
-                                                Thread.Sleep(3000);
-                                                MenuHelper.ListarClientes();
+                                                Console.WriteLine("Volviendo al menú principal...");
+                                                Thread.Sleep(2000);
                                                 break;
                                             default:
                                                 break;
@@ -72,22 +71,19 @@ namespace NLayer.Consola
                                         break;
                                     case "C":
                                         FuncionesHelper.NoDisponible();
-                                        MenuHelper.DesplegarOpcionesMenu();
                                         /*Console.WriteLine("Detalle el id del cliente que desea actualizar:");
                                         string idClienteModificar = Console.ReadLine();
                                         ModificarCliente(idClienteModificar);*/
                                         break;
                                     case "D":
                                         FuncionesHelper.NoDisponible();
-                                        MenuHelper.DesplegarOpcionesMenu();
                                         /*Console.WriteLine("Detalle el id del cliente que desea eliminar:");
                                         string idClienteEliminar = Console.ReadLine();
                                         EliminarCliente(idClienteEliminar);*/
                                         break;
                                     case "X":
-                                        Console.WriteLine("Volviendo al menú anterior...");
+                                        Console.WriteLine("Volviendo al menú principal...");
                                         Thread.Sleep(3000);
-                                        MenuHelper.DesplegarOpcionesMenu();
                                         break;
                                 }
                                 break;
@@ -105,9 +101,8 @@ namespace NLayer.Consola
                                         CargarPrestamo(prestamo, cliente);
                                         break;
                                     case "X":
-                                        Console.WriteLine("Volviendo al menú anterior...");
-                                        Thread.Sleep(3000);
-                                        MenuHelper.DesplegarOpcionesMenu();
+                                        Console.WriteLine("Volviendo al menú principal...");
+                                        Thread.Sleep(2000);
                                         break;
                                     default:
                                         break;
@@ -127,9 +122,8 @@ namespace NLayer.Consola
                                         CargarPelicula(pelicula);
                                         break;
                                     case "X":
-                                        Console.WriteLine("Volviendo al menú anterior...");
+                                        Console.WriteLine("Volviendo al menú principal...");
                                         Thread.Sleep(3000);
-                                        MenuHelper.DesplegarOpcionesMenu();
                                         break;
                                     default:
                                         break;
@@ -149,9 +143,8 @@ namespace NLayer.Consola
                                         CargarCopia(copia);
                                         break;
                                     case "X":
-                                        Console.WriteLine("Volviendo al menú anterior...");
-                                        Thread.Sleep(3000);
-                                        MenuHelper.DesplegarOpcionesMenu();
+                                        Console.WriteLine("Volviendo al menú principal...");
+                                        Thread.Sleep(2000);
                                         break;
                                     default:
                                         break;
@@ -165,7 +158,7 @@ namespace NLayer.Consola
                                     case "A":
                                         MenuHelper.ReportePrestamos();
                                         string opcionMenuReportesPrestamo = Console.ReadLine().Trim();
-                                        switch (opcionMenuReportesPrestamo)
+                                        switch (opcionMenuReportesPrestamo.ToUpper())
                                         {
                                             case "1":
                                                 Console.WriteLine("Ingrese el número de documento del cliente:");
@@ -178,9 +171,8 @@ namespace NLayer.Consola
                                                 PrestamosPorIDCliente(idCliente, prestamo);
                                                 break;
                                             case "X":
-                                                Console.WriteLine("Volviendo al menú anterior...");
-                                                Thread.Sleep(3000);
-                                                MenuHelper.ReportePrestamos();
+                                                Console.WriteLine("Volviendo al menú principal...");
+                                                Thread.Sleep(2000);
                                                 break;
                                             default:
                                                 break;
@@ -192,9 +184,8 @@ namespace NLayer.Consola
                                         CopiasPorPelicula(idPelicula, copia);
                                         break;
                                     case "X":
-                                        Console.WriteLine("Volviendo al menú anterior...");
-                                        Thread.Sleep(3000);
-                                        MenuHelper.DesplegarOpcionesMenu();
+                                        Console.WriteLine("Volviendo al menú principal...");
+                                        Thread.Sleep(2000);
                                         break;
                                     default:
                                         break;
@@ -202,6 +193,8 @@ namespace NLayer.Consola
                                 break;
                             case "X":
                                 consolaActiva = false;
+                                Console.WriteLine("¡Hasta la próxima!");
+                                Thread.Sleep(2000);
                                 break;
                             default:
                                 break;
@@ -404,12 +397,12 @@ namespace NLayer.Consola
                 generoPeli = Console.ReadLine();
                 
 
-                if (int.TryParse(generoPeli,out intGeneroPeli) || (int.Parse(generoPeli)>=10 || int.Parse(generoPeli)<0))
+                if (int.TryParse(generoPeli,out intGeneroPeli) == false || (int.Parse(generoPeli)>10 || int.Parse(generoPeli)<0))
                 {
                     Console.WriteLine("La opcion seleccionada es incorrecta.");
                 }
 
-            } while (int.TryParse(generoPeli,out intGeneroPeli));
+            } while (!int.TryParse(generoPeli,out intGeneroPeli));
 
             pelicula.AltaPelicula(anioPeliValidado, duracionPeliVaidado, tituloPeliValidado, directorPeliValidado, productoraPeliValidado, ((GeneroEnum)int.Parse(generoPeli)).ToString());
 

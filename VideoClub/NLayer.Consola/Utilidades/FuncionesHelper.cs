@@ -21,12 +21,12 @@ namespace NLayer.Consola.Utilidades
 
         internal static int ValidarCargaDNI(string dni) //, ClienteNegocio cliente)
         {
-            if(ValidacionesHelper.ValidarVacio(dni) == false)
+            if (ValidacionesHelper.ValidarVacio(dni) == false)
             {
                 int dniInt = ValidacionesHelper.ValidarInt(dni);
                 bool resultadoLargoDNI = ValidacionesHelper.ValidarLargoDNI(dniInt);
                 //bool resultadoExiste = cliente.ValidarDNI(dniInt);
-                if(resultadoLargoDNI) //&&  resultadoExiste == false)
+                if (resultadoLargoDNI) //&&  resultadoExiste == false)
                 {
                     return dniInt;
                 }
@@ -43,8 +43,8 @@ namespace NLayer.Consola.Utilidades
 
         internal static string ValidarTexto(string texto)
         {
-            
-            if(ValidacionesHelper.ValidarVacio(texto) == false && ValidacionesHelper.ValidarString(texto) && int.TryParse(texto, out int textoInt)==false)
+
+            if (ValidacionesHelper.ValidarVacio(texto) == false && ValidacionesHelper.ValidarString(texto) && int.TryParse(texto, out int textoInt) == false)
             {
                 return texto;
             }
@@ -147,7 +147,7 @@ namespace NLayer.Consola.Utilidades
             }
         }
 
-        internal static int ValidarNumero (string numero)
+        internal static int ValidarNumero(string numero)
         {
             if (ValidacionesHelper.ValidarVacio(numero) == false)
             {
@@ -161,7 +161,7 @@ namespace NLayer.Consola.Utilidades
         }
 
 
-        internal static int ValidarAnio (string anio)
+        internal static int ValidarAnio(string anio)
         {
             if (ValidacionesHelper.ValidarVacio(anio) == false)
             {
@@ -183,7 +183,10 @@ namespace NLayer.Consola.Utilidades
         }
 
 
-        internal static double ValidarPrecio (string precio)
+
+
+        // Por regla de negocio, las copias deben tener un precio mayor a 500
+        internal static double ValidarPrecio(string precio)
         {
             if (ValidacionesHelper.ValidarVacio(precio) == false)
             {

@@ -162,7 +162,7 @@ namespace NLayer.Consola.Utilidades
                 throw new Exception("El valor ingresado no es numérico. Por favor, ingresar solamente valores numéricos.");
             }
 
-            if (!ValidarMayorCero(ingreso))
+            if (!ValidarMayorCeroDouble(ingreso))
             {
                 throw new Exception("El número ingresado es negativo. Por favor, ingresar solamente valores positivos");
             }
@@ -170,7 +170,15 @@ namespace NLayer.Consola.Utilidades
             return double.Parse(ingreso);
         }
 
+        private static bool ValidarMayorCeroDouble(string ingreso)
+        {
+            if (double.Parse(ingreso) < 0)
+            {
+                return false;
+            }
 
+            return true;
+        }
 
     }
 }
