@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="ClienteNegocio.cs" />
     <Compile Include="CopiaNegocio.cs" />
-    <Compile Include="ExcepcionesNegocio\MenorDeEdadEx.cs" />
+    <Compile Include="ExcepcionesNegocio\ClienteException.cs" />
+    <Compile Include="ExcepcionesNegocio\CopiaInexistenteEx.cs" />
+    <Compile Include="ExcepcionesNegocio\PrestamoException.cs" />
     <Compile Include="PeliculaNegocio.cs" />
     <Compile Include="PrestamoNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
