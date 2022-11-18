@@ -23,7 +23,4 @@ VideoClub/NLayer.Datos/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 *.sqlite
 *.sqlite
 *.cache
-*.cache
-*.cache
-*.cache
-*.lock
+VideoClub/.vs/VideoClub/FileContentIndex/write.lock
