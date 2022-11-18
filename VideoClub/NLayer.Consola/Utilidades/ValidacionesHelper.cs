@@ -86,7 +86,7 @@ namespace NLayer.Consola.Utilidades
 
         internal static bool ValidarLargoDNI(int dni)
         {
-            if(dni<100000)
+            if(dni<1000000)
             {
                 throw new Exception("El DNI ingresado es demasiado chico. Por favor, revisar el valor detallado.");
             }
@@ -133,6 +133,37 @@ namespace NLayer.Consola.Utilidades
 
             return int.Parse(ingreso);
         }
+
+
+        internal static bool ValidarAnio (int anio)
+        {
+            int anioActual = DateTime.Now.Year;
+
+            if(anio > anioActual)
+            {
+                throw new Exception("El año ingresado es mayor al año actual. Por favor, revisar el valor ingresado.");
+            }
+            return true;
+        }
+
+        internal static double ValidarDouble(string ingreso)
+        {
+            double number;
+
+            if (double.TryParse(ingreso, out number) == false)
+            {
+                throw new Exception("El valor ingresado no es numérico. Por favor, ingresar solamente valores numéricos.");
+            }
+
+            if (!ValidarMayorCero(ingreso))
+            {
+                throw new Exception("El número ingresado es negativo. Por favor, ingresar solamente valores positivos");
+            }
+
+            return double.Parse(ingreso);
+        }
+
+
 
     }
 }
