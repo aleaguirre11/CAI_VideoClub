@@ -1,4 +1,4 @@
-﻿using NLayer.Entidades;
+using NLayer.Entidades;
 using NLayer.Datos;
 using NLayer.Negocio.ExcepcionesNegocio;
 using System;
@@ -284,3 +284,4 @@ namespace NLayer.Negocio
 
     }
 }
+
