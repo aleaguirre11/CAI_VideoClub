@@ -256,10 +256,10 @@ namespace NLayer.Consola
 
         static void CliTraerPorTelefono (string nroTelefono, ClienteNegocio clientes)
         {
-
+            
             bool nroTelefonoValido = ValidacionesHelper.ValidarVacio(nroTelefono);
 
-            if (nroTelefonoValido)
+            if (nroTelefonoValido == false)
             {
                 List<Cliente> lst = clientes.TraerPorTelefono(nroTelefono); 
                 foreach (Cliente item in lst)
