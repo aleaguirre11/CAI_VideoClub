@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="ClienteNegocio.cs" />
     <Compile Include="CopiaNegocio.cs" />
-    <Compile Include="ExcepcionesNegocio\MenorDeEdadEx.cs" />
+    <Compile Include="ExcepcionesNegocio\ClienteException.cs" />
+    <Compile Include="ExcepcionesNegocio\CopiaInexistenteEx.cs" />
+    <Compile Include="ExcepcionesNegocio\PrestamoException.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="obj\Release\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="PeliculaNegocio.cs" />
