@@ -51,7 +51,7 @@ namespace NLayer.Negocio
             }
 
             //Validar que no se pueda dar de alta un préstamos si el cliente tiene más de 3 préstamos abiertos
-            int result = ValidarPrestamosCliente(prestamo.Idcliente);
+            int result = ValidarPrestamosIdCliente(prestamo.Idcliente);
             if (result >= 3)
             {
                 throw new Exception("El cliente ingresado hoy tiene 3 préstamos abiertos.");
@@ -73,7 +73,7 @@ namespace NLayer.Negocio
 
             foreach (var item in cliN.TraerLista())
             {
-                if (idcli.ToString() == item.Idcliente)
+                if (idcli == item.Idcliente)
                     return true;
             }
 
@@ -82,6 +82,7 @@ namespace NLayer.Negocio
 
         public bool ValidarCopia(int idcopy)
         {
+            bool flag = false;
             CopiaNegocio copyN = new CopiaNegocio();
 
             if (!(copyN.TraerLista().Count() > 0))
@@ -91,13 +92,21 @@ namespace NLayer.Negocio
             foreach (var item in copyN.TraerLista())
             {
                 if (idcopy == item.Idcopia)
-                    return true;
-            }
+                {
+                    //Validamos que no exista un préstamo de esa copia activo
+                    foreach (Prestamo p in _listaPrestamos.TakeWhile(p => p.Idcopia == idcopy))
+                    {
+                        if (p.Abierto != true) flag = true;
+                        else { throw new Exception("Ya existe un préstamo activo de esa copia."); }
+                    }
 
-            return false;
+                }
+                else { throw new Exception("No existe la copia solicitada."); }
+            }
+            return flag;
         }
 
-        public int ValidarPrestamosCliente(int idclient)
+        public int ValidarPrestamosIdCliente(int idclient)
         {
             int contador = 0;
 
@@ -145,9 +154,10 @@ namespace NLayer.Negocio
 
             if (_listaPrestamos.Count() > 0)
             {
-                string id = cn.TraerIdPorDNI(dni);
-                int id2 = Convert.ToInt32(id);
-                lst.AddRange(_listaPrestamos.Where(item => item.Idcliente == id2));
+
+                int id = cn.TraerIdPorDNI(dni);
+                
+                lst.AddRange(_listaPrestamos.Where(item => item.Idcliente == id));
             }
             else
                 throw new Exception("No se han registrado prestamos aun.");
@@ -293,6 +303,71 @@ namespace NLayer.Negocio
         //    pObj.Abierto = false;
 
         //}
+
+        //Poder emitir un reporte de préstamos por cliente a partir del ID del cliente.
+        public List<Prestamo> ReportePrestamoCliente(int idCliente)
+        {
+            Cliente c = new Cliente();
+            ClienteNegocio CN = new ClienteNegocio();
+            c = CN.BuscarClientePorID(idCliente);
+
+            if (c == null)
+            {
+                throw new Exception("Error de ingreso.");
+            }
+
+            if (!(c is Cliente))
+            {
+                throw new Exception("Error de ingreso.");
+            }
+
+            PrestamoNegocio prest = new PrestamoNegocio();
+            List<Prestamo> prestamos = prest.TraerLista();
+
+            List<Prestamo> PrCliente = new List<Prestamo>();
+
+            foreach (Prestamo p in prestamos.TakeWhile(p => p.Idcliente == Convert.ToInt32(c.Idcliente)))
+            {
+                PrCliente = prest.TraerPrestamoPorCliente(Convert.ToInt16(c.Idcliente));
+            }
+
+            return PrCliente;
+
+
+        }
+
+        //Poder emitir un reporte de préstamos por cliente a partir del DNI del cliente.
+        public List<Prestamo> ReportePrestamoCliente2(int dni)
+        {
+            Cliente c = new Cliente();
+            ClienteNegocio CN = new ClienteNegocio();
+            c = CN.BuscarClientePorDNI(dni);
+
+            if (c == null)
+            {
+                throw new Exception("Error de ingreso.");
+            }
+
+            if (!(c is Cliente))
+            {
+                throw new Exception("Error de ingreso.");
+            }
+
+            PrestamoNegocio prest = new PrestamoNegocio();
+            List<Prestamo> prestamos = prest.TraerLista();
+
+            List<Prestamo> PrCliente = new List<Prestamo>();
+
+            foreach (Prestamo p in prestamos.TakeWhile(p => p.Idcliente == Convert.ToInt32(c.Idcliente)))
+            {
+                PrCliente = prest.TraerPrestamoPorCliente(Convert.ToInt16(c.Idcliente));
+            }
+
+            return PrCliente;
+
+
+        }
+
     }
 
 }

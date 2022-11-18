@@ -40,8 +40,9 @@ namespace NLayer.Negocio
             return _listaClientes;
         }
 
+
         //traer cliente por nro de id
-        public Cliente TraerPorId(string idCliente)
+        public Cliente TraerPorId(int idCliente)
         {
 
             foreach (var item in TraerLista())
@@ -50,11 +51,12 @@ namespace NLayer.Negocio
                     return item;
             }
 
-            return null;
+            throw new Exception("No existe un cliente con ese ID.");
+            //return null;
         }
 
         //obtener el id del cliente por DNI
-        public string TraerIdPorDNI(int dni)
+        public int TraerIdPorDNI(int dni)
         {
             foreach (var item in TraerLista())
             {
@@ -96,7 +98,7 @@ namespace NLayer.Negocio
         }
 
         //Dar de alta a los clientes pidiendole al mapper que los inserte (post)
-        public void AltaClientes(/*string idcliente,*/ string fechaalta, bool cliActivo, string host, string usuario, 
+        public void AltaClientes(/*int idcliente,*/ string fechaalta, bool cliActivo, string host, string usuario, 
             string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac)
         {
             Cliente cliente = new Cliente();
@@ -222,6 +224,33 @@ namespace NLayer.Negocio
             if (!transaction.IsOk)
                 throw new Exception(transaction.Error);
         }
+
+        //Buscar Cliente a partir del ID del cliente para el reporte
+        public Cliente BuscarClientePorID(int idCliente)
+        {
+            foreach (var item in TraerLista())
+            {
+                if (idCliente == item.Idcliente)
+                    return item;
+            }
+
+            throw new Exception("No existe un cliente con ese ID.");
+            //return null;
+        }
+
+        //Buscar Cliente a partir del DNI del cliente para el reporte
+        public Cliente BuscarClientePorDNI(int dni)
+        {
+            foreach (var item in TraerLista())
+            {
+                if (dni == item.Dni)
+                    return item;
+            }
+
+            throw new Exception("No existe un cliente con ese DNI.");
+            //return null;
+        }
+
 
     }
 }

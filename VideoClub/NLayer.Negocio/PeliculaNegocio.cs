@@ -130,5 +130,18 @@ namespace NLayer.Negocio
         //    //    throw new Exception(transaction.Error);
         //}
 
+        //Buscar Película a partir del ID de la película para el reporte
+        public Pelicula BuscarPeliculaPorID(int idPelicula)
+        {
+            foreach (var item in TraerLista())
+            {
+                if (idPelicula == item.IdPelicula)
+                    return item;
+            }
+
+            throw new Exception("No existe una película con ese ID.");
+            //return null;
+        }
+
     }
 }

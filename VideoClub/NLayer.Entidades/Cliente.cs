@@ -10,7 +10,7 @@ namespace NLayer.Entidades
     [DataContract]
     public class Cliente : Persona
     {
-        private string _idcliente;
+        private int _idcliente;
         private string _fechaalta;
         private bool _cliActivo;
         private string _host;
@@ -19,8 +19,9 @@ namespace NLayer.Entidades
 
         public Cliente() { }//constructor vacío para mapeo
 
-        public Cliente(string fechaalta, bool cliActivo, string host, string usuario, string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac) : base(nombre, apellido, direccion, dni, telefono, mail, fechaNac)
+        public Cliente(int idcliente, string fechaalta, bool cliActivo, string host, string usuario, string nombre, string apellido, string direccion, int dni, string telefono, string mail, DateTime fechaNac) : base(nombre, apellido, direccion, dni, telefono, mail, fechaNac)
         {
+            _idcliente = idcliente;
             _fechaalta = fechaalta;
             _cliActivo = cliActivo;
             _host = host;
@@ -28,7 +29,7 @@ namespace NLayer.Entidades
         }
 
         [DataMember(Name = "id")]
-        public string Idcliente
+        public int Idcliente
         {
             get
             {
@@ -93,7 +94,7 @@ namespace NLayer.Entidades
 
         public override string ToString()
         {
-            return $"id: {Idcliente} - {Apellido} - {Nombre} - {Dni}";
+            return $"ID: {Idcliente} - Apellido: {Apellido} - Nombre: {Nombre} - DNI: {Dni}";
         }
     }
 }
