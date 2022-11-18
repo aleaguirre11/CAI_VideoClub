@@ -16,198 +16,219 @@ namespace NLayer.Consola
     {
         static void Main(string[] args)
         {
-            try
+            bool flag = false;
+
+            do
             {
-                ClienteNegocio cliente = new ClienteNegocio();
-                CopiaNegocio copia = new CopiaNegocio();
-                PrestamoNegocio prestamo = new PrestamoNegocio();
-                PeliculaNegocio pelicula = new PeliculaNegocio();
-
-                bool consolaActiva = true;
-
-                while (consolaActiva)
+                try
                 {
-                    MenuHelper.DesplegarOpcionesMenu();
-                    string opcionMenu = Console.ReadLine().Trim();
-                    switch (opcionMenu)
+                    ClienteNegocio cliente = new ClienteNegocio();
+                    CopiaNegocio copia = new CopiaNegocio();
+                    PrestamoNegocio prestamo = new PrestamoNegocio();
+                    PeliculaNegocio pelicula = new PeliculaNegocio();
+
+                    bool consolaActiva = true;
+
+                    while (consolaActiva)
                     {
-                        case "1":
-                            MenuHelper.Clientes();
-                            string opcionMenuCliente = Console.ReadLine().Trim();
-                            switch(opcionMenuCliente.ToUpper())
-                            {
-                                case "A":
-                                    MenuHelper.ListarClientes();
-                                    string opcionMenuListarCliente = Console.ReadLine().Trim();
-                                    switch (opcionMenuListarCliente)
-                                    {
-                                        case "1":
-                                            CliTraerTodos(cliente);
-                                            break;
-                                        case "2":
-                                            Console.WriteLine("Detalle el número de registro a buscar: ");
-                                            string nroRegistro = Console.ReadLine().Trim();
-                                            CliTraerPorRegistro(nroRegistro,cliente);
-                                            break;
-                                        case "3":
-                                            Console.WriteLine("Detalle el número de teléfono a buscar:");
-                                            string nroTelefono = Console.ReadLine().Trim();
-                                            CliTraerPorTelefono(nroTelefono,cliente); 
-                                            break;
-                                        case "X":
-                                            Console.WriteLine("Volviendo al menú anterior...");
-                                            Thread.Sleep(3000);
-                                            MenuHelper.ListarClientes();
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                    break;   
-                                case "B":
-                                    CrearCliente(cliente);
-                                    break;
-                                case "C":
-                                    FuncionesHelper.NoDisponible();
-                                    MenuHelper.DesplegarOpcionesMenu();
-                                    /*Console.WriteLine("Detalle el id del cliente que desea actualizar:");
-                                    string idClienteModificar = Console.ReadLine();
-                                    ModificarCliente(idClienteModificar);*/
-                                    break;
-                                case "D":
-                                    FuncionesHelper.NoDisponible();
-                                    MenuHelper.DesplegarOpcionesMenu();
-                                    /*Console.WriteLine("Detalle el id del cliente que desea eliminar:");
-                                    string idClienteEliminar = Console.ReadLine();
-                                    EliminarCliente(idClienteEliminar);*/
-                                    break;
-                                case "X":
-                                    Console.WriteLine("Volviendo al menú anterior...");
-                                    Thread.Sleep(3000);
-                                    MenuHelper.DesplegarOpcionesMenu();
-                                    break;
-                            }
-                            break;
-                        case "2":
-                            MenuHelper.Prestamos();
-                            string opcionMenuPrestamos = Console.ReadLine().Trim();
-                            switch (opcionMenuPrestamos.ToUpper())
-                            {
-                                case "A":
-                                    Console.WriteLine("Ingrese el número identificador de la película para la cual desea ver los préstamos:");
-                                    string idPeliculaPrestamo = Console.ReadLine().Trim();
-                                    ListarPrestamos(idPeliculaPrestamo,prestamo);
-                                    break;
-                                case "B":
-                                    CargarPrestamo(prestamo, cliente);
-                                    break;
-                                case "X":
-                                    Console.WriteLine("Volviendo al menú anterior...");
-                                    Thread.Sleep(3000);
-                                    MenuHelper.DesplegarOpcionesMenu();
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case "3":
-                            MenuHelper.Peliculas();
-                            string opcionMenuPeliculas = Console.ReadLine().Trim();
-                            switch (opcionMenuPeliculas.ToUpper())
-                            {
-                                case "A":
-                                    Console.WriteLine("Ingrese el número identificador de la película que desea visualizar:");
-                                    string idPelicula = Console.ReadLine().Trim();
-                                    ListarPelicula(idPelicula, pelicula);
-                                    break;
-                                case "B":
-                                    CargarPelicula(pelicula);
-                                    break;
-                                case "X":
-                                    Console.WriteLine("Volviendo al menú anterior...");
-                                    Thread.Sleep(3000);
-                                    MenuHelper.DesplegarOpcionesMenu();
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case "4":
-                            MenuHelper.Copias();
-                            string opcionMenuCopia = Console.ReadLine().Trim();
-                            switch (opcionMenuCopia.ToUpper())
-                            {
-                                case "A":
-                                    Console.WriteLine("Ingrese el número identificador de la película que desea visualizar:");
-                                    string idPelicula = Console.ReadLine().Trim();
-                                    ListarCopia(idPelicula, copia);
-                                    break;
-                                case "B":
-                                    CargarCopia(copia);
-                                    break;
-                                case "X":
-                                    Console.WriteLine("Volviendo al menú anterior...");
-                                    Thread.Sleep(3000);
-                                    MenuHelper.DesplegarOpcionesMenu();
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case "5":
-                            MenuHelper.Reportes();
-                            string opcionMenuReportes = Console.ReadLine().Trim();
-                            switch (opcionMenuReportes.ToUpper())
-                            {
-                                case "A":
-                                    MenuHelper.ReportePrestamos();
-                                    string opcionMenuReportesPrestamo = Console.ReadLine().Trim();
-                                    switch (opcionMenuReportesPrestamo)
-                                    {
-                                        case "1":
-                                            Console.WriteLine("Ingrese el número de documento del cliente:");
-                                            string dniCliente = Console.ReadLine().Trim();
-                                            PrestamosPorDNICliente(dniCliente, prestamo);
-                                            break;
-                                        case "2":
-                                            Console.WriteLine("Ingrese el número identificador del cliente:");
-                                            string idCliente = Console.ReadLine().Trim();
-                                            PrestamosPorIDCliente(idCliente, prestamo);
-                                            break;
-                                        case "X":
-                                            Console.WriteLine("Volviendo al menú anterior...");
-                                            Thread.Sleep(3000);
-                                            MenuHelper.ReportePrestamos();
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                    break;
-                                case "B":
-                                    Console.WriteLine("Ingrese el número identificador de la película:");
-                                    string idPelicula = Console.ReadLine().Trim();
-                                    CopiasPorPelicula(idPelicula, copia);
-                                    break;
-                                case "X":
-                                    Console.WriteLine("Volviendo al menú anterior...");
-                                    Thread.Sleep(3000);
-                                    MenuHelper.DesplegarOpcionesMenu();
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case "X":
-                            consolaActiva = false;
-                            break;
-                        default:
-                            break;
+                        MenuHelper.DesplegarOpcionesMenu();
+                        string opcionMenu = Console.ReadLine().Trim();
+                        switch (opcionMenu)
+                        {
+                            case "1":
+                                MenuHelper.Clientes();
+                                string opcionMenuCliente = Console.ReadLine().Trim();
+                                switch (opcionMenuCliente.ToUpper())
+                                {
+                                    case "A":
+                                        MenuHelper.ListarClientes();
+                                        string opcionMenuListarCliente = Console.ReadLine().Trim();
+                                        switch (opcionMenuListarCliente)
+                                        {
+                                            case "1":
+                                                CliTraerTodos(cliente);
+                                                break;
+                                            case "2":
+                                                Console.WriteLine("Detalle el número de registro a buscar: ");
+                                                string nroRegistro = Console.ReadLine().Trim();
+                                                CliTraerPorRegistro(nroRegistro, cliente);
+                                                break;
+                                            case "3":
+                                                Console.WriteLine("Detalle el número de teléfono a buscar:");
+                                                string nroTelefono = Console.ReadLine().Trim();
+                                                CliTraerPorTelefono(nroTelefono, cliente);
+                                                break;
+                                            case "X":
+                                                Console.WriteLine("Volviendo al menú anterior...");
+                                                Thread.Sleep(3000);
+                                                MenuHelper.ListarClientes();
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        break;
+                                    case "B":
+                                        CrearCliente(cliente);
+                                        break;
+                                    case "C":
+                                        FuncionesHelper.NoDisponible();
+                                        MenuHelper.DesplegarOpcionesMenu();
+                                        /*Console.WriteLine("Detalle el id del cliente que desea actualizar:");
+                                        string idClienteModificar = Console.ReadLine();
+                                        ModificarCliente(idClienteModificar);*/
+                                        break;
+                                    case "D":
+                                        FuncionesHelper.NoDisponible();
+                                        MenuHelper.DesplegarOpcionesMenu();
+                                        /*Console.WriteLine("Detalle el id del cliente que desea eliminar:");
+                                        string idClienteEliminar = Console.ReadLine();
+                                        EliminarCliente(idClienteEliminar);*/
+                                        break;
+                                    case "X":
+                                        Console.WriteLine("Volviendo al menú anterior...");
+                                        Thread.Sleep(3000);
+                                        MenuHelper.DesplegarOpcionesMenu();
+                                        break;
+                                }
+                                break;
+                            case "2":
+                                MenuHelper.Prestamos();
+                                string opcionMenuPrestamos = Console.ReadLine().Trim();
+                                switch (opcionMenuPrestamos.ToUpper())
+                                {
+                                    case "A":
+                                        Console.WriteLine("Ingrese el número identificador de la película para la cual desea ver los préstamos:");
+                                        string idPeliculaPrestamo = Console.ReadLine().Trim();
+                                        ListarPrestamos(idPeliculaPrestamo, prestamo);
+                                        break;
+                                    case "B":
+                                        CargarPrestamo(prestamo, cliente);
+                                        break;
+                                    case "X":
+                                        Console.WriteLine("Volviendo al menú anterior...");
+                                        Thread.Sleep(3000);
+                                        MenuHelper.DesplegarOpcionesMenu();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case "3":
+                                MenuHelper.Peliculas();
+                                string opcionMenuPeliculas = Console.ReadLine().Trim();
+                                switch (opcionMenuPeliculas.ToUpper())
+                                {
+                                    case "A":
+                                        Console.WriteLine("Ingrese el número identificador de la película que desea visualizar:");
+                                        string idPelicula = Console.ReadLine().Trim();
+                                        ListarPelicula(idPelicula, pelicula);
+                                        break;
+                                    case "B":
+                                        CargarPelicula(pelicula);
+                                        break;
+                                    case "X":
+                                        Console.WriteLine("Volviendo al menú anterior...");
+                                        Thread.Sleep(3000);
+                                        MenuHelper.DesplegarOpcionesMenu();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case "4":
+                                MenuHelper.Copias();
+                                string opcionMenuCopia = Console.ReadLine().Trim();
+                                switch (opcionMenuCopia.ToUpper())
+                                {
+                                    case "A":
+                                        Console.WriteLine("Ingrese el número identificador de la película que desea visualizar:");
+                                        string idPelicula = Console.ReadLine().Trim();
+                                        ListarCopia(idPelicula, copia);
+                                        break;
+                                    case "B":
+                                        CargarCopia(copia);
+                                        break;
+                                    case "X":
+                                        Console.WriteLine("Volviendo al menú anterior...");
+                                        Thread.Sleep(3000);
+                                        MenuHelper.DesplegarOpcionesMenu();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case "5":
+                                MenuHelper.Reportes();
+                                string opcionMenuReportes = Console.ReadLine().Trim();
+                                switch (opcionMenuReportes.ToUpper())
+                                {
+                                    case "A":
+                                        MenuHelper.ReportePrestamos();
+                                        string opcionMenuReportesPrestamo = Console.ReadLine().Trim();
+                                        switch (opcionMenuReportesPrestamo)
+                                        {
+                                            case "1":
+                                                Console.WriteLine("Ingrese el número de documento del cliente:");
+                                                string dniCliente = Console.ReadLine().Trim();
+                                                PrestamosPorDNICliente(dniCliente, prestamo);
+                                                break;
+                                            case "2":
+                                                Console.WriteLine("Ingrese el número identificador del cliente:");
+                                                string idCliente = Console.ReadLine().Trim();
+                                                PrestamosPorIDCliente(idCliente, prestamo);
+                                                break;
+                                            case "X":
+                                                Console.WriteLine("Volviendo al menú anterior...");
+                                                Thread.Sleep(3000);
+                                                MenuHelper.ReportePrestamos();
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        break;
+                                    case "B":
+                                        Console.WriteLine("Ingrese el número identificador de la película:");
+                                        string idPelicula = Console.ReadLine().Trim();
+                                        CopiasPorPelicula(idPelicula, copia);
+                                        break;
+                                    case "X":
+                                        Console.WriteLine("Volviendo al menú anterior...");
+                                        Thread.Sleep(3000);
+                                        MenuHelper.DesplegarOpcionesMenu();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case "X":
+                                consolaActiva = false;
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
-            }
-            catch (Exception ExcepcionGeneralEx)
-            {
-                Console.WriteLine(ExcepcionGeneralEx.Message);
-            }
+                catch (Exception ExcepcionGeneralEx)
+                {
+                    Console.WriteLine(ExcepcionGeneralEx.Message);
+                    Thread.Sleep(1500);
+                }
+
+                Console.WriteLine("¿Desea realizar otra operación?" + System.Environment.NewLine + "S - Desplegar las opciones del menú principal." + System.Environment.NewLine + "N - Salir del sistema.");
+                string resultado = Console.ReadLine().Trim();
+
+                if (resultado.ToUpper() == "S")
+                {
+                    flag = true;
+                }
+                else if (!(resultado.ToUpper()=="S"))
+                {
+                    flag = false;
+                    Console.WriteLine("¡Hasta la próxima!");
+                    Thread.Sleep(2000);
+                }
+
+            } while (flag == true);
 
         }
 
@@ -229,7 +250,7 @@ namespace NLayer.Consola
 
             bool nroRegistroValido = ValidacionesHelper.ValidarVacio(nroRegistro);
 
-            if (nroRegistroValido)
+            if (nroRegistroValido == false)
             {
                 List<Cliente> lst = clientes.TraerPorRegistro(nroRegistro); 
                 foreach (Cliente item in lst)
