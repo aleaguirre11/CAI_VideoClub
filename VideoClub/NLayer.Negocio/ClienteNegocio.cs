@@ -36,8 +36,8 @@ namespace NLayer.Negocio
 
             if (_listaClientes == null)
             {
-                Exception ex = new ExcepcionesNegocio.ClienteException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.ClienteException();
+                
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
@@ -47,26 +47,21 @@ namespace NLayer.Negocio
         //obtener el id del cliente por DNI
         public int TraerIdPorDNI(int dni)
         {
+            _listaClientes = _clienteMapper.TraerTodos();
+
             if (!(_listaClientes.Count() > 0))
             {
-                Exception ex = new ExcepcionesNegocio.ClienteException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.ClienteException();
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
-            foreach (var item in TraerLista())
+            foreach (Cliente item in _listaClientes.TakeWhile(item => dni == item.Dni))
             {
-                if (dni == item.Dni)
                     return item.Idcliente;
-                else
-                {
-                    Exception ex = new ExcepcionesNegocio.DNIClienteInexistenteEx();
-                    Console.WriteLine("Error. Detalle: " + ex.Message);
-                    //throw new Exception("No existe un cliente con ese DNI.");
-                }
             }
 
-            return 0;
+            throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
+            //throw new Exception("No existe un cliente con ese DNI.");
         }
 
         //traer cliente por nro de registro validando que hayan clientes registrados
@@ -74,7 +69,7 @@ namespace NLayer.Negocio
         {
 
             List<Cliente> lst1 = new List<Cliente>();
-            _listaClientes = _clienteMapper.TraerPorRegistro(usuario);
+            _listaClientes = _clienteMapper.TraerTodos();
 
             if (_listaClientes.Count() > 0)
             {
@@ -82,8 +77,8 @@ namespace NLayer.Negocio
             }
             else
             {
-                Exception ex = new ExcepcionesNegocio.ClienteException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.ClienteException();
+                
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
@@ -95,10 +90,12 @@ namespace NLayer.Negocio
  
         public List<Cliente> TraerPorTelefono(string telefono)
         {
+            _listaClientes = _clienteMapper.TraerTodos();
+
             if (!(_listaClientes.Count() > 0))
             {
-                Exception ex = new ExcepcionesNegocio.ClienteException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.ClienteException();
+               
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
@@ -141,9 +138,8 @@ namespace NLayer.Negocio
             }
             else if (flag2 == false)
             {
-                Exception ex = new ExcepcionesNegocio.MenorDeEdadEx();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
-
+                throw new ExcepcionesNegocio.MenorDeEdadEx();
+                
                 //Console.WriteLine("Error detectado. La edad del cliente ingresado es menor a 16.");
             }
 
@@ -234,10 +230,12 @@ namespace NLayer.Negocio
         //Buscar Cliente a partir del ID del cliente para el reporte
         public Cliente BuscarClientePorID(int idCliente)
         {
+            _listaClientes = _clienteMapper.TraerTodos();
+
             if (!(_listaClientes.Count() > 0))
             {
-                Exception ex = new ExcepcionesNegocio.ClienteException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.ClienteException();
+               
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
@@ -247,8 +245,8 @@ namespace NLayer.Negocio
                     return item;
                 else
                 {
-                    Exception ex = new ExcepcionesNegocio.IDClienteInexistenteEx();
-                    Console.WriteLine("Error. Detalle: " + ex.Message);
+                    throw new ExcepcionesNegocio.IDClienteInexistenteEx();
+                    
                     //throw new Exception("No existe un cliente con ese ID.");
                 }
             }
@@ -259,10 +257,12 @@ namespace NLayer.Negocio
         //Buscar Cliente a partir del DNI del cliente para el reporte
         public Cliente BuscarClientePorDNI(int dni)
         {
+            _listaClientes = _clienteMapper.TraerTodos();
+
             if (!(_listaClientes.Count() > 0))
             {
-                Exception ex = new ExcepcionesNegocio.ClienteException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
+                throw new ExcepcionesNegocio.ClienteException();
+                
                 //throw new Exception("No se han registrado clientes aun.");
             }
 
@@ -272,8 +272,8 @@ namespace NLayer.Negocio
                     return item;
                 else
                 {
-                    Exception ex = new ExcepcionesNegocio.DNIClienteInexistenteEx();
-                    Console.WriteLine("Error. Detalle: " + ex.Message);
+                    throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
+                    
                     //throw new Exception("No existe un cliente con ese DNI.");
                 }
             }

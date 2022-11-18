@@ -8,6 +8,6 @@ namespace NLayer.Negocio.ExcepcionesNegocio
 {
     internal class CopiaInexistenteEx : Exception
     {
-        public CopiaInexistenteEx() : base("No se han registrado copias aun.") { }
+        public CopiaInexistenteEx() : base("Error. Detalle: No se han registrado copias aun.") { }
     }
 }
