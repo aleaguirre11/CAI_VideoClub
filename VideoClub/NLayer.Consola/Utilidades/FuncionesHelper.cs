@@ -19,14 +19,14 @@ namespace NLayer.Consola.Utilidades
         }
 
 
-        internal static int ValidarCargaDNI(string dni, ClienteNegocio cliente)
+        internal static int ValidarCargaDNI(string dni) //, ClienteNegocio cliente)
         {
             if(ValidacionesHelper.ValidarVacio(dni) == false)
             {
                 int dniInt = ValidacionesHelper.ValidarInt(dni);
                 bool resultadoLargoDNI = ValidacionesHelper.ValidarLargoDNI(dniInt);
-                bool resultadoExiste = cliente.ValidarDNI(dniInt);
-                if(resultadoExiste == false && resultadoLargoDNI)
+                //bool resultadoExiste = cliente.ValidarDNI(dniInt);
+                if(resultadoLargoDNI) //&&  resultadoExiste == false)
                 {
                     return dniInt;
                 }
@@ -62,13 +62,13 @@ namespace NLayer.Consola.Utilidades
             throw new Exception("El teléfono ingresado no cumple con los requisitos establecidos.");
         }
 
-        internal static string ValidarMail(string mail, ClienteNegocio cliente)
+        internal static string ValidarMail(string mail) //, ClienteNegocio cliente)
         {
             if (ValidacionesHelper.ValidarVacio(mail) == false)
             {
                 bool resultadoString = ValidacionesHelper.ValidarStringMail(mail);
-                bool resultadoExiste = cliente.ValidarMail(mail);
-                if (resultadoString && resultadoExiste == false)
+                //bool resultadoExiste = cliente.ValidarMail(mail);
+                if (resultadoString) // && resultadoExiste == false)
                 {
                     return mail;
                 }
@@ -83,12 +83,14 @@ namespace NLayer.Consola.Utilidades
             }
         }
 
-        internal static DateTime ValidarFechaNacimiento(string fechaNacCliente, ClienteNegocio cliente)
+        internal static DateTime ValidarFechaNacimiento(string fechaNacCliente) //, ClienteNegocio cliente)
         {
             if (ValidacionesHelper.ValidarVacio(fechaNacCliente) == false)
             {
                 DateTime fechaNac = ValidacionesHelper.ValidarFecha(fechaNacCliente);
-                bool resultadoEdad = cliente.ValidarEdad(fechaNac);
+                return fechaNac;
+                //bool resultadoEdad = cliente.ValidarEdad(fechaNac);
+                /*
                 if (resultadoEdad)
                 {
                     return fechaNac;
@@ -96,7 +98,7 @@ namespace NLayer.Consola.Utilidades
                 else
                 {
                     throw new Exception("El cliente no puede ser ingresado ya que no cumple con los requisitos de edad establecidos.");
-                }
+                }*/
             }
             else
             {
@@ -118,21 +120,25 @@ namespace NLayer.Consola.Utilidades
             }
         }
 
-        internal static int ValidarBusquedaDNI(string dni, ClienteNegocio cliente)
+        internal static int ValidarBusquedaDNI(string dni) //, ClienteNegocio cliente)
         {
             if (ValidacionesHelper.ValidarVacio(dni) == false)
             {
                 int dniInt = ValidacionesHelper.ValidarInt(dni);
                 bool resultadoLargoDNI = ValidacionesHelper.ValidarLargoDNI(dniInt);
-                bool resultadoExiste = cliente.ValidarDNI(dniInt);
-                if (resultadoExiste == true && resultadoLargoDNI)
+                //bool resultadoExiste = cliente.ValidarDNI(dniInt);
+                if (!resultadoLargoDNI) //&& resultadoExiste == true)
                 {
-                    return dniInt;
+                    throw new Exception("El largo del DNI ingresado no sigue con los parámetros establecidos. Por favor, revisar el valor ingresado.");
                 }
                 else
                 {
-                    throw new Exception("No se han registrado clientes con ese DNI aún.");
+                    return dniInt;
                 }
+                /*else
+                {
+                    throw new Exception("No se han registrado clientes con ese DNI aún.");
+                }*/
             }
             else
             {
