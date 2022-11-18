@@ -1,4 +1,4 @@
-﻿using NLayer.Entidades;
+using NLayer.Entidades;
 using NLayer.Datos;
 using System;
 using System.Collections.Generic;
