@@ -153,12 +153,6 @@ namespace NLayer.Negocio
         }
         public bool ValidarDNI(int dni)
         {
-            if (!(_listaClientes.Count() > 0))
-            {
-                Exception ex = new ExcepcionesNegocio.ClienteException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
-                //throw new Exception("No se han registrado clientes aun.");
-            }
 
             foreach (var item in TraerLista())
             {
@@ -170,12 +164,6 @@ namespace NLayer.Negocio
         }
         public bool ValidarMail(string mail)
         {
-            if (!(_listaClientes.Count() > 0))
-            {
-                Exception ex = new ExcepcionesNegocio.ClienteException();
-                Console.WriteLine("Error. Detalle: " + ex.Message);
-                //throw new Exception("No se han registrado clientes aun.");
-            }
 
             foreach (var item in TraerLista())
             {
