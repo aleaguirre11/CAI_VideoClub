@@ -216,9 +216,13 @@ namespace NLayer.Negocio
                 //throw new Exception("No se han registrado copias aun.");
             }
 
-            foreach (Copia c in copias.TakeWhile(c => c.Idpelicula == m.IdPelicula))
+            foreach (Copia c in copias) //.TakeWhile(c => c.Idpelicula == m.IdPelicula))
             {
-                CopyPeli = copyN.TraerPorIdPelicula(m.IdPelicula);
+                if(c.Idpelicula == m.IdPelicula)
+                {
+                    CopyPeli = copyN.TraerPorIdPelicula(m.IdPelicula);
+                }
+                
             }
 
             if (!(CopyPeli.Count() > 0))

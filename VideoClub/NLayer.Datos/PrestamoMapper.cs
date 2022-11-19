@@ -27,7 +27,7 @@ namespace NLayer.Datos
         public TransactionResult Insertar(Prestamo nuevoPrestamo)
         {
             NameValueCollection obj = ReverseMap(nuevoPrestamo);
-            string result = WebHelper.Post("VideoClub/Prestamo", obj);
+            string result = WebHelper.Post("VideoClub/Prestamos", obj);
             TransactionResult resultadoTransaccion = MapResultado(result);
             return resultadoTransaccion;
         }

@@ -75,12 +75,16 @@ namespace NLayer.Negocio
 
                 //throw new Exception("No se han registrado clientes aun.");
             }
-
-
-            foreach (var item in cn.TraerLista())
+            else if (cn.TraerLista().Count() > 0)
             {
-                if (idcli == item.Idcliente)
-                    return true;
+                foreach (var item in cn.TraerLista())
+                {
+                    if (idcli == item.Idcliente)
+                    {
+                        return true;
+                    }
+                        
+                }
             }
 
             return false;
@@ -132,10 +136,14 @@ namespace NLayer.Negocio
             }
 
 
-            foreach (var item in TraerLista().TakeWhile(item => item.Abierto == true))
+            foreach (var item in TraerLista())//.TakeWhile(item => item.Abierto == true))
             {
-                if (idclient == item.Idcliente)
-                    contador += 1;
+                if(item.Abierto == true)
+                {
+                    if (idclient == item.Idcliente)
+                        contador += 1;
+                }
+                
             }
 
             return contador;
@@ -204,6 +212,8 @@ namespace NLayer.Negocio
         public Prestamo TraerPorId(int idprestamo)
         {
             _listaPrestamos = _prestamoMapper.TraerTodos();
+            Prestamo p = new Prestamo();
+
             if (!(_listaPrestamos.Count() > 0))
             {
                 throw new ExcepcionesNegocio.PrestamoException();
@@ -214,10 +224,19 @@ namespace NLayer.Negocio
             foreach (var item in TraerLista())
             {
                 if (idprestamo == item.Idprestamo)
-                    return item;
+                {
+                    p = item;
+                    return p;
+                }
+                else
+                {
+                    p = null;
+                    return p;
+                }
+                    
             }
 
-            return null;
+            return p;
 
 
         }
@@ -261,9 +280,13 @@ namespace NLayer.Negocio
 
                     foreach (var c in copias)
                     {
-                        foreach (var p in TraerLista().TakeWhile(p => p.Idcopia == c.Idcopia))
+                        foreach (var p in TraerLista())//.TakeWhile(p => p.Idcopia == c.Idcopia))
                         {
-                            prestamos.Add(p);
+                            if (p.Idcopia == c.Idcopia)
+                            {
+                                prestamos.Add(p);
+                            }
+                            
                         }
 
                     }
@@ -300,9 +323,12 @@ namespace NLayer.Negocio
                     foreach (var p in TraerLista())
                     {
 
-                        foreach (var c in copias.TakeWhile(c => c.Idcopia == p.Idcopia))
+                        foreach (var c in copias)//.TakeWhile(c => c.Idcopia == p.Idcopia))
                         {
-                            acumulador += c.ToString() + System.Environment.NewLine;
+                            if (c.Idcopia == p.Idcopia)
+                            {
+                                acumulador += c.ToString() + System.Environment.NewLine;
+                            }
 
                         }
 
@@ -379,10 +405,16 @@ namespace NLayer.Negocio
 
                 //throw new Exception("No se han registrado préstamos aun.");
             }
-
-            foreach (Prestamo p in prestamos.TakeWhile(p => p.Idcliente == Convert.ToInt32(c.Idcliente)))
+            else if (_listaPrestamos.Count() > 0)
             {
-                PrCliente = prest.TraerPrestamoPorCliente(Convert.ToInt16(c.Idcliente));
+                foreach (Prestamo p in prestamos)//.TakeWhile(p => p.Idcliente == Convert.ToInt32(c.Idcliente)))
+                {
+                    if (p.Idcliente == c.Idcliente)
+                    {
+                        PrCliente = prest.TraerPrestamoPorCliente(c.Idcliente);
+                    }
+
+                }
             }
 
             if (!(PrCliente.Count() > 0))
@@ -424,11 +456,18 @@ namespace NLayer.Negocio
 
                 //throw new Exception("No se han registrado préstamos aun.");
             }
-
-            foreach (Prestamo p in prestamos.TakeWhile(p => p.Idcliente == Convert.ToInt32(c.Idcliente)))
+            else if (_listaPrestamos.Count() > 0)
             {
-                PrCliente = prest.TraerPrestamoPorCliente(Convert.ToInt16(c.Idcliente));
+                foreach (Prestamo p in prestamos)//.TakeWhile(p => p.Idcliente == Convert.ToInt32(c.Idcliente)))
+                {
+                    if (p.Idcliente == c.Idcliente)
+                    {
+                        PrCliente = prest.TraerPrestamoPorCliente(c.Idcliente);
+                    }
+
+                }
             }
+
 
             if (!(PrCliente.Count() > 0))
             {

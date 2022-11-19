@@ -48,25 +48,32 @@ namespace NLayer.Negocio
         public int TraerIdPorDNI(int dni)
         {
             _listaClientes = _clienteMapper.TraerTodos();
+            int dni2 = 0;
 
             if (!(_listaClientes.Count() > 0))
             {
                 throw new ExcepcionesNegocio.ClienteException();
                 //throw new Exception("No se han registrado clientes aun.");
             }
-            else if(_listaClientes.Count() > 0)
-            {
-                foreach (Cliente item in _listaClientes.TakeWhile(item => dni == item.Dni))
-                {
-                    return item.Idcliente;
-                }
-            }
             else
             {
-                throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
-                //throw new Exception("No existe un cliente con ese DNI.");
+                foreach (Cliente item in _listaClientes) //.TakeWhile(item => dni == item.Dni))
+                {
+                    if (dni == item.Dni)
+                    {
+                        dni2 = item.Idcliente;
+                    }
+
+
+                }
             }
-            return 0;
+
+            if(dni2 == 0)
+            {
+                throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
+            }    
+            return dni2;
+
 
         }
 
@@ -284,18 +291,23 @@ namespace NLayer.Negocio
 
                 //throw new Exception("No se han registrado clientes aun.");
             }
-
-            foreach (var item in TraerLista())
+            else if (_listaClientes.Count() > 0)
             {
-                if (idCliente == item.Idcliente)
-                    return item;
-                else
-                {
-                    throw new ExcepcionesNegocio.IDClienteInexistenteEx();
 
-                    //throw new Exception("No existe un cliente con ese ID.");
+                foreach (var item in TraerLista())
+                {
+                    if (idCliente == item.Idcliente)
+                        return item;
+
                 }
             }
+            else
+            {
+                throw new ExcepcionesNegocio.IDClienteInexistenteEx();
+
+                //throw new Exception("No existe un cliente con ese ID.");
+            }
+
 
             return null;
         }
@@ -311,18 +323,25 @@ namespace NLayer.Negocio
 
                 //throw new Exception("No se han registrado clientes aun.");
             }
-
-            foreach (var item in TraerLista())
+            else if (_listaClientes.Count() > 0)
             {
-                if (dni == item.Dni)
-                    return item;
-                else
+                foreach (var item in TraerLista())
                 {
+                    if (dni == item.Dni)
+                        return item;
+
+                }
+            }
+            
+            else
+            {
+                
                     throw new ExcepcionesNegocio.DNIClienteInexistenteEx();
 
                     //throw new Exception("No existe un cliente con ese DNI.");
-                }
+                
             }
+
 
             return null;
         }

@@ -383,10 +383,11 @@ namespace NLayer.Consola
 
         static void ListarPelicula(string idPelicula, PeliculaNegocio pelicula)
         {
+
             //validar que el idPelicula sea un int
             int idValidado = FuncionesHelper.ValidarID(idPelicula);
 
-            Pelicula p = pelicula.TraerPorId(idValidado); 
+            Pelicula p = pelicula.TraerPorId(idValidado);
             Console.WriteLine(p);
         }
 
@@ -536,7 +537,7 @@ namespace NLayer.Consola
 
             List<Copia> Copias = copia.ReporteCopiaPelicula(idPeliculaValidado);
 
-            Console.WriteLine($"La película con ID {0} posee estas copias:", idPelicula);
+            Console.WriteLine($"La película con ID {idPelicula} posee estas copias:");
             foreach (Copia item in Copias)
             {
                 Console.WriteLine(item);
